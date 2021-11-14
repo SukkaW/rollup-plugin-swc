@@ -1,19 +1,19 @@
-import path from 'path'
-import fs from 'fs'
-import { rollup, Plugin as RollupPlugin } from 'rollup'
-import { swc, PluginOptions } from '../src'
+import path from 'path';
+import fs from 'fs';
+import { rollup, Plugin as RollupPlugin } from 'rollup';
+import { swc, PluginOptions } from '../src';
 import json from '@rollup/plugin-json';
-import 'chai/register-should'
+import 'chai/register-should';
 
 const realFs = (folderName: string, files: Record<string, string>) => {
-  const tmpDir = path.join(__dirname, '.temp', `esbuild/${folderName}`)
+  const tmpDir = path.join(__dirname, '.temp', `esbuild/${folderName}`);
   Object.keys(files).forEach((file) => {
-    const absolute = path.join(tmpDir, file)
-    fs.mkdirSync(path.dirname(absolute), { recursive: true })
-    fs.writeFileSync(absolute, files[file], 'utf8')
-  })
-  return tmpDir
-}
+    const absolute = path.join(tmpDir, file);
+    fs.mkdirSync(path.dirname(absolute), { recursive: true });
+    fs.writeFileSync(absolute, files[file], 'utf8');
+  });
+  return tmpDir;
+};
 
 const build = async (
   options?: PluginOptions,
@@ -21,7 +21,7 @@ const build = async (
     input = './fixture/index.js',
     otherRollupPlugins = [],
     sourcemap = false,
-    dir = '.',
+    dir = '.'
   }: {
     input?: string | string[]
     otherRollupPlugins?: RollupPlugin[]
@@ -30,14 +30,12 @@ const build = async (
   } = {}
 ) => {
   const build = await rollup({
-    input: [...(Array.isArray(input) ? input : [input])].map((v) =>
-      path.resolve(dir, v)
-    ),
-    plugins: [...otherRollupPlugins, swc(options)],
-  })
-  const { output } = await build.generate({ format: 'esm', sourcemap })
-  return output
-}
+    input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
+    plugins: [...otherRollupPlugins, swc(options)]
+  });
+  const { output } = await build.generate({ format: 'esm', sourcemap });
+  return output;
+};
 
 const getTestName = () => String(Date.now());
 
@@ -54,9 +52,9 @@ describe('swc', () => {
             return <div className="hehe">hello there!!!</div>
           }
         }
-      `,
-    })
-    const output = await build({}, { dir })
+      `
+    });
+    const output = await build({}, { dir });
     output[0].code.should.equal(`class Foo {
     render() {
         return(/*#__PURE__*/ React.createElement("div", {
@@ -81,9 +79,9 @@ console.log(Foo);
             return <div className="hehe">hello there!!!</div>
           }
         }
-      `,
+      `
     });
-    const output = await build({ minify: true, jsc: { target: 'es2022' } }, { dir })
+    const output = await build({ minify: true, jsc: { target: 'es2022' } }, { dir });
     output[0].code.should.equal(`class Foo{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(Foo)
 `);
   });
@@ -100,7 +98,7 @@ console.log(Foo);
             return <div className="hehe">hello there!!!</div>
           }
         }
-      `,
+      `
     });
 
     const output = await build({}, { dir });
@@ -127,13 +125,13 @@ console.log(Foo);
         {
           "foo": true
         }
-      `,
+      `
     });
 
     const output = await build(
       {},
       { otherRollupPlugins: [json()], dir }
-    )
+    );
 
     output[0].code.should.equal(`var foo = true;
 var foo$1 = {
@@ -155,10 +153,10 @@ console.log(foo$1);
             "jsxFactory": "h"
           }
         }
-      `,
-    })
+      `
+    });
 
-    const output = await build({}, { input: './fixture/index.tsx', dir })
+    const output = await build({}, { input: './fixture/index.tsx', dir });
     output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };
@@ -183,7 +181,7 @@ export { foo };
             "jsxFactory": "custom"
           }
         }
-      `,
+      `
     });
 
     const output = await build(

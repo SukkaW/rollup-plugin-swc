@@ -1,6 +1,6 @@
 import type { Plugin } from 'rollup';
 
-import { existsSync, statSync } from 'fs'
+import { existsSync, statSync } from 'fs';
 import { extname, resolve, dirname, join } from 'path';
 import { createFilter, FilterPattern } from '@rollup/pluginutils';
 import { Config as SwcConfig, JscTarget, transform as swcTransform, minify as swcMinify } from '@swc/core';
@@ -21,13 +21,13 @@ export type PluginOptions = {
 const INCLUDE_REGEXP = /\.[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
-const resolveFile = (resolved: string, index: boolean = false) => {
+const resolveFile = (resolved: string, index = false) => {
   for (const ext of ['.ts', '.js', '.tsx', '.jsx']) {
-    const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`
-    if (existsSync(file)) return file
+    const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`;
+    if (existsSync(file)) return file;
   }
-  return null
-}
+  return null;
+};
 
 function swc(options: PluginOptions = {}): Plugin {
   const filter = createFilter(
@@ -43,13 +43,13 @@ function swc(options: PluginOptions = {}): Plugin {
         const resolved = resolve(
           importer ? dirname(importer) : process.cwd(),
           importee
-        )
+        );
 
-        let file = resolveFile(resolved)
-        if (file) return file
+        let file = resolveFile(resolved);
+        if (file) return file;
         if (!file && existsSync(resolved) && statSync(resolved).isDirectory()) {
-          file = resolveFile(resolved, true)
-          if (file) return file
+          file = resolveFile(resolved, true);
+          if (file) return file;
         }
       }
     },
@@ -67,8 +67,8 @@ function swc(options: PluginOptions = {}): Plugin {
       const isTsx = ext === 'tsx';
       const isJsx = ext === 'jsx';
 
-      const tsconfigOptions =
-        options.tsconfig === false
+      const tsconfigOptions
+        = options.tsconfig === false
           ? {}
           : await getOptions(dirname(id), options.tsconfig);
 
@@ -79,14 +79,14 @@ function swc(options: PluginOptions = {}): Plugin {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
             tsx: isTypeScript ? isTsx : undefined,
             jsx: !isTypeScript ? isJsx : undefined,
-            decorators: tsconfigOptions.experimentalDecorators,
+            decorators: tsconfigOptions.experimentalDecorators
           },
           transform: {
             decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
             react: {
               pragma: tsconfigOptions.jsxFactory,
               pragmaFrag: tsconfigOptions.jsxFragmentFactory
-            },
+            }
           },
           target: tsconfigOptions.target?.toLowerCase() as JscTarget | undefined
         }
@@ -114,7 +114,7 @@ function swc(options: PluginOptions = {}): Plugin {
 
       return null;
     }
-  }
+  };
 }
 
 function defineRollupSwcOption(option: PluginOptions) {

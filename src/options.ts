@@ -20,13 +20,13 @@ export const getOptions = async (
   esModuleInterop?: boolean,
   experimentalDecorators?: boolean,
   emitDecoratorMetadata?: boolean,
-  jsxFactory?: string;
-  jsxFragmentFactory?: string;
-  jsxImportSource?: string
+  jsxFactory?: string,
+  jsxFragmentFactory?: string,
+  jsxImportSource?: string,
   target?: string,
 }> => {
   // This call is cached
-  const { data, path } = await joycon.load([tsconfig || 'tsconfig.json'], cwd)
+  const { data, path } = await joycon.load([tsconfig || 'tsconfig.json'], cwd);
   if (path && data) {
     const {
       importHelpers,
@@ -47,7 +47,7 @@ export const getOptions = async (
       jsxFragmentFactory,
       jsxImportSource,
       target
-    }
-  };
-  return {}
-}
+    };
+  }
+  return {};
+};
