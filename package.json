@@ -23,6 +23,7 @@
   "dependencies": {
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/pluginutils": "^4.1.1",
+    "deepmerge": "^4.2.2",
     "joycon": "^3.0.1",
     "jsonc-parser": "^3.0.0"
   },

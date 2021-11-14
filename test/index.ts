@@ -167,7 +167,7 @@ export { foo };
 
   it('use custom tsconfig.json', async () => {
     const dir = realFs(getTestName(), {
-      './fixture/index.tsx': `
+      './fixture/index.jsx': `
         export const foo = <div>foo</div>
       `,
       './fixture/tsconfig.json': `
@@ -188,7 +188,7 @@ export { foo };
 
     const output = await build(
       { tsconfig: 'tsconfig.build.json' },
-      { input: './fixture/index.tsx', dir }
+      { input: './fixture/index.jsx', dir }
     );
     output[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
 

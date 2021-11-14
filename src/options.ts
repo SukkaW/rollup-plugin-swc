@@ -46,7 +46,7 @@ export const getOptions = async (
       jsxFactory,
       jsxFragmentFactory,
       jsxImportSource,
-      target: target && target.toLowerCase()
+      target
     }
   };
   return {}

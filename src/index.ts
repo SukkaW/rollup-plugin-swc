@@ -3,7 +3,8 @@ import type { Plugin } from 'rollup';
 import { existsSync, statSync } from 'fs'
 import { extname, resolve, dirname, join } from 'path';
 import { createFilter, FilterPattern } from '@rollup/pluginutils';
-import { Config as SwcConfig, transform as swcTransform, JscTarget } from '@swc/core';
+import { Config as SwcConfig, JscTarget, transform as swcTransform, minify as swcMinify } from '@swc/core';
+import deepmerge from 'deepmerge';
 
 import { getOptions } from './options';
 
@@ -62,50 +63,53 @@ function swc(options: PluginOptions = {}): Plugin {
 
       if (!['js', 'ts', 'jsx', 'tsx'].includes(ext)) return null;
 
+      const isTypeScript = ext === 'ts' || ext === 'tsx';
+      const isTsx = ext === 'tsx';
+      const isJsx = ext === 'jsx';
+
       const tsconfigOptions =
         options.tsconfig === false
           ? {}
           : await getOptions(dirname(id), options.tsconfig);
 
-      delete options.tsconfig;
-      delete options.include;
-      delete options.exclude;
-
-      return swcTransform(code, {
-        ...options,
-        filename: id,
+      const swcOptionsFromTsConfig: SwcConfig = {
         jsc: {
-          externalHelpers: options.jsc?.externalHelpers ?? tsconfigOptions.importHelpers,
+          externalHelpers: tsconfigOptions.importHelpers,
           parser: {
-            ...options.jsc?.parser,
-            syntax: ext === 'ts' || ext === 'tsx' ? 'typescript' : 'ecmascript',
-            decorators: options.jsc?.parser?.decorators ?? tsconfigOptions.experimentalDecorators
+            syntax: isTypeScript ? 'typescript' : 'ecmascript',
+            tsx: isTypeScript ? isTsx : undefined,
+            jsx: !isTypeScript ? isJsx : undefined,
+            decorators: tsconfigOptions.experimentalDecorators,
           },
           transform: {
-            ...options.jsc?.transform,
-            decoratorMetadata: options.jsc?.transform?.decoratorMetadata ?? tsconfigOptions.emitDecoratorMetadata,
+            decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
             react: {
-              ...options.jsc?.transform?.react,
-              pragma: options.jsc?.transform?.react?.pragma ?? tsconfigOptions.jsxFactory,
-              pragmaFrag: options.jsc?.transform?.react?.pragmaFrag ?? tsconfigOptions.jsxFragmentFactory
+              pragma: tsconfigOptions.jsxFactory,
+              pragmaFrag: tsconfigOptions.jsxFragmentFactory
             },
           },
-          target: options.jsc?.target ?? (tsconfigOptions.target as JscTarget | undefined),
-          ...options.jsc
-        },
-        minify: false // Disable Minify during transform, do an overall minify when renderChunk
-      });
+          target: tsconfigOptions.target?.toLowerCase() as JscTarget | undefined
+        }
+      };
+
+      const swcOption = deepmerge.all([
+        swcOptionsFromTsConfig,
+        options,
+        {
+          filename: id,
+          include: undefined, // Rollup's filter is not compatible with swc
+          exclude: undefined,
+          tsconfig: undefined, // swc has no tsconfig option
+          minify: false // Disable minify on transform, do it on renderChunk
+        }
+      ]);
+
+      return swcTransform(code, swcOption);
     },
 
     renderChunk(code: string) {
       if (options.minify) {
-        return swcTransform(code, {
-          minify: options.minify,
-          jsc: {
-            minify: options.jsc?.minify,
-            target: options.jsc?.target,
-          }
-        })
+        return swcMinify(code, options.jsc?.minify);
       }
 
       return null;
