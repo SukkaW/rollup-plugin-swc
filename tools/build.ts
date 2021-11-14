@@ -2,19 +2,23 @@ import module from 'module';
 import { rollup } from 'rollup';
 
 import dts from 'rollup-plugin-dts';
-import { swc } from '../src/index';
+import { swc, defineRollupSwcOption } from '../src/index';
 
-const pkg: { [k: string]: any } = require('../package.json');
+import pkg from '../package.json';
 const deps = Object.keys(pkg.dependencies);
 
 async function main() {
-  const external = [...deps, ...module.builtinModules]
+  const external = [...deps, ...module.builtinModules];
 
   async function build() {
     const bundle = await rollup({
       input: './src/index.ts',
       external,
-      plugins: [swc()],
+      plugins: [swc(defineRollupSwcOption({
+        jsc: {
+          target: 'es2019'
+        }
+      }))]
     });
 
     return bundle.write({ file: './dist/index.js', format: 'cjs' });
@@ -24,7 +28,7 @@ async function main() {
     const bundle = await rollup({
       input: './src/index.ts',
       external,
-      plugins: [dts()],
+      plugins: [dts()]
     });
 
     return bundle.write({ file: './dist/index.d.ts' });
@@ -34,6 +38,6 @@ async function main() {
 }
 
 main().catch(err => {
-  console.error(err)
-  process.exit(1)
+  console.error(err);
+  process.exit(1);
 });
