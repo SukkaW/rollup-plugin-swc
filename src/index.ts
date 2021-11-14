@@ -20,19 +20,19 @@ export type PluginOptions = {
 const INCLUDE_REGEXP = /\.[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
+const resolveFile = (resolved: string, index: boolean = false) => {
+  for (const ext of ['.ts', '.js', '.tsx', '.jsx']) {
+    const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`
+    if (existsSync(file)) return file
+  }
+  return null
+}
+
 function swc(options: PluginOptions = {}): Plugin {
   const filter = createFilter(
     options.include || INCLUDE_REGEXP,
     options.exclude || EXCLUDE_REGEXP
   );
-
-  const resolveFile = (resolved: string, index: boolean = false) => {
-    for (const ext of ['.ts', '.js', '.tsx', '.jsx']) {
-      const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`
-      if (existsSync(file)) return file
-    }
-    return null
-  }
 
   return {
     name: 'swc',
@@ -65,7 +65,11 @@ function swc(options: PluginOptions = {}): Plugin {
       const tsconfigOptions =
         options.tsconfig === false
           ? {}
-          : await getOptions(dirname(id), options.tsconfig)
+          : await getOptions(dirname(id), options.tsconfig);
+
+      delete options.tsconfig;
+      delete options.include;
+      delete options.exclude;
 
       return swcTransform(code, {
         ...options,
