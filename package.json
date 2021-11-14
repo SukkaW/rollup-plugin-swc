@@ -1,0 +1,38 @@
+{
+  "name": "rollup-plugin-swc3",
+  "version": "0.0.0",
+  "description": "Use SWC with Rollup to transform ESNext and TypeScript code.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SukkaW/rollup-plugin-swc.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SukkaW/rollup-plugin-swc/issues"
+  },
+  "homepage": "https://github.com/SukkaW/rollup-plugin-swc#readme",
+  "dependencies": {
+    "@rollup/pluginutils": "^4.1.1",
+    "joycon": "^3.0.1",
+    "jsonc-parser": "^3.0.0"
+  },
+  "devDependencies": {
+    "@swc/core": "^1.2.108",
+    "@types/node": "^16.11.7",
+    "rollup": "^2.60.0",
+    "typescript": "^4.4.4"
+  },
+  "peerDependencies": {
+    "@swc/core": ">=1.2.0",
+    "rollup": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=12"
+  }
+}
