@@ -103,6 +103,7 @@ function swc(options: PluginOptions = {}): Plugin {
           minify: false // Disable minify on transform, do it on renderChunk
         }
       ]);
+
       return swcTransform(code, swcOption);
     },
 
