@@ -193,4 +193,32 @@ export { foo };
 export { foo };
 `);
   });
+
+  it('transpiles excluded modules when target is "es5"', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/foo.js': `
+        const foo = 'foo';
+        export default foo;
+      `,
+      './fixture/other.js': `
+        import foo from './foo'
+        console.log(foo)
+        export const bar = 'bar';
+        console.log(bar);
+      `,
+    });
+    const output = await build({
+      exclude: ['**/other.js'],
+      jsc: { target: 'es5' }
+    }, {
+      input: ['./fixture/other.js'],
+      dir
+    });
+    output[0].code.should.equal(`var foo = 'foo';
+console.log(foo);
+var bar = 'bar';
+console.log(bar);
+export { bar };
+`);
+  });
 });

@@ -103,11 +103,21 @@ function swc(options: PluginOptions = {}): Plugin {
           minify: false // Disable minify on transform, do it on renderChunk
         }
       ]);
-
       return swcTransform(code, swcOption);
     },
 
     renderChunk(code: string) {
+      if (options.jsc?.target === 'es5') {
+        // always do another swc transform to transpile
+        // unprocessed es2015/es6 node module files
+        return swcTransform(code, {
+          minify: Boolean(options.minify),
+          jsc: {
+            minify: options.jsc?.minify,
+            target: options.jsc?.target,
+          }
+        });
+      }
       if (options.minify) {
         return swcMinify(code, options.jsc?.minify);
       }
