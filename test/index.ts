@@ -44,7 +44,8 @@ describe('swc', () => {
     const dir = realFs(getTestName(), {
       './fixture/index.js': `
         import Foo from './foo'
-        console.log(Foo)
+        import { bar } from './bar'
+        console.log(Foo, bar)
       `,
       './fixture/foo.tsx': `
         export default class Foo {
@@ -52,7 +53,10 @@ describe('swc', () => {
             return <div className="hehe">hello there!!!</div>
           }
         }
-      `
+      `,
+      './fixture/bar.mjs': `
+      export const bar = 'a'
+    `
     });
     const output = await build({}, { dir });
     output[0].code.should.equal(`class Foo {
@@ -63,7 +67,9 @@ describe('swc', () => {
     }
 }
 
-console.log(Foo);
+const bar = 'a';
+
+console.log(Foo, bar);
 `);
   });
 

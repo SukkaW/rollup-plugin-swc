@@ -18,11 +18,12 @@ export type PluginOptions = {
   tsconfig?: string | false
 } & Pick<SwcConfig, Exclude<keyof SwcConfig, 'filename'>>;
 
-const INCLUDE_REGEXP = /\.[jt]sx?$/;
+const INCLUDE_REGEXP = /\.m?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
+const ACCEPTED_EXT = ['.ts', '.mjs', '.js', '.tsx', '.jsx'];
 
 const resolveFile = (resolved: string, index = false) => {
-  for (const ext of ['.ts', '.js', '.tsx', '.jsx']) {
+  for (const ext of ACCEPTED_EXT) {
     const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`;
     if (existsSync(file)) return file;
   }
@@ -59,13 +60,13 @@ function swc(options: PluginOptions = {}): Plugin {
         return null;
       }
 
-      const ext = extname(id).slice(1);
+      const ext = extname(id);
 
-      if (!['js', 'ts', 'jsx', 'tsx'].includes(ext)) return null;
+      if (!ACCEPTED_EXT.includes(ext)) return null;
 
-      const isTypeScript = ext === 'ts' || ext === 'tsx';
-      const isTsx = ext === 'tsx';
-      const isJsx = ext === 'jsx';
+      const isTypeScript = ext === '.ts' || ext === '.tsx';
+      const isTsx = ext === '.tsx';
+      const isJsx = ext === '.jsx';
 
       const tsconfigOptions
         = options.tsconfig === false
