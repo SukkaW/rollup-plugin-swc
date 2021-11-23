@@ -22,7 +22,7 @@ const INCLUDE_REGEXP = /\.m?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
 const resolveFile = (resolved: string, index = false) => {
-  for (const ext of ['.ts', '.js', '.tsx', '.jsx', '.mjs']) {
+  for (const ext of ['.ts', '.mjs', '.js', '.tsx', '.jsx']) {
     const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`;
     if (existsSync(file)) return file;
   }
