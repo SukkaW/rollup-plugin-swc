@@ -45,6 +45,8 @@ describe('swc', () => {
       './fixture/index.js': `
         import Foo from './foo'
         console.log(Foo)
+        import bar from './bar'
+        console.log(bar)
       `,
       './fixture/foo.tsx': `
         export default class Foo {
@@ -52,6 +54,10 @@ describe('swc', () => {
             return <div className="hehe">hello there!!!</div>
           }
         }
+      `,
+      './fixture/bar.mjs': `
+        const bar = 'baz'
+        export default bar
       `
     });
     const output = await build({}, { dir });
@@ -63,7 +69,10 @@ describe('swc', () => {
     }
 }
 
+const bar = 'baz';
+
 console.log(Foo);
+console.log(bar);
 `);
   });
 
