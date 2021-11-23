@@ -142,6 +142,25 @@ console.log(foo$1);
 `);
   });
 
+  it('can process "\0commonjsHelpers.js"', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.js': `
+          import foo from "\0commonjsHelpers.js"
+          console.log(foo)
+        `
+    });
+
+    const output = await build(
+      {},
+      { dir }
+    );
+
+    output[0].code.should.equal(`import foo from '\0commonjsHelpers.js';
+
+console.log(foo);
+`);
+  });
+
   it('use custom jsxFactory (h) from tsconfig', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.tsx': `

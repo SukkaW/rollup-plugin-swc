@@ -104,7 +104,18 @@ function swc(options: PluginOptions = {}): Plugin {
         }
       ]);
 
-      return swcTransform(code, swcOption);
+      // swc cannot transform module ids with "\0" (would throw
+      // "error: Unterminated string constant"), which can be used by
+      // some plugins (e.g. "@rollup/plugin-commonjs"), see:
+      // - https://rollupjs.org/guide/en/#conventions
+      // - https://github.com/rollup/plugins/blob/02fb349d315f0ffc55970fba5de20e23f8ead881/packages/commonjs/src/helpers.js#L15
+      return swcTransform(code.replace('\0', '\\0'), swcOption)
+        .then(({ code: transformedCode, ...rest }) => {
+          return {
+            ...rest,
+            code: transformedCode.replace('\\0', '\0')
+          }
+        });
     },
 
     renderChunk(code: string) {
