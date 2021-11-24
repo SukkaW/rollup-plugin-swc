@@ -104,18 +104,28 @@ function swc(options: PluginOptions = {}): Plugin {
         }
       ]);
 
+      // TODO: \0 temp replacement can be removed
+      // when this got fixed: https://github.com/swc-project/swc/issues/2853
+      const slash0EscapeId = '\0';
+      const tempString = '__SECRET_SLASH_0_ESCAPE_IDENTIFIER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED__';
       // swc cannot transform module ids with "\0" (would throw
       // "error: Unterminated string constant"), which can be used by
       // some plugins (e.g. "@rollup/plugin-commonjs"), see:
       // - https://rollupjs.org/guide/en/#conventions
       // - https://github.com/rollup/plugins/blob/02fb349d315f0ffc55970fba5de20e23f8ead881/packages/commonjs/src/helpers.js#L15
-      return swcTransform(code.replace('\0', '\\0'), swcOption)
-        .then(({ code: transformedCode, ...rest }) => {
-          return {
-            ...rest,
-            code: transformedCode.replace('\\0', '\0')
-          }
-        });
+      const { code: transformedCode, ...rest } = await swcTransform(
+        code.replace(
+          new RegExp(slash0EscapeId, 'g'), tempString
+        ),
+        swcOption
+      );
+      return {
+        ...rest,
+        code: transformedCode.replace(
+          new RegExp(tempString, 'g'),
+          slash0EscapeId
+        )
+      };
     },
 
     renderChunk(code: string) {
