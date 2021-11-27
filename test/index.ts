@@ -171,6 +171,55 @@ export { foo };
 `);
   });
 
+  it('use custom jsxFactory (h) from jsconfig.json', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.tsx': `
+        export const foo = <div>foo</div>
+      `,
+      './fixture/jsconfig.json': `
+        {
+          "compilerOptions": {
+            "jsxFactory": "h"
+          }
+        }
+      `
+    });
+
+    const output = await build({}, { input: './fixture/index.tsx', dir });
+    output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
+
+export { foo };
+`);
+  });
+
+  it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.tsx': `
+        export const foo = <div>foo</div>
+      `,
+      './fixture/jsconfig.json': `
+        {
+          "compilerOptions": {
+            "jsxFactory": "h"
+          }
+        }
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": {
+            "jsxFactory": "m"
+          }
+        }
+    `
+    });
+
+    const output = await build({}, { input: './fixture/index.tsx', dir });
+    output[0].code.should.equal(`var foo = /*#__PURE__*/ m("div", null, "foo");
+
+export { foo };
+`);
+  });
+
   it('use custom tsconfig.json', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.jsx': `

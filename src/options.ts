@@ -25,8 +25,8 @@ export const getOptions = async (
   jsxImportSource?: string,
   target?: string,
 }> => {
-  // This call is cached
-  const { data, path } = await joycon.load([tsconfig || 'tsconfig.json'], cwd);
+  // joycon has its builtin-cache support
+  const { data, path } = await joycon.load([tsconfig || 'tsconfig.json', 'jsconfig.json'], cwd);
   if (path && data) {
     const {
       importHelpers,
