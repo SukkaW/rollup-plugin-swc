@@ -5,14 +5,16 @@ import { swc, PluginOptions } from '../src';
 import json from '@rollup/plugin-json';
 import 'chai/register-should';
 
+const tmpDir = path.join(__dirname, '.temp');
+
 const realFs = (folderName: string, files: Record<string, string>) => {
-  const tmpDir = path.join(__dirname, '.temp', `esbuild/${folderName}`);
+  const testDir = path.join(tmpDir, `rollup-plugin-swc/${folderName}`);
   Object.keys(files).forEach((file) => {
-    const absolute = path.join(tmpDir, file);
+    const absolute = path.join(testDir, file);
     fs.mkdirSync(path.dirname(absolute), { recursive: true });
     fs.writeFileSync(absolute, files[file], 'utf8');
   });
-  return tmpDir;
+  return testDir;
 };
 
 const build = async (
@@ -40,6 +42,12 @@ const build = async (
 const getTestName = () => String(Date.now());
 
 describe('swc', () => {
+  before(() => {
+    if (fs.existsSync(tmpDir)) {
+      fs.rmSync(tmpDir, { recursive: true });
+    }
+  });
+
   it('simple', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.js': `
