@@ -56,8 +56,9 @@ export default {
 ```
 
 - `include` and `exclude` can be `String | RegExp | Array<String | RegExp>`, when supplied it will override default values.
-- It uses `importHelpers`, `experimentalDecorators`, `emitDecoratorMetadata`, `jsxFactory`, `jsxFragmentFactory` and `target` options from your `tsconfig.json` as default values if your doesn't provide corresponding swc configuration.
+- It uses `importHelpers`, `experimentalDecorators`, `emitDecoratorMetadata`, `jsxFactory`, `jsxFragmentFactory` and `target` options from your `tsconfig.json` or [`jsconfig.json`](https://code.visualstudio.com/docs/languages/jsconfig) as default values if your doesn't provide corresponding swc configuration.
   - Currently, `rollup-plugin-swc` won't use `esModuleInterop` from your `tsconfig.json` as swc requires `module.type` configuration when `module.noInterop` is given.
+  - `jsconfig.json` will be ignored if `tsconfig.json` and `jsconfig.json` both exists.
 
 ## Declaration File
 
