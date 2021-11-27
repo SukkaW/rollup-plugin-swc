@@ -23,7 +23,9 @@ const EXCLUDE_REGEXP = /node_modules/;
 
 const ROLLUP_VIRTUAL_MODULE_IDENTIFIER = '\0';
 const REGEXP_ROLLUP_VIRTUAL_MODULE_IDENTIFIER = /\0/gm;
-const ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = '$__SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED__$';
+// To prevent the line being escaped when trying to build rollup-plugin-swc using rollup-plugin-swc
+// eslint-disable-next-line no-useless-concat
+const ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = '$_' + '_SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_' + 'DO_NOT_USE_OR_YOU_WILL_BE_FIRED_' + '_$';
 const REGEXP_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = /\$__SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED__\$/gm;
 
 const resolveFile = (resolved: string, index = false) => {
