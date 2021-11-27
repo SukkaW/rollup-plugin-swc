@@ -3,6 +3,8 @@ import fs from 'fs';
 import { rollup, Plugin as RollupPlugin } from 'rollup';
 import { swc, PluginOptions } from '../src';
 import json from '@rollup/plugin-json';
+import commonjs from '@rollup/plugin-commonjs';
+
 import 'chai/register-should';
 
 const realFs = (folderName: string, files: Record<string, string>) => {
@@ -142,22 +144,37 @@ console.log(foo$1);
 `);
   });
 
-  it('can process "\0commonjsHelpers.js"', async () => {
+  it('support rollup virtual module (e.g. commonjs plugin)', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.js': `
-          import foo from "\0commonjsHelpers.js"
-          console.log(foo)
-        `
+        const Foo = require('./foo')
+        const { Bar } = require('./bar')
+        console.log(Foo, Bar)
+      `,
+      './fixture/foo.js': `
+        module.exports = 'foo'
+      `,
+      './fixture/bar.js': `
+        exports.Bar = 'bar'
+      `
     });
-
     const output = await build(
       {},
-      { dir }
+      { otherRollupPlugins: [commonjs()], dir }
     );
+    output[0].code.should.equal(`var fixture = {};
 
-    output[0].code.should.equal(`import foo from '\0commonjsHelpers.js';
+var foo = 'foo';
 
-console.log(foo);
+var bar = {};
+
+bar.Bar = 'bar';
+
+const Foo = foo;
+const { Bar  } = bar;
+console.log(Foo, Bar);
+
+export { fixture as default };
 `);
   });
 
