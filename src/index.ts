@@ -21,6 +21,11 @@ export type PluginOptions = {
 const INCLUDE_REGEXP = /\.[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
+const ROLLUP_VIRTUAL_MODULE_IDENTIFIER = '\0';
+const REGEXP_ROLLUP_VIRTUAL_MODULE_IDENTIFIER = /\0/gm;
+const ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = '$__SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED__$';
+const REGEXP_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = /\$__SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED__\$/gm;
+
 const resolveFile = (resolved: string, index = false) => {
   for (const ext of ['.ts', '.js', '.tsx', '.jsx']) {
     const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`;
@@ -39,6 +44,11 @@ function swc(options: PluginOptions = {}): Plugin {
     name: 'swc',
 
     resolveId(importee, importer) {
+      // ignore IDs with null character, these belong to other plugins
+      if (importee.startsWith('\0')) {
+        return null;
+      }
+
       if (importer && importee[0] === '.') {
         const resolved = resolve(
           importer ? dirname(importer) : process.cwd(),
@@ -104,7 +114,31 @@ function swc(options: PluginOptions = {}): Plugin {
         }
       ]);
 
-      return swcTransform(code, swcOption);
+      /**
+       * swc cannot transform module ids with "\0", which is the identifier of rollup virtual module
+       *
+       * FIXME: This is a temporary workaround, remove when swc fixes it (DO NOT FORGET TO BUMP PEER DEPS VERSION AS WELL!)
+       *
+       * @see https://rollupjs.org/guide/en/#conventions
+       * @see https://github.com/rollup/plugins/blob/02fb349d315f0ffc55970fba5de20e23f8ead881/packages/commonjs/src/helpers.js#L15
+       * @see https://github.com/SukkaW/rollup-plugin-swc/pull/1
+       * @see https://github.com/swc-project/swc/issues/2853
+       */
+      const { code: transformedCode, ...rest } = await swcTransform(
+        code.replace(
+          REGEXP_ROLLUP_VIRTUAL_MODULE_IDENTIFIER,
+          ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER
+        ),
+        swcOption
+      );
+
+      return {
+        ...rest,
+        code: transformedCode.replace(
+          REGEXP_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER,
+          ROLLUP_VIRTUAL_MODULE_IDENTIFIER
+        )
+      };
     },
 
     renderChunk(code: string) {

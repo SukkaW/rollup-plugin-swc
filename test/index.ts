@@ -3,6 +3,8 @@ import fs from 'fs';
 import { rollup, Plugin as RollupPlugin } from 'rollup';
 import { swc, PluginOptions } from '../src';
 import json from '@rollup/plugin-json';
+import commonjs from '@rollup/plugin-commonjs';
+
 import 'chai/register-should';
 
 const tmpDir = path.join(__dirname, '.temp');
@@ -147,6 +149,40 @@ var foo$1 = {
 };
 
 console.log(foo$1);
+`);
+  });
+
+  it('support rollup virtual module (e.g. commonjs plugin)', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.js': `
+        const Foo = require('./foo')
+        const { Bar } = require('./bar')
+        console.log(Foo, Bar)
+      `,
+      './fixture/foo.js': `
+        module.exports = 'foo'
+      `,
+      './fixture/bar.js': `
+        exports.Bar = 'bar'
+      `
+    });
+    const output = await build(
+      {},
+      { otherRollupPlugins: [commonjs()], dir }
+    );
+    output[0].code.should.equal(`var fixture = {};
+
+var foo = 'foo';
+
+var bar = {};
+
+bar.Bar = 'bar';
+
+const Foo = foo;
+const { Bar  } = bar;
+console.log(Foo, Bar);
+
+export { fixture as default };
 `);
   });
 
