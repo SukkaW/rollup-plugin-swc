@@ -231,26 +231,26 @@ export { foo };
   it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.tsx': `
-        export const foo = <div>foo</div>
+        export const foo = <><div>foo</div></>
       `,
       './fixture/jsconfig.json': `
         {
           "compilerOptions": {
-            "jsxFactory": "h"
+            "jsxFactory": "m",
+            "jsxFragmentFactory": "React.Fragment"
           }
         }
       `,
       './fixture/tsconfig.json': `
         {
           "compilerOptions": {
-            "jsxFactory": "m"
           }
         }
     `
     });
 
     const output = await build({}, { input: './fixture/index.tsx', dir });
-    output[0].code.should.equal(`var foo = /*#__PURE__*/ m("div", null, "foo");
+    output[0].code.should.equal(`var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));
 
 export { foo };
 `);
