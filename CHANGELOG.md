@@ -1,3 +1,7 @@
+## 0.1.3
+
+- Fix a bug caused by the workaround introduced in 0.1.2
+
 ## 0.1.2
 
 - Fix transform failed when rollup virtual module is involved.
