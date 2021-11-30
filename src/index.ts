@@ -18,7 +18,7 @@ export type PluginOptions = {
   tsconfig?: string | false
 } & Pick<SwcConfig, Exclude<keyof SwcConfig, 'filename'>>;
 
-const INCLUDE_REGEXP = /\.[jt]sx?$/;
+const INCLUDE_REGEXP = /\.m?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
 const ROLLUP_VIRTUAL_MODULE_IDENTIFIER = '\0';
@@ -28,8 +28,10 @@ const REGEXP_ROLLUP_VIRTUAL_MODULE_IDENTIFIER = /\0/gm;
 const ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = '$_' + '_SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_' + 'DO_NOT_USE_OR_YOU_WILL_BE_FIRED_' + '_$';
 const REGEXP_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = /\$__SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED__\$/gm;
 
+const ACCEPTED_EXTENSIONS = ['.ts', '.mjs', '.js', '.tsx', '.jsx'];
+
 const resolveFile = (resolved: string, index = false) => {
-  for (const ext of ['.ts', '.js', '.tsx', '.jsx']) {
+  for (const ext of ACCEPTED_EXTENSIONS) {
     const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`;
     if (existsSync(file)) return file;
   }
@@ -71,13 +73,13 @@ function swc(options: PluginOptions = {}): Plugin {
         return null;
       }
 
-      const ext = extname(id).slice(1);
+      const ext = extname(id);
 
-      if (!['js', 'ts', 'jsx', 'tsx'].includes(ext)) return null;
+      if (!ACCEPTED_EXTENSIONS.includes(ext)) return null;
 
-      const isTypeScript = ext === 'ts' || ext === 'tsx';
-      const isTsx = ext === 'tsx';
-      const isJsx = ext === 'jsx';
+      const isTypeScript = ext === '.ts' || ext === '.tsx';
+      const isTsx = ext === '.tsx';
+      const isJsx = ext === '.jsx';
 
       const tsconfigOptions
         = options.tsconfig === false
