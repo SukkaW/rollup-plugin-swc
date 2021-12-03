@@ -159,4 +159,5 @@ function defineRollupSwcOption(option: PluginOptions) {
   return option;
 }
 
+export default swc;
 export { swc, defineRollupSwcOption };
