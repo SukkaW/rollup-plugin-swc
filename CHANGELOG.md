@@ -1,3 +1,8 @@
+## 0.1.4
+
+- Add `.mjs` extension support
+- Export a `default` for use with rollup's `--configPlugin`
+
 ## 0.1.3
 
 - Fix a bug caused by the workaround introduced in 0.1.2
