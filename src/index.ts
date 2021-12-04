@@ -16,7 +16,7 @@ export type PluginOptions = {
    * Disable it by setting to `false`
    */
   tsconfig?: string | false
-} & Pick<SwcConfig, Exclude<keyof SwcConfig, 'filename'>>;
+} & Pick<SwcConfig, Exclude<keyof SwcConfig, 'filename' & 'include' & 'exclude'>>;
 
 const INCLUDE_REGEXP = /\.m?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
