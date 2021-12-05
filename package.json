@@ -29,7 +29,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-json": "^4.1.0",
-    "@swc/core": "^1.2.111",
+    "@swc/core": "^1.2.118",
     "@types/chai": "^4.2.22",
     "@types/mocha": "^9.0.0",
     "@types/node": "^16.11.7",
@@ -46,7 +46,7 @@
     "typescript": "^4.4.4"
   },
   "peerDependencies": {
-    "@swc/core": ">=1.2.111",
+    "@swc/core": ">=1.2.118",
     "rollup": "^2.0.0"
   },
   "engines": {

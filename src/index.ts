@@ -102,7 +102,9 @@ function swc(options: PluginOptions = {}): Plugin {
               pragmaFrag: tsconfigOptions.jsxFragmentFactory
             }
           },
-          target: tsconfigOptions.target?.toLowerCase() as JscTarget | undefined
+          target: tsconfigOptions.target?.toLowerCase() as JscTarget | undefined,
+          baseUrl: tsconfigOptions.baseUrl,
+          paths: tsconfigOptions.paths
         }
       };
 

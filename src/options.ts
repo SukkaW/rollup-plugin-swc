@@ -24,6 +24,8 @@ export const getOptions = async (
   jsxFragmentFactory?: string,
   jsxImportSource?: string,
   target?: string,
+  baseUrl?: string,
+  paths?: { [from: string]: [string] }
 }> => {
   // joycon has its builtin-cache support
   const { data, path } = await joycon.load([tsconfig || 'tsconfig.json', 'jsconfig.json'], cwd);
@@ -36,7 +38,9 @@ export const getOptions = async (
       jsxFactory,
       jsxFragmentFactory,
       jsxImportSource,
-      target
+      target,
+      baseUrl,
+      paths
     } = data.compilerOptions || {};
     return {
       importHelpers,
@@ -46,7 +50,9 @@ export const getOptions = async (
       jsxFactory,
       jsxFragmentFactory,
       jsxImportSource,
-      target
+      target,
+      baseUrl,
+      paths
     };
   }
   return {};
