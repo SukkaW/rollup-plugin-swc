@@ -1,11 +1,12 @@
 import path from 'path';
 import fs from 'fs';
 import { rollup, Plugin as RollupPlugin } from 'rollup';
-import { swc, PluginOptions } from '../src';
+import { swc, PluginOptions, minify } from '../src';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 
 import 'chai/register-should';
+import { JsMinifyOptions } from '@swc/core';
 
 const tmpDir = path.join(__dirname, '.temp');
 
@@ -36,6 +37,23 @@ const build = async (
   const build = await rollup({
     input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
     plugins: [...otherRollupPlugins, swc(options)]
+  });
+  const { output } = await build.generate({ format: 'esm', sourcemap });
+  return output;
+};
+
+const runMinify = async (
+  options: JsMinifyOptions = {},
+  {
+    input = './fixture/index.js',
+    otherRollupPlugins = [],
+    sourcemap = false,
+    dir = '.'
+  }
+) => {
+  const build = await rollup({
+    input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
+    plugins: [...otherRollupPlugins, minify(options)]
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
   return output;
@@ -102,6 +120,18 @@ console.log(bar);
     });
     const output = await build({ minify: true, jsc: { target: 'es2022' } }, { dir });
     output[0].code.should.equal(`class Foo{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(Foo)
+`);
+  });
+
+  it('standalone minify', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.js': `
+        console.log(10000);
+        console.log('b'      +      'c');
+      `
+    });
+    const output = await runMinify({}, { dir });
+    output[0].code.should.equal(`console.log(10e3);console.log('b'+'c')
 `);
   });
 

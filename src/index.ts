@@ -3,7 +3,7 @@ import type { Plugin } from 'rollup';
 import { existsSync, statSync } from 'fs';
 import { extname, resolve, dirname, join } from 'path';
 import { createFilter, FilterPattern } from '@rollup/pluginutils';
-import { Config as SwcConfig, JscTarget, transform as swcTransform, minify as swcMinify } from '@swc/core';
+import { Config as SwcConfig, JscTarget, transform as swcTransform, minify as swcMinify, JsMinifyOptions } from '@swc/core';
 import deepmerge from 'deepmerge';
 
 import { getOptions } from './options';
@@ -157,9 +157,23 @@ function swc(options: PluginOptions = {}): Plugin {
   };
 }
 
+function minify(options: JsMinifyOptions = {}): Plugin {
+  return {
+    name: 'swc-minify',
+
+    renderChunk(code: string) {
+      return swcMinify(code, options);
+    }
+  };
+}
+
 function defineRollupSwcOption(option: PluginOptions) {
   return option;
 }
 
+function defineRollupSwcMinifyOption(option: JsMinifyOptions) {
+  return option;
+}
+
 export default swc;
-export { swc, defineRollupSwcOption };
+export { swc, defineRollupSwcOption, minify, defineRollupSwcMinifyOption };
