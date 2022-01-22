@@ -21,7 +21,10 @@ async function main() {
       }))]
     });
 
-    return bundle.write({ file: './dist/index.js', format: 'cjs' });
+    return Promise.all([
+      bundle.write({ file: './dist/index.js', format: 'cjs' }),
+      bundle.write({ file: './dist/index.mjs', format: 'esm' })
+    ]);
   }
 
   async function createDtsFile() {

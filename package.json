@@ -3,7 +3,12 @@
   "version": "0.1.4",
   "description": "Use SWC with Rollup to transform ESNext and TypeScript code.",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    "import": "./dist/index.mjs",
+    "default": "./dist/index.js"
+  },
   "scripts": {
     "prepublishOnly": "npm run clean && npm run test && npm run build",
     "clean": "rimraf ./dist ./test/temp",
