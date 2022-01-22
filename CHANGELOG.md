@@ -1,3 +1,9 @@
+## 0.2.0
+
+- Standalone minify plugin
+- Support reading `baseUrl` and `paths` from your `tsconfig.json` (and `jsconfig.json`).
+  - These fields will be passed to swc directly. They won't affect how rollup resolve your imports. Please use other plugins to resolve your imports' aliases (e.g., add [rollup-plugin-typescript-paths](https://www.npmjs.com/package/rollup-plugin-typescript-paths) or [rollup-plugin-tsconfig-paths](https://www.npmjs.com/package/rollup-plugin-tsconfig-paths) before `@rollup/plugin-node-resolve`).
+
 ## 0.1.4
 
 - Add `.mjs` extension support

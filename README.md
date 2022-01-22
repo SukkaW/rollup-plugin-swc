@@ -56,9 +56,40 @@ export default {
 ```
 
 - `include` and `exclude` can be `String | RegExp | Array<String | RegExp>`, when supplied it will override default values.
-- It uses `importHelpers`, `experimentalDecorators`, `emitDecoratorMetadata`, `jsxFactory`, `jsxFragmentFactory` and `target` options from your `tsconfig.json` or [`jsconfig.json`](https://code.visualstudio.com/docs/languages/jsconfig) as default values if your doesn't provide corresponding swc configuration.
+- It uses `importHelpers`, `experimentalDecorators`, `emitDecoratorMetadata`, `jsxFactory`, `jsxFragmentFactory`, `target`, `baseUrl` and `paths` options from your `tsconfig.json` or [`jsconfig.json`](https://code.visualstudio.com/docs/languages/jsconfig) as default values if your doesn't provide corresponding swc configuration.
   - Currently, `rollup-plugin-swc` won't use `esModuleInterop` from your `tsconfig.json` as swc requires `module.type` configuration when `module.noInterop` is given.
-  - `jsconfig.json` will be ignored if `tsconfig.json` and `jsconfig.json` both exists.
+  - `jsconfig.json` will be ignored if `tsconfig.json` and `jsconfig.json` both exist.
+  - `baseUrl` and `paths` will be passed to swc directly. They won't affect how rollup resolve your imports. Please use other plugins to resolve your imports' aliases (e.g., add [rollup-plugin-typescript-paths](https://www.npmjs.com/package/rollup-plugin-typescript-paths) or [rollup-plugin-tsconfig-paths](https://www.npmjs.com/package/rollup-plugin-tsconfig-paths) before `@rollup/plugin-node-resolve`).
+
+## Standalone Minify Plugin
+
+If you only want to use `swc` to minify your bundle:
+
+```js
+import { minify } from 'rollup-plugin-swc3'
+
+export default {
+  plugins: [minify({
+    // swc's minify option here
+    // mangle: {}
+    // compress: {}
+  })],
+}
+```
+
+If you want autocompletion in your IDE or type check:
+
+```js
+import { minify, defineRollupSwcMinifyOption } from 'rollup-plugin-swc3'
+
+export default {
+  plugins: [minify(defineRollupSwcMinifyOption({
+    // swc's minify option here
+    // mangle: {}
+    // compress: {}
+  }))],
+}
+```
 
 ## Declaration File
 
@@ -69,7 +100,7 @@ There are serveral ways to generate declaration file:
 
 ## Use with Non-react JSX
 
-You can esither configure it in your `tsconfig.json` or in your `rollup.config.js`.
+You can either configure it in your `tsconfig.json` or in your `rollup.config.js`.
 
 ```js
 // Vue JSX
