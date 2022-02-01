@@ -39,7 +39,7 @@ export default {
 }
 ```
 
-If you want autocompletion in your IDE or type check:
+If you want autocompletion and typechecking in your IDE for this plugin's options:
 
 ```js
 import { swc, defineRollupSwcOption } from 'rollup-plugin-swc3';
@@ -77,7 +77,7 @@ export default {
 }
 ```
 
-If you want autocompletion in your IDE or type check:
+If you want autocompletion and typechecking in your IDE for this plugin's `minify` options:
 
 ```js
 import { minify, defineRollupSwcMinifyOption } from 'rollup-plugin-swc3'
