@@ -5,7 +5,9 @@ import { swc, PluginOptions, minify } from '../src';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 
-import 'chai/register-should';
+import { should } from 'chai';
+should();
+
 import { JsMinifyOptions } from '@swc/core';
 
 const tmpDir = path.join(__dirname, '.temp');
@@ -43,7 +45,7 @@ const build = async (
 };
 
 const runMinify = async (
-  options: JsMinifyOptions = {},
+  options: JsMinifyOptions,
   {
     input = './fixture/index.js',
     otherRollupPlugins = [],
@@ -91,9 +93,9 @@ describe('swc', () => {
     const output = await build({}, { dir });
     output[0].code.should.equal(`class Foo {
     render() {
-        return(/*#__PURE__*/ React.createElement("div", {
+        return /*#__PURE__*/ React.createElement("div", {
             className: "hehe"
-        }, "hello there!!!"));
+        }, "hello there!!!");
     }
 }
 
@@ -131,7 +133,7 @@ console.log(bar);
       `
     });
     const output = await runMinify({}, { dir });
-    output[0].code.should.equal(`console.log(10e3);console.log('b'+'c')
+    output[0].code.should.equal(`console.log(1e4);console.log("b"+"c")
 `);
   });
 
@@ -154,9 +156,9 @@ console.log(bar);
 
     output[0].code.should.equal(`class Foo {
     render() {
-        return(/*#__PURE__*/ React.createElement("div", {
+        return /*#__PURE__*/ React.createElement("div", {
             className: "hehe"
-        }, "hello there!!!"));
+        }, "hello there!!!");
     }
 }
 
