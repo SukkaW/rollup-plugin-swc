@@ -1,6 +1,6 @@
 import type { Plugin } from 'rollup';
 
-import { existsSync, statSync } from 'fs';
+import fs from 'fs';
 import { extname, resolve, dirname, join } from 'path';
 import { createFilter, FilterPattern } from '@rollup/pluginutils';
 import { Config as SwcConfig, JscTarget, transform as swcTransform, minify as swcMinify, JsMinifyOptions } from '@swc/core';
@@ -23,10 +23,18 @@ const EXCLUDE_REGEXP = /node_modules/;
 
 const ACCEPTED_EXTENSIONS = ['.ts', '.mjs', '.js', '.tsx', '.jsx'];
 
-const resolveFile = (resolved: string, index = false) => {
+const fileExists = (path: string) => {
+  return fs.promises.access(path, fs.constants.F_OK)
+    .then(() => true)
+    .catch(() => false);
+};
+
+const resolveFile = async (resolved: string, index = false) => {
   for (const ext of ACCEPTED_EXTENSIONS) {
     const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`;
-    if (existsSync(file)) return file;
+    // We only check one file at a time, and we can return early
+    // eslint-disable-next-line no-await-in-loop
+    if (await fileExists(file)) return file;
   }
   return null;
 };
@@ -40,7 +48,7 @@ function swc(options: PluginOptions = {}): Plugin {
   return {
     name: 'swc',
 
-    resolveId(importee, importer) {
+    async resolveId(importee, importer) {
       // ignore IDs with null character, these belong to other plugins
       if (importee.startsWith('\0')) {
         return null;
@@ -52,10 +60,10 @@ function swc(options: PluginOptions = {}): Plugin {
           importee
         );
 
-        let file = resolveFile(resolved);
+        let file = await resolveFile(resolved);
         if (file) return file;
-        if (!file && existsSync(resolved) && statSync(resolved).isDirectory()) {
-          file = resolveFile(resolved, true);
+        if (!file && await fileExists(resolved) && (await fs.promises.stat(resolved)).isDirectory()) {
+          file = await resolveFile(resolved, true);
           if (file) return file;
         }
       }
