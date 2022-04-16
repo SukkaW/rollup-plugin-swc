@@ -21,13 +21,6 @@ export type PluginOptions = {
 const INCLUDE_REGEXP = /\.m?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
-const ROLLUP_VIRTUAL_MODULE_IDENTIFIER = '\0';
-const REGEXP_ROLLUP_VIRTUAL_MODULE_IDENTIFIER = /\0/gm;
-// To prevent the line being escaped when trying to build rollup-plugin-swc using rollup-plugin-swc
-// eslint-disable-next-line no-useless-concat
-const ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = '$_' + '_SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_' + 'DO_NOT_USE_OR_YOU_WILL_BE_FIRED_' + '_$';
-const REGEXP_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER = /\$__SECRET_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER_DO_NOT_USE_OR_YOU_WILL_BE_FIRED__\$/gm;
-
 const ACCEPTED_EXTENSIONS = ['.ts', '.mjs', '.js', '.tsx', '.jsx'];
 
 const resolveFile = (resolved: string, index = false) => {
@@ -134,19 +127,13 @@ function swc(options: PluginOptions = {}): Plugin {
        * @see https://github.com/swc-project/swc/issues/2853
        */
       const { code: transformedCode, ...rest } = await swcTransform(
-        code.replace(
-          REGEXP_ROLLUP_VIRTUAL_MODULE_IDENTIFIER,
-          ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER
-        ),
+        code,
         swcOption
       );
 
       return {
         ...rest,
-        code: transformedCode.replace(
-          REGEXP_ROLLUP_VIRTUAL_MODULE_ESCAPE_IDENTIFIER,
-          ROLLUP_VIRTUAL_MODULE_IDENTIFIER
-        )
+        code: transformedCode
       };
     },
 
