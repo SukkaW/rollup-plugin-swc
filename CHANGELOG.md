@@ -1,3 +1,11 @@
+## 0.3.0
+
+- Completely disable swc minify during rollup's `transform` phase.
+  - Now all minify will be done in rollup's `renderChunk` phase, which is a one-pass process, resulting in even faster build performance.
+- Remove the workaround for rollup's virtual module that is introduced in 0.1.2 (https://github.com/SukkaW/rollup-plugin-swc/pull/1)
+  - swc has fixed the issue, and the corresponding test case has been added in https://github.com/swc-project/swc/pull/4255
+  - The `peerDependencies` of swc has been updated to `>=1.2.165`. You will need to bump the version of swc to 1.2.165 or higher after this release.
+
 ## 0.2.0
 
 - Standalone minify plugin
