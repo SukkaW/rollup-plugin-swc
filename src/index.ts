@@ -108,11 +108,14 @@ function swc(options: PluginOptions = {}): Plugin {
         }
       };
 
-      const swcOption = deepmerge.all([
+      const swcOption = deepmerge.all<SwcConfig>([
         swcOptionsFromTsConfig,
         options,
         {
-          filename: id,
+          jsc: {
+            minify: undefined // Disable minify ob transform, do it on renderChunk
+          },
+          // filename: id,
           include: undefined, // Rollup's filter is not compatible with swc
           exclude: undefined,
           tsconfig: undefined, // swc has no tsconfig option
@@ -148,7 +151,7 @@ function swc(options: PluginOptions = {}): Plugin {
     },
 
     renderChunk(code: string) {
-      if (options.minify) {
+      if (options.minify || options.jsc?.minify?.mangle || options.jsc?.minify?.compress) {
         return swcMinify(code, options.jsc?.minify);
       }
 
