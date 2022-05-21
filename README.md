@@ -42,7 +42,7 @@ import { swc } from 'rollup-plugin-swc3';
 export default {
   input: 'xxxx',
   output: {},
-  plugin: [
+  plugins: [
     swc({
       // All options are optional
       include: /\.[jt]sx?$/, // default
@@ -64,7 +64,7 @@ import { swc, defineRollupSwcOption } from 'rollup-plugin-swc3';
 export default {
   input: 'xxxx',
   output: {},
-  plugin: [
+  plugins: [
     swc(defineRollupSwcOption({
       // ... There goes the plugin's configuration
     })),
@@ -143,7 +143,7 @@ import { swc, defineRollupSwcOption } from 'rollup-plugin-swc3';
 export default {
   input: 'xxxx',
   output: {},
-  plugin: [
+  plugins: [
     vueJsx(),
     swc(defineRollupSwcOption({
       jsc: {
@@ -163,7 +163,7 @@ import { swc, defineRollupSwcOption } from 'rollup-plugin-swc3';
 export default {
   input: 'xxxx',
   output: {},
-  plugin: [
+  plugins: [
     vueJsx(),
     swc(defineRollupSwcOption({
       jsc: {
