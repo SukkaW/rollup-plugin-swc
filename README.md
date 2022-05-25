@@ -72,7 +72,7 @@ export default {
 }
 
 // or
-/** @type {imoprt('rollup-plugin-swc3').PluginOptions} */
+/** @type {import('rollup-plugin-swc3').PluginOptions} */
 const swcPluginConfig = {}
 ```
 
