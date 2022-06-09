@@ -1,4 +1,3 @@
-
 <div align="center">
   <img src="https://pic.skk.moe/file/sukkaw/gh/rollup-plugin-swc.png" width="550px">
 </div>
@@ -8,15 +7,15 @@
 
 ## Comparison
 
-| | [sukkaw/rollup-plugin-swc](https://github.com/SukkaW/rollup-plugin-swc) | [mentaljam/rollup-plugin-swc](https://github.com/mentaljam/rollup-plugin-swc) | [nicholasxjy/rollup-plugin-swc2](https://github.com/nicholasxjy/rollup-plugin-swc2)
-| --- | --- | --- | --- |
-| `minify` your bundle in one pass[^1] | Yes | No | No |
-| Standalone `swcMinify` plugin | Yes | No | No |
-| Config Intellisense[^2] | Yes | No | No |
-| Reads your `tsconfig.json` and `jsconfig.json` | Yes[^3] | No | No |
-| ESM export | Full | Partial[^4] | No |
-| TypeScrit declarations | Yes | Yes | Yes |
-| Has testing | Yes | No | No |
+|                                                | [sukkaw/rollup-plugin-swc](https://github.com/SukkaW/rollup-plugin-swc) | [mentaljam/rollup-plugin-swc](https://github.com/mentaljam/rollup-plugin-swc) | [nicholasxjy/rollup-plugin-swc2](https://github.com/nicholasxjy/rollup-plugin-swc2) |
+| ---------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `minify` your bundle in one pass[^1]           | Yes                                                                     | No                                                                            | No                                                                                  |
+| Standalone `swcMinify` plugin                  | Yes                                                                     | No                                                                            | No                                                                                  |
+| Config Intellisense[^2]                        | Yes                                                                     | No                                                                            | No                                                                                  |
+| Reads your `tsconfig.json` and `jsconfig.json` | Yes[^3]                                                                 | No                                                                            | No                                                                                  |
+| ESM export                                     | Full                                                                    | Partial[^4]                                                                   | No                                                                                  |
+| TypeScrit declarations                         | Yes                                                                     | Yes                                                                           | Yes                                                                                 |
+| Has testing                                    | Yes                                                                     | No                                                                            | No                                                                                  |
 
 [^1]: If minify is called in Rollup's `transform` phase, every individual module processed will result in a minify call. However, if minify is called in Rollup's `renderChunk` phase, the minify will only be called once in one whole pass before Rollup generates bundle, results in a faster build.
 [^2]: Autocompletion and type checking in your IDE
@@ -90,11 +89,13 @@ If you only want to use `swc` to minify your bundle:
 import { minify } from 'rollup-plugin-swc3'
 
 export default {
-  plugins: [minify({
-    // swc's minify option here
-    // mangle: {}
-    // compress: {}
-  })],
+  plugins: [
+    minify({
+      // swc's minify option here
+      // mangle: {}
+      // compress: {}
+    }),
+  ],
 }
 ```
 
@@ -104,11 +105,15 @@ If you want autocompletion in your IDE or type check:
 import { minify, defineRollupSwcMinifyOption } from 'rollup-plugin-swc3'
 
 export default {
-  plugins: [minify(defineRollupSwcMinifyOption({
-    // swc's minify option here
-    // mangle: {}
-    // compress: {}
-  }))],
+  plugins: [
+    minify(
+      defineRollupSwcMinifyOption({
+        // swc's minify option here
+        // mangle: {}
+        // compress: {}
+      })
+    ),
+  ],
 }
 
 // or
@@ -147,8 +152,10 @@ export default {
     vueJsx(),
     swc(defineRollupSwcOption({
       jsc: {
-        react: {
-          pragma: 'vueJsxCompat'
+        transform: {
+          react: {
+              pragma: 'vueJsxCompat'
+          }
         }
       }
     })),
@@ -167,12 +174,14 @@ export default {
     vueJsx(),
     swc(defineRollupSwcOption({
       jsc: {
-        react: {
+        transform:{
+          react: {
           pragma: 'h',
           pragmaFrag: 'Fragment'
           // To use preact/jsx-runtime:
           // importSource: 'preact',
           // runtime: 'automatic'
+          }
         }
       }
     })),
@@ -180,7 +189,7 @@ export default {
 }
 ```
 
-----
+---
 
 **rollup-plugin-swc** © [Sukka](https://github.com/SukkaW), Released under the [MIT](./LICENSE) License.<br>
 Inspired by [egoist](https://github.com/egoist)'s [rollup-plugin-esbuild](https://github.com/egoist/rollup-plugin-esbuild).<br>
