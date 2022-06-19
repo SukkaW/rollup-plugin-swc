@@ -143,7 +143,7 @@ You can either configure it in your `tsconfig.json` or in your `rollup.config.js
 ```js
 // Vue JSX
 import vueJsx from '@vitejs/plugin-vue-jsx';
-import { swc, defineRollupSwcOption } from 'rollup-plugin-swc3';
+import { swc } from 'rollup-plugin-swc3';
 
 export default {
   input: 'xxxx',
