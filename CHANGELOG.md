@@ -1,3 +1,7 @@
+## 0.4.1
+
+- Fix some minor issues.
+
 ## 0.4.0
 
 - Automatically pass rollup's file `id` to swc's `filename` option.
