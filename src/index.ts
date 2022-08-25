@@ -1,7 +1,7 @@
 import type { Plugin } from 'rollup';
 
 import fs from 'fs';
-import { extname, resolve, dirname, join, basename } from 'path';
+import { extname, resolve, dirname, join } from 'path';
 import { createFilter, FilterPattern } from '@rollup/pluginutils';
 import { Options as SwcOptions, JscTarget, transform as swcTransform, minify as swcMinify, JsMinifyOptions } from '@swc/core';
 import deepmerge from 'deepmerge';
@@ -30,7 +30,7 @@ const fileExists = (path: string) => {
 };
 
 const resolveFile = async (resolved: string, index = false) => {
-  const fileWithoutExt = join(dirname(resolved), basename(resolved, extname(resolved)));
+  const fileWithoutExt = resolved.replace(INCLUDE_REGEXP, '');
 
   for (const ext of ACCEPTED_EXTENSIONS) {
     const file = index ? join(resolved, `index${ext}`) : `${fileWithoutExt}${ext}`;

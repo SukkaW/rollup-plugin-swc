@@ -336,22 +336,28 @@ export { foo };
         console.log(Foo)
       `,
       './fixture/foo.tsx': `
+        import { util } from './some.util'
         export default class Foo {
           render() {
-            return <div className="sukka">hello there!!!</div>
+            return <div className="sukka">{util}</div>
           }
         }
+      `,
+      './fixture/some.util.ts': `
+        export const util = 42
       `
     });
 
     const output = await build({}, {
       dir
     });
-    output[0].code.should.eq(`class Foo {
+    output[0].code.should.eq(`const util = 42;
+
+class Foo {
     render() {
         return /*#__PURE__*/ React.createElement("div", {
             className: "sukka"
-        }, "hello there!!!");
+        }, util);
     }
 }
 
