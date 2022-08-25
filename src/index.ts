@@ -30,7 +30,7 @@ const fileExists = (path: string) => {
 };
 
 const resolveFile = async (resolved: string, index = false) => {
-  const fileWithoutExt = join(dirname(resolved), basename(resolved, extname(resolved)))
+  const fileWithoutExt = join(dirname(resolved), basename(resolved, extname(resolved)));
 
   for (const ext of ACCEPTED_EXTENSIONS) {
     const file = index ? join(resolved, `index${ext}`) : `${fileWithoutExt}${ext}`;
@@ -90,7 +90,6 @@ function swc(options: PluginOptions = {}): Plugin {
           : await getOptions(dirname(id), options.tsconfig);
 
       const swcOptionsFromTsConfig: SwcOptions = {
-        filename: id,
         jsc: {
           externalHelpers: tsconfigOptions.importHelpers,
           parser: {
@@ -117,9 +116,9 @@ function swc(options: PluginOptions = {}): Plugin {
         options,
         {
           jsc: {
-            minify: undefined // Disable minify ob transform, do it on renderChunk
+            minify: undefined // Disable minify on transform, do it on renderChunk
           },
-          // filename: id,
+          filename: id,
           include: undefined, // Rollup's filter is not compatible with swc
           exclude: undefined,
           tsconfig: undefined, // swc has no tsconfig option
