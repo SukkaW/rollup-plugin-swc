@@ -3,7 +3,7 @@ import type { Plugin } from 'rollup';
 import fs from 'fs';
 import { extname, resolve, dirname, join } from 'path';
 import { createFilter, FilterPattern } from '@rollup/pluginutils';
-import { Config as SwcConfig, JscTarget, transform as swcTransform, minify as swcMinify, JsMinifyOptions } from '@swc/core';
+import { Options as SwcOptions, JscTarget, transform as swcTransform, minify as swcMinify, JsMinifyOptions } from '@swc/core';
 import deepmerge from 'deepmerge';
 
 import { getOptions } from './options';
@@ -16,7 +16,7 @@ export type PluginOptions = {
    * Disable it by setting to `false`
    */
   tsconfig?: string | false
-} & Pick<SwcConfig, Exclude<keyof SwcConfig, 'filename' & 'include' & 'exclude'>>;
+} & Pick<SwcOptions, Exclude<keyof SwcOptions, 'filename' & 'include' & 'exclude'>>;
 
 const INCLUDE_REGEXP = /\.m?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
@@ -87,7 +87,8 @@ function swc(options: PluginOptions = {}): Plugin {
           ? {}
           : await getOptions(dirname(id), options.tsconfig);
 
-      const swcOptionsFromTsConfig: SwcConfig = {
+      const swcOptionsFromTsConfig: SwcOptions = {
+        filename: id,
         jsc: {
           externalHelpers: tsconfigOptions.importHelpers,
           parser: {
@@ -109,7 +110,7 @@ function swc(options: PluginOptions = {}): Plugin {
         }
       };
 
-      const swcOption = deepmerge.all<SwcConfig>([
+      const swcOption = deepmerge.all<SwcOptions>([
         swcOptionsFromTsConfig,
         options,
         {
