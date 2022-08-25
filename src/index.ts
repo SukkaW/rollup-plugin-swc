@@ -18,10 +18,10 @@ export type PluginOptions = {
   tsconfig?: string | false
 } & Pick<SwcOptions, Exclude<keyof SwcOptions, 'filename' & 'include' & 'exclude'>>;
 
-const INCLUDE_REGEXP = /\.m?[jt]sx?$/;
+const INCLUDE_REGEXP = /\.[mc]?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
-const ACCEPTED_EXTENSIONS = ['.ts', '.mjs', '.js', '.tsx', '.jsx'];
+const ACCEPTED_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.js', '.cjs', '.jsx'];
 
 const fileExists = (path: string) => {
   return fs.promises.access(path, fs.constants.F_OK)
