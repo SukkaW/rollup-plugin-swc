@@ -1,3 +1,12 @@
+## 0.4.0
+
+- Automatically pass rollup's file `id` to swc's `filename` option.
+  - It should help swc find the `.swcrc`, and also enables some other swc's functionality
+- Automatically mapping `.ts/.tsx` to `.mjs/.js/.cjs/.jsx`.
+  - When using native ESM, import path requires `.js/.jsx` extension for TypeScript with `"moduleResolution": "Node16"`. So rollup-plugin-swc will now try all possible extensions.
+  - E.g. if you write `import Foo from 'foo.jsx'`, rollup-plugin-swc will search for `foo.ts`, `foo.tsx`, `foo.mjs`, `foo.js`, `foo.jsx`.
+  - PRs are welcome if you want to make rollup-plugin-swc more spec compliant.
+
 ## 0.3.0
 
 - Completely disable swc minify during rollup's `transform` phase.
