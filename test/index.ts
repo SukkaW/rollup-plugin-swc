@@ -327,4 +327,35 @@ export { foo };
 export { foo };
 `);
   });
+
+  it('load jsx/tsx', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.js': `
+        import Foo from './foo.jsx'
+  
+        console.log(Foo)
+      `,
+      './fixture/foo.tsx': `
+        export default class Foo {
+          render() {
+            return <div className="sukka">hello there!!!</div>
+          }
+        }
+      `
+    });
+
+    const output = await build({}, {
+      dir
+    });
+    output[0].code.should.eq(`class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "sukka"
+        }, "hello there!!!");
+    }
+}
+
+console.log(Foo);\n`);
+  });
+
 });

@@ -1,7 +1,7 @@
 import type { Plugin } from 'rollup';
 
 import fs from 'fs';
-import { extname, resolve, dirname, join } from 'path';
+import { extname, resolve, dirname, join, basename } from 'path';
 import { createFilter, FilterPattern } from '@rollup/pluginutils';
 import { Options as SwcOptions, JscTarget, transform as swcTransform, minify as swcMinify, JsMinifyOptions } from '@swc/core';
 import deepmerge from 'deepmerge';
@@ -30,8 +30,10 @@ const fileExists = (path: string) => {
 };
 
 const resolveFile = async (resolved: string, index = false) => {
+  const fileWithoutExt = join(dirname(resolved), basename(resolved, extname(resolved)))
+
   for (const ext of ACCEPTED_EXTENSIONS) {
-    const file = index ? join(resolved, `index${ext}`) : `${resolved}${ext}`;
+    const file = index ? join(resolved, `index${ext}`) : `${fileWithoutExt}${ext}`;
     // We only check one file at a time, and we can return early
     // eslint-disable-next-line no-await-in-loop
     if (await fileExists(file)) return file;
