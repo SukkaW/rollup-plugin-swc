@@ -44,7 +44,7 @@ export default {
   plugins: [
     swc({
       // All options are optional
-      include: /\.[jt]sx?$/, // default
+      include: /\.[mc]?[jt]sx?$/, // default
       exclude: /node_modules/, // default
       tsconfig: 'tsconfig.json', // default
       // And add your swc configuration here!
