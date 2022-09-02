@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { rollup, Plugin as RollupPlugin } from 'rollup';
+import { rollup, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
 import { swc, PluginOptions, minify } from '../src';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
@@ -29,17 +29,20 @@ const build = async (
     input = './fixture/index.js',
     otherRollupPlugins = [],
     sourcemap = false,
-    dir = '.'
+    dir = '.',
+    external
   }: {
     input?: string | string[]
     otherRollupPlugins?: RollupPlugin[]
     sourcemap?: boolean
-    dir?: string
+    dir?: string,
+    external?: ExternalOption
   } = {}
 ) => {
   const build = await rollup({
     input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
-    plugins: [...otherRollupPlugins, swc(options)]
+    plugins: [...otherRollupPlugins, swc(options)],
+    external
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
   return output;
@@ -273,6 +276,76 @@ export { foo };\n`);
     output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };\n`);
+  });
+
+  it('react 17 jsx transform', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.tsx': `
+        export function Foo() { return <div>foo</div> }
+      `,
+      './fixture/tsconfig.react-jsx.json': `
+        {
+          "compilerOptions": {
+            "jsx": "react-jsx"
+          }
+        }
+      `,
+      './fixture/tsconfig.react-jsxdev.json': `
+        {
+          "compilerOptions": {
+            "jsx": "react-jsxdev"
+          }
+        }
+      `,
+      './fixture/tsconfig.compiled.json': `
+        {
+          "compilerOptions": {
+            "jsx": "react-jsx",
+            "jsxImportSource": "@compiled/react"
+          }
+        }
+      `
+    });
+
+    (
+      await build({ tsconfig: 'tsconfig.react-jsx.json' }, { input: './fixture/index.tsx', dir, external: 'react/jsx-runtime' })
+    )[0].code.should.equal(`import { jsx } from 'react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
+    });
+}
+
+export { Foo };\n`);
+
+    (
+      await build({ tsconfig: 'tsconfig.react-jsxdev.json' }, { input: './fixture/index.tsx', dir, external: 'react/jsx-dev-runtime' })
+    )[0].code.should.equal(`import { jsxDEV } from 'react/jsx-dev-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsxDEV("div", {
+        children: "foo"
+    }, void 0, false, {
+        fileName: "${dir}/fixture/index.tsx",
+        lineNumber: 2,
+        columnNumber: 40
+    }, this);
+}
+
+export { Foo };\n`);
+
+    (
+      await build({ tsconfig: 'tsconfig.compiled.json' }, { input: './fixture/index.tsx', dir, external: '@compiled/react/jsx-runtime' })
+    )[0].code.should.equal(`import { jsx } from '@compiled/react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
+    });
+}
+
+export { Foo };\n`);
   });
 
   it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async () => {

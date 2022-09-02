@@ -89,6 +89,11 @@ function swc(options: PluginOptions = {}): Plugin {
           ? {}
           : await getOptions(dirname(id), options.tsconfig);
 
+      // TODO: SWC is about to add "preserve" jsx
+      // https://github.com/swc-project/swc/pull/5661
+      // Respect "preserve" after swc adds the support
+      const useReact17NewTransform = tsconfigOptions.jsx === 'react-jsx' || tsconfigOptions.jsx === 'react-jsxdev';
+
       const swcOptionsFromTsConfig: SwcOptions = {
         jsc: {
           externalHelpers: tsconfigOptions.importHelpers,
@@ -101,8 +106,13 @@ function swc(options: PluginOptions = {}): Plugin {
           transform: {
             decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
             react: {
+              runtime: useReact17NewTransform
+                ? 'automatic'
+                : 'classic',
+              importSource: tsconfigOptions.jsxImportSource,
               pragma: tsconfigOptions.jsxFactory,
-              pragmaFrag: tsconfigOptions.jsxFragmentFactory
+              pragmaFrag: tsconfigOptions.jsxFragmentFactory,
+              development: tsconfigOptions.jsx === 'react-jsxdev' ? true : undefined
             }
           },
           target: tsconfigOptions.target?.toLowerCase() as JscTarget | undefined,
