@@ -4,13 +4,14 @@ import { rollup, Plugin as RollupPlugin } from 'rollup';
 import { swc, PluginOptions, minify } from '../src';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
+import { tmpdir } from 'os';
 
 import { should } from 'chai';
 should();
 
 import { JsMinifyOptions } from '@swc/core';
 
-const tmpDir = path.join(__dirname, '.temp');
+const tmpDir = path.join(tmpdir() ?? __dirname, '.temp-rollup-plugin-swc-testing');
 
 const realFs = (folderName: string, files: Record<string, string>) => {
   const testDir = path.join(tmpDir, `rollup-plugin-swc/${folderName}`);
@@ -64,7 +65,7 @@ const runMinify = async (
 const getTestName = () => String(Date.now());
 
 describe('swc', () => {
-  before(() => {
+  after(() => {
     if (fs.existsSync(tmpDir)) {
       fs.rmSync(tmpDir, { recursive: true });
     }
@@ -91,19 +92,28 @@ describe('swc', () => {
       `
     });
     const output = await build({}, { dir });
-    output[0].code.should.equal(`class Foo {
-    render() {
+    output[0].code.should.equal(`function _classCallCheck(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+var Foo = /*#__PURE__*/ function() {
+    function Foo() {
+        _classCallCheck(this, Foo);
+    }
+    var _proto = Foo.prototype;
+    _proto.render = function render() {
         return /*#__PURE__*/ React.createElement("div", {
             className: "hehe"
         }, "hello there!!!");
-    }
-}
+    };
+    return Foo;
+}();
 
-const bar = 'baz';
+var bar = "baz";
 
 console.log(Foo);
-console.log(bar);
-`);
+console.log(bar);\n`);
   });
 
   it('minify', async () => {
@@ -121,8 +131,7 @@ console.log(bar);
       `
     });
     const output = await build({ minify: true, jsc: { target: 'es2022' } }, { dir });
-    output[0].code.should.equal(`class Foo{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(Foo)
-`);
+    output[0].code.should.equal('class e{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(e);\n');
   });
 
   it('standalone minify', async () => {
@@ -133,8 +142,7 @@ console.log(bar);
       `
     });
     const output = await runMinify({}, { dir });
-    output[0].code.should.equal(`console.log(1e4);console.log("b"+"c")
-`);
+    output[0].code.should.equal('console.log(1e4),console.log("bc");\n');
   });
 
   it('load index.(x)', async () => {
@@ -152,7 +160,7 @@ console.log(bar);
       `
     });
 
-    const output = await build({}, { dir });
+    const output = await build({ jsc: { target: 'es2022' } }, { dir });
 
     output[0].code.should.equal(`class Foo {
     render() {
@@ -208,7 +216,7 @@ console.log(foo$1);
       `
     });
     const output = await build(
-      {},
+      { jsc: { target: 'es2022' } },
       { otherRollupPlugins: [commonjs()], dir }
     );
     output[0].code.should.equal(`var fixture = {};
@@ -244,8 +252,7 @@ export { fixture as default };
     const output = await build({}, { input: './fixture/index.tsx', dir });
     output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
 
-export { foo };
-`);
+export { foo };\n`);
   });
 
   it('use custom jsxFactory (h) from jsconfig.json', async () => {
@@ -265,8 +272,7 @@ export { foo };
     const output = await build({}, { input: './fixture/index.tsx', dir });
     output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
 
-export { foo };
-`);
+export { foo };\n`);
   });
 
   it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async () => {
@@ -348,9 +354,7 @@ export { foo };
       `
     });
 
-    const output = await build({}, {
-      dir
-    });
+    const output = await build({ jsc: { target: 'es2022' } }, { dir });
     output[0].code.should.eq(`const util = 42;
 
 class Foo {
@@ -363,5 +367,4 @@ class Foo {
 
 console.log(Foo);\n`);
   });
-
 });
