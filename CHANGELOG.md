@@ -1,3 +1,11 @@
+## 0.5.0
+
+- When not provided to `rollup-plugin-swc`, `rollup-plugin-swc` now also respects `jsx` option from `tsconfig.json`
+  - `jsxImportSource` from `tsconfig.json` will be passed to swc's `jsc.transform.react.importSource`
+  - if `tsconfig.json` specifies `jsx: react-jsx` or `jsx: react-jsxdev`, `rollup-plugin-swc` will set `jsx.tramsform.react.runtime` to `automatic`, otherwise it will be `classic`.
+    - Currently, swc doesn't support preserving JSX, and will always transpile JSX into javascript code.
+  - `rollup-plugin-swc` will also set `jsx.tramsform.react.development` to `true` if `tsconfig.json` specifies `jsx: react-jsxdev`.
+
 ## 0.4.2
 
 - Remove unused dependency (@huozhi #20)
