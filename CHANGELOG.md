@@ -1,3 +1,7 @@
+## 0.4.2
+
+- Remove unused dependency (@huozhi #20)
+
 ## 0.4.1
 
 - Fix some minor issues.
