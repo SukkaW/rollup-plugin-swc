@@ -34,7 +34,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^21.1.0",
     "@rollup/plugin-json": "^4.1.0",
-    "@swc/core": "^1.2.165",
+    "@swc/core": "^1.2.246",
     "@types/chai": "^4.3.1",
     "@types/mocha": "^9.1.0",
     "@types/node": "^16.11.27",
