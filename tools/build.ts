@@ -22,8 +22,8 @@ async function main() {
     });
 
     return Promise.all([
-      bundle.write({ file: './dist/index.js', format: 'cjs' }),
-      bundle.write({ file: './dist/index.mjs', format: 'esm' })
+      bundle.write({ file: './dist/index.js', format: 'cjs', exports: 'named' }),
+      bundle.write({ file: './dist/index.mjs', format: 'esm', exports: 'named' })
     ]);
   }
 
