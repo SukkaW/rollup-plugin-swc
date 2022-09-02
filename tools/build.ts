@@ -8,7 +8,7 @@ import pkg from '../package.json';
 const deps = Object.keys(pkg.dependencies);
 
 async function main() {
-  const external = [...deps, ...module.builtinModules];
+  const external = ['@swc/core', ...deps, ...module.builtinModules];
 
   async function build() {
     const bundle = await rollup({
