@@ -79,10 +79,12 @@ const swcPluginConfig = {}
 - `include` and `exclude` can be `String | RegExp | Array<String | RegExp>`, when supplied it will override default values.
 - `rollup-plugin-swc` will read your `tsconfig.json` or [`jsconfig.json`](https://code.visualstudio.com/docs/languages/jsconfig) for default values if your doesn't provide corresponding swc options:
   - The configuration your passed to `rollup-plugin-swc` will always have the highest priority (higher than `tsconfig.json`/`jsconfig.json`).
+  - `rollup-plugin-swc` will find the nearest `tsconfig.json`/`jsconfig.json` from the file that is currently being transpiled (just like `tsc`).
+    - With `tsconfig` option, you can also provide a custom filename (E.g. `tsconfig.rollup.json`, `jsconfig.compile.json`) for `rollup-plugin-swc` to find and resolve.
+    - You can also provide a full path (E.g. `/path/to/your/tsconfig.json`) to `tsconfig` option, and `rollup-plugin-swc` will only use the provided path as a single source of truth.
   - You can stop `rollup-plugin-swc` from reading `tsconfig.json`/`jsconfig.json` by setting `tsconfig` option to `false`.
-  - You can provide a custom `tsconfig.json`/`jsconfig.json` file by setting `tsconfig` option to a `string`.
   - `jsconfig.json` will be ignored if `tsconfig.json` and `jsconfig.json` both exist.
-  - The `extends` of `tsconfig.json`/`jsconfig.json` is not supported.
+  - The `extends` of `tsconfig.json`/`jsconfig.json` is ~~not supported~~ now supported.
   - `target` will be passed to swc's `jsc.target`.
   - `jsxImportSource`, `jsxFactory`, and `jsxFragmentFactory` will be passed to swc's `jsc.transform.react.importSource`, `jsc.transform.react.pragma` and `jsc.transform.react.pragmaFrag`.
   - When `jsx` is either `react-jsx` or `react-jsxdev`, swc's `jsc.transform.react.runtime` will be `automatic`, otherwise it will be `classic`.
