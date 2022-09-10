@@ -523,4 +523,31 @@ var baz = /*#__PURE__*/ h("div", null, foo, bar);\n
 export { baz };
 `);
   });
+
+  it('tsconfig - specify full path', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.jsx': `
+        export const foo = <div>foo</div>
+      `,
+      './fixture/foo/bar/tsconfig.json': `
+        {
+          "compilerOptions": { "jsxFactory": "hFoo" }
+        }
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": { "jsxFactory": "hBar" }
+        }
+      `
+    });
+
+    const tsconfigPath = path.resolve(dir, './fixture/foo/bar/tsconfig.json');
+
+    (await build(
+      { tsconfig: tsconfigPath },
+      { input: './fixture/index.jsx', dir }
+    ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
+export { foo };
+`);
+  });
 });
