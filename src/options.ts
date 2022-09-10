@@ -1,11 +1,17 @@
-import { getTsconfig } from 'get-tsconfig';
+import { getTsconfig, parseTsconfig } from 'get-tsconfig';
+import path from 'path';
 
-export const getOptions = async (
+export const getOptions = (
   cwd: string,
   tsconfig?: string
 ) => {
+  if (tsconfig && path.isAbsolute(tsconfig)) {
+    return parseTsconfig(tsconfig).compilerOptions ?? {};
+  }
+
   let result = getTsconfig(cwd, tsconfig || 'tsconfig.json');
-  if (!result) {
+  // Only fallback to `jsconfig.json` when tsconfig can not be resolved AND custom tsconfig filename is not provided
+  if (!result && !tsconfig) {
     result = getTsconfig(cwd, 'jsconfig.json');
   }
 

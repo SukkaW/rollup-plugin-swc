@@ -87,7 +87,7 @@ function swc(options: PluginOptions = {}): Plugin {
       const tsconfigOptions
         = options.tsconfig === false
           ? {}
-          : await getOptions(dirname(id), options.tsconfig);
+          : getOptions(dirname(id), options.tsconfig);
 
       // TODO: SWC is about to add "preserve" jsx
       // https://github.com/swc-project/swc/pull/5661
