@@ -28,13 +28,12 @@
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",
     "deepmerge": "^4.2.2",
-    "joycon": "^3.1.1",
-    "jsonc-parser": "^3.2.0"
+    "get-tsconfig": "^4.2.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-json": "^4.1.0",
-    "@swc/core": "^1.2.246",
+    "@swc/core": "^1.2.249",
     "@types/chai": "^4.3.3",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.7.14",
