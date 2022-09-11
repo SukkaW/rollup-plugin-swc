@@ -1,62 +1,31 @@
-import fs from 'fs';
-import JoyCon from 'joycon';
-import { parse } from 'jsonc-parser';
+import { getTsconfig, parseTsconfig, type TsConfigJson } from 'get-tsconfig';
+import path from 'path';
 
-const joycon = new JoyCon();
+const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
-joycon.addLoader({
-  test: /\.json$/,
-  load: async (file) => {
-    const content = await fs.promises.readFile(file, { encoding: 'utf-8' });
-    return parse(content);
-  }
-});
-
-export const getOptions = async (
+export const getOptions = (
   cwd: string,
   tsconfig?: string
-): Promise<{
-  importHelpers?: boolean,
-  esModuleInterop?: boolean,
-  experimentalDecorators?: boolean,
-  emitDecoratorMetadata?: boolean,
-  jsx?: 'preserve' | 'react' | 'react-jsx' | 'react-jsxdev' | 'react-native',
-  jsxFactory?: string,
-  jsxFragmentFactory?: string,
-  jsxImportSource?: string,
-  target?: string,
-  baseUrl?: string,
-  paths?: { [from: string]: [string] }
-}> => {
-  // joycon has its builtin-cache support
-  const { data, path } = await joycon.load([tsconfig || 'tsconfig.json', 'jsconfig.json'], cwd);
-  if (path && data) {
-    const {
-      importHelpers,
-      esModuleInterop,
-      experimentalDecorators,
-      emitDecoratorMetadata,
-      jsx,
-      jsxFactory,
-      jsxFragmentFactory,
-      jsxImportSource,
-      target,
-      baseUrl,
-      paths
-    } = data.compilerOptions || {};
-    return {
-      importHelpers,
-      esModuleInterop,
-      experimentalDecorators,
-      emitDecoratorMetadata,
-      jsx,
-      jsxFactory,
-      jsxFragmentFactory,
-      jsxImportSource,
-      target,
-      baseUrl,
-      paths
-    };
+) => {
+  const cacheKey = `${cwd}:${tsconfig}`;
+
+  if (cache.has(cacheKey)) {
+    return cache.get(cacheKey) ?? {};
   }
-  return {};
+
+  if (tsconfig && path.isAbsolute(tsconfig)) {
+    const compilerOptions = parseTsconfig(tsconfig).compilerOptions ?? {};
+    cache.set(cacheKey, compilerOptions);
+    return compilerOptions;
+  }
+
+  let result = getTsconfig(cwd, tsconfig || 'tsconfig.json');
+  // Only fallback to `jsconfig.json` when tsconfig can not be resolved AND custom tsconfig filename is not provided
+  if (!result && !tsconfig) {
+    result = getTsconfig(cwd, 'jsconfig.json');
+  }
+
+  const compilerOptions = result?.config.compilerOptions ?? {};
+  cache.set(cacheKey, compilerOptions);
+  return compilerOptions;
 };

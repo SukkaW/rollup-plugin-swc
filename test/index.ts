@@ -440,4 +440,114 @@ class Foo {
 
 console.log(Foo);\n`);
   });
+
+  it('tsconfig extends', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.jsx': `
+        export const foo = <div>foo</div>
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "extends": "./tsconfig.build.json",
+          "compilerOptions": {}
+        }
+      `,
+      './fixture/tsconfig.build.json': `
+        {
+          "compilerOptions": {
+            "jsxFactory": "custom"
+          }
+        }
+      `,
+      './fixture/jsconfig.json': `
+        {
+          "extends": "./tsconfig.build.json",
+          "compilerOptions": {}
+        }
+      `
+    });
+
+    (await build(
+      {},
+      { input: './fixture/index.jsx', dir }
+    ))[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
+
+export { foo };
+`);
+
+    (await build(
+      { tsconfig: 'jsconfig.json' },
+      { input: './fixture/index.jsx', dir }
+    ))[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
+
+export { foo };
+`);
+  });
+
+  it('tsconfig resolve to nearest tsconfig', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.jsx': `
+        import { foo } from './foo';
+        import { bar } from './bar';
+        export const baz = <div>{foo}{bar}</div>
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": { "jsxFactory": "h" }
+        }
+      `,
+      './fixture/foo/index.jsx': `
+        export const foo = <div>foo</div>
+      `,
+      './fixture/foo/tsconfig.json': `
+        {
+          "compilerOptions": { "jsxFactory": "hFoo" }
+        }
+      `,
+      './fixture/bar/index.tsx': `
+        export const bar = <div>bar</div>
+      `,
+      './fixture/bar/tsconfig.json': `
+        {
+          "compilerOptions": { "jsxFactory": "hBar" }
+        }
+      `
+    });
+
+    (await build(
+      {},
+      { input: './fixture/index.jsx', dir }
+    ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
+var bar = /*#__PURE__*/ hBar("div", null, "bar");\n
+var baz = /*#__PURE__*/ h("div", null, foo, bar);\n
+export { baz };
+`);
+  });
+
+  it('tsconfig - specify full path', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.jsx': `
+        export const foo = <div>foo</div>
+      `,
+      './fixture/foo/bar/tsconfig.json': `
+        {
+          "compilerOptions": { "jsxFactory": "hFoo" }
+        }
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": { "jsxFactory": "hBar" }
+        }
+      `
+    });
+
+    const tsconfigPath = path.resolve(dir, './fixture/foo/bar/tsconfig.json');
+
+    (await build(
+      { tsconfig: tsconfigPath },
+      { input: './fixture/index.jsx', dir }
+    ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
+export { foo };
+`);
+  });
 });
