@@ -1,12 +1,22 @@
-import { getTsconfig, parseTsconfig } from 'get-tsconfig';
+import { getTsconfig, parseTsconfig, type TsConfigJson } from 'get-tsconfig';
 import path from 'path';
+
+const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
 export const getOptions = (
   cwd: string,
   tsconfig?: string
 ) => {
+  const cacheKey = `${cwd}:${tsconfig}`;
+
+  if (cache.has(cacheKey)) {
+    return cache.get(cacheKey) ?? {};
+  }
+
   if (tsconfig && path.isAbsolute(tsconfig)) {
-    return parseTsconfig(tsconfig).compilerOptions ?? {};
+    const compilerOptions = parseTsconfig(tsconfig).compilerOptions ?? {};
+    cache.set(cacheKey, compilerOptions);
+    return compilerOptions;
   }
 
   let result = getTsconfig(cwd, tsconfig || 'tsconfig.json');
@@ -15,5 +25,7 @@ export const getOptions = (
     result = getTsconfig(cwd, 'jsconfig.json');
   }
 
-  return result?.config.compilerOptions ?? {};
+  const compilerOptions = result?.config.compilerOptions ?? {};
+  cache.set(cacheKey, compilerOptions);
+  return compilerOptions;
 };
