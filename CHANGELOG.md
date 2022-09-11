@@ -1,3 +1,9 @@
+## 0.6.0
+
+- Supports `extends` from `tsconfig.json`/`jsconfig.json`.
+- Supports passing a full path of a `tsconfig.json`/`jsconfig.json` file to `tsconfig` option.
+- When finding the nearest `tsconfig.json`/`jsconfig.json` from the source file that is currently being transpiled, `rollup-plugin-swc`'s behavior is now aligned with `tsc`.
+
 ## 0.5.0
 
 - `rollup-plugin-swc` now also respects `jsx` option from `tsconfig.json` when no corresponding swc option is provided.
