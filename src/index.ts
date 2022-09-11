@@ -2,8 +2,14 @@ import type { Plugin } from 'rollup';
 
 import fs from 'fs';
 import { extname, resolve, dirname, join } from 'path';
-import { createFilter, FilterPattern } from '@rollup/pluginutils';
-import { Options as SwcOptions, JscTarget, transform as swcTransform, minify as swcMinify, JsMinifyOptions } from '@swc/core';
+import { createFilter, type FilterPattern } from '@rollup/pluginutils';
+import {
+  type Options as SwcOptions,
+  type JscTarget,
+  type JsMinifyOptions,
+  transform as swcTransform,
+  minify as swcMinify
+} from '@swc/core';
 import deepmerge from 'deepmerge';
 
 import { getOptions } from './options';

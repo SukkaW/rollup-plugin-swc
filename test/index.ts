@@ -1,15 +1,15 @@
 import path from 'path';
 import fs from 'fs';
 import { rollup, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
-import { swc, PluginOptions, minify } from '../src';
+import { swc, type PluginOptions, minify } from '../src';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 import { tmpdir } from 'os';
 
+import type { JsMinifyOptions } from '@swc/core';
+
 import { should } from 'chai';
 should();
-
-import { JsMinifyOptions } from '@swc/core';
 
 const tmpDir = path.join(tmpdir() ?? __dirname, '.temp-rollup-plugin-swc-testing');
 

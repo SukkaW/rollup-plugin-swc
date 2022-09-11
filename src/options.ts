@@ -7,7 +7,7 @@ export const getOptions = (
   cwd: string,
   tsconfig?: string
 ) => {
-  const cacheKey = `${cwd}:${tsconfig}`;
+  const cacheKey = `${cwd}:${tsconfig ?? 'undefined'}`;
 
   if (cache.has(cacheKey)) {
     return cache.get(cacheKey) ?? {};
