@@ -142,16 +142,6 @@ function swc(options: PluginOptions = {}): Plugin {
         }
       ]);
 
-      /**
-       * swc cannot transform module ids with "\0", which is the identifier of rollup virtual module
-       *
-       * FIXME: This is a temporary workaround, remove when swc fixes it (DO NOT FORGET TO BUMP PEER DEPS VERSION AS WELL!)
-       *
-       * @see https://rollupjs.org/guide/en/#conventions
-       * @see https://github.com/rollup/plugins/blob/02fb349d315f0ffc55970fba5de20e23f8ead881/packages/commonjs/src/helpers.js#L15
-       * @see https://github.com/SukkaW/rollup-plugin-swc/pull/1
-       * @see https://github.com/swc-project/swc/issues/2853
-       */
       const { code: transformedCode, ...rest } = await swcTransform(
         code,
         swcOption
