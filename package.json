@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/SukkaW/rollup-plugin-swc#readme",
   "dependencies": {
+    "@fastify/deepmerge": "^1.1.0",
     "@rollup/pluginutils": "^4.2.1",
-    "deepmerge": "^4.2.2",
     "get-tsconfig": "^4.2.0"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@ import {
   transform as swcTransform,
   minify as swcMinify
 } from '@swc/core';
-import deepmerge from 'deepmerge';
+import createDeepMerge from '@fastify/deepmerge';
 
 import { getOptions } from './options';
 
@@ -28,6 +28,14 @@ const INCLUDE_REGEXP = /\.[mc]?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
 const ACCEPTED_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.js', '.cjs', '.jsx'];
+
+const deepmerge = createDeepMerge({
+  all: true,
+  mergeArray(options) {
+    // overwrite instead of concatenating arrays
+    return (target, source) => options.clone(source);
+  }
+});
 
 const fileExists = (path: string) => {
   return fs.promises.access(path, fs.constants.F_OK)
@@ -127,20 +135,28 @@ function swc(options: PluginOptions = {}): Plugin {
         }
       };
 
-      const swcOption = deepmerge.all<SwcOptions>([
+      const {
+        /* eslint-disable @typescript-eslint/no-unused-vars */
+        filename: $1, // We will use `id` from rollup instead
+        include: $2, // Rollup's filter is incompatible with swc's filter
+        exclude: $3,
+        tsconfig: $4, // swc doesn't have tsconfig option
+        minify: $5, // We will disable minify during transform, and perform minify in renderChunk
+        /* eslint-enable @typescript-eslint/no-unused-vars */
+        ...restSwcOptions
+      } = options;
+
+      const swcOption = deepmerge<SwcOptions[]>(
         swcOptionsFromTsConfig,
-        options,
+        restSwcOptions,
         {
           jsc: {
             minify: undefined // Disable minify on transform, do it on renderChunk
           },
           filename: id,
-          include: undefined, // Rollup's filter is not compatible with swc
-          exclude: undefined,
-          tsconfig: undefined, // swc has no tsconfig option
           minify: false // Disable minify on transform, do it on renderChunk
         }
-      ]);
+      );
 
       const { code: transformedCode, ...rest } = await swcTransform(
         code,
