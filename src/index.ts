@@ -136,13 +136,11 @@ function swc(options: PluginOptions = {}): Plugin {
       };
 
       const {
-        /* eslint-disable @typescript-eslint/no-unused-vars */
-        filename: $1, // We will use `id` from rollup instead
-        include: $2, // Rollup's filter is incompatible with swc's filter
-        exclude: $3,
-        tsconfig: $4, // swc doesn't have tsconfig option
-        minify: $5, // We will disable minify during transform, and perform minify in renderChunk
-        /* eslint-enable @typescript-eslint/no-unused-vars */
+        filename: _1, // We will use `id` from rollup instead
+        include: _2, // Rollup's filter is incompatible with swc's filter
+        exclude: _3,
+        tsconfig: _4, // swc doesn't have tsconfig option
+        minify: _5, // We will disable minify during transform, and perform minify in renderChunk
         ...restSwcOptions
       } = options;
 
