@@ -1,4 +1,4 @@
-import type { Plugin } from 'rollup';
+import type { Plugin as RollupPlugin } from 'rollup';
 
 import fs from 'fs';
 import { extname, resolve, dirname, join } from 'path';
@@ -55,7 +55,7 @@ const resolveFile = async (resolved: string, index = false) => {
   return null;
 };
 
-function swc(options: PluginOptions = {}): Plugin {
+function swc(options: PluginOptions = {}): RollupPlugin {
   const filter = createFilter(
     options.include || INCLUDE_REGEXP,
     options.exclude || EXCLUDE_REGEXP
@@ -177,7 +177,7 @@ function swc(options: PluginOptions = {}): Plugin {
   };
 }
 
-function minify(options: JsMinifyOptions = {}): Plugin {
+function minify(options: JsMinifyOptions = {}): RollupPlugin {
   return {
     name: 'swc-minify',
 
