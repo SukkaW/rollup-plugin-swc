@@ -1,4 +1,4 @@
-import module from 'module';
+import { builtinModules } from 'module';
 
 import { rollup as rollup2 } from 'rollup';
 import { rollup as rollup3 } from 'rollup3';
@@ -8,9 +8,10 @@ import { swc, defineRollupSwcOption } from '../src/index';
 
 import pkg from '../package.json';
 const deps = Object.keys(pkg.dependencies);
+const peerDeps = Object.keys(pkg.peerDependencies);
 
 async function main() {
-  const external = ['@swc/core', ...deps, ...module.builtinModules];
+  const external = [...deps, ...peerDeps, ...builtinModules];
 
   async function build() {
     const bundle = await rollup3({
@@ -20,6 +21,9 @@ async function main() {
         jsc: {
           target: 'es2019'
         }
+      // The return type of swc() is `import('rollup2').Plugin` while the required type is `import('rollup3').Plugin`
+      // Although they are identical, typescript is not happy about that
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       })) as any]
     });
 
