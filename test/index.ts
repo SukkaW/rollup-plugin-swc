@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
-import { rollup, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
-import { rollup as rollup3 } from 'rollup3';
+import { rollup } from 'rollup2';
+import { rollup as rollup3, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
 
 import { swc, type PluginOptions, minify } from '../src';
 import json from '@rollup/plugin-json';
@@ -62,7 +62,7 @@ const runMinify = async (
 ) => {
   const build = await rollup({
     input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
-    plugins: [...otherRollupPlugins, minify(options)]
+    plugins: [...otherRollupPlugins, minify(options)] as any
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
   return output;

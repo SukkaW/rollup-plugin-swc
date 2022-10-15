@@ -1,7 +1,6 @@
 import { builtinModules } from 'module';
 
-import { rollup as rollup2 } from 'rollup';
-import { rollup as rollup3 } from 'rollup3';
+import { rollup } from 'rollup';
 
 import dts from 'rollup-plugin-dts';
 import { swc, defineRollupSwcOption } from '../src/index';
@@ -14,7 +13,7 @@ async function main() {
   const external = [...deps, ...peerDeps, ...builtinModules];
 
   async function build() {
-    const bundle = await rollup3({
+    const bundle = await rollup({
       input: './src/index.ts',
       external,
       plugins: [swc(defineRollupSwcOption({
@@ -34,8 +33,7 @@ async function main() {
   }
 
   async function createDtsFile() {
-    // rollup-plugin-dts not yet support rollup 3, use rollup 2 to build the d.ts file
-    const bundle = await rollup2({
+    const bundle = await rollup({
       input: './src/index.ts',
       external,
       plugins: [dts()]
