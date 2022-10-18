@@ -12,15 +12,14 @@
 | `minify` your bundle in one pass[^1]           | Yes                                                                     | No                                                                            | No                                                                                  |
 | Standalone `swcMinify` plugin                  | Yes                                                                     | No                                                                            | No                                                                                  |
 | Config Intellisense[^2]                        | Yes                                                                     | No                                                                            | No                                                                                  |
-| Reads your `tsconfig.json` and `jsconfig.json` | Yes[^3]                                                                 | No                                                                            | No                                                                                  |
-| ESM export                                     | Full                                                                    | Partial[^4]                                                                   | No                                                                                  |
+| Reads your `tsconfig.json` and `jsconfig.json` | Yes                                                                     | No                                                                            | No                                                                                  |
+| ESM export                                     | Full                                                                    | Partial[^3]                                                                   | No                                                                                  |
 | TypeScrit declarations                         | Yes                                                                     | Yes                                                                           | Yes                                                                                 |
 | Has testing                                    | Yes                                                                     | No                                                                            | No                                                                                  |
 
 [^1]: If minify is called in Rollup's `transform` phase, every individual module processed will result in a minify call. However, if minify is called in Rollup's `renderChunk` phase, the minify will only be called once in one whole pass before Rollup generates bundle, results in a faster build.
 [^2]: Autocompletion and type checking in your IDE
-[^3]: `extends` is not supported.
-[^4]: `mentaljam/rollup-plugin-swc` has both `main` and `module` fields in `package.json`, but has no `exports` field.
+[^3]: `mentaljam/rollup-plugin-swc` has both `main` and `module` fields in `package.json`, but has no `exports` field.
 
 ## Install
 
