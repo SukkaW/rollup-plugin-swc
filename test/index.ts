@@ -1,6 +1,8 @@
 import path from 'path';
 import fs from 'fs';
-import { rollup, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
+import { rollup } from 'rollup2';
+import { rollup as rollup3, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
+
 import { swc, type PluginOptions, minify } from '../src';
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
@@ -24,6 +26,7 @@ const realFs = (folderName: string, files: Record<string, string>) => {
 };
 
 const build = async (
+  rollupImpl: typeof rollup | typeof rollup3,
   options?: PluginOptions,
   {
     input = './fixture/index.js',
@@ -39,9 +42,9 @@ const build = async (
     external?: ExternalOption
   } = {}
 ) => {
-  const build = await rollup({
+  const build = await rollupImpl({
     input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
-    plugins: [...otherRollupPlugins, swc(options)],
+    plugins: [...otherRollupPlugins, swc(options)] as any,
     external
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
@@ -59,7 +62,7 @@ const runMinify = async (
 ) => {
   const build = await rollup({
     input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
-    plugins: [...otherRollupPlugins, minify(options)]
+    plugins: [...otherRollupPlugins, minify(options)] as any
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
   return output;
@@ -67,13 +70,7 @@ const runMinify = async (
 
 const getTestName = () => String(Date.now());
 
-describe('swc', () => {
-  after(() => {
-    if (fs.existsSync(tmpDir)) {
-      fs.rmSync(tmpDir, { recursive: true });
-    }
-  });
-
+const tests = (rollupImpl: typeof rollup | typeof rollup3) => {
   it('simple', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.js': `
@@ -94,7 +91,7 @@ describe('swc', () => {
         export default bar
       `
     });
-    const output = await build({}, { dir });
+    const output = await build(rollupImpl, {}, { dir });
     output[0].code.should.equal(`function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
@@ -133,7 +130,7 @@ console.log(bar);\n`);
         }
       `
     });
-    const output = await build({ minify: true, jsc: { target: 'es2022' } }, { dir });
+    const output = await build(rollupImpl, { minify: true, jsc: { target: 'es2022' } }, { dir });
     output[0].code.should.equal('class e{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(e);\n');
   });
 
@@ -163,7 +160,7 @@ console.log(bar);\n`);
       `
     });
 
-    const output = await build({ jsc: { target: 'es2022' } }, { dir });
+    const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
 
     output[0].code.should.equal(`class Foo {
     render() {
@@ -191,6 +188,7 @@ console.log(Foo);
     });
 
     const output = await build(
+      rollupImpl,
       {},
       { otherRollupPlugins: [json()], dir }
     );
@@ -219,6 +217,7 @@ console.log(foo$1);
       `
     });
     const output = await build(
+      rollupImpl,
       { jsc: { target: 'es2022' } },
       { otherRollupPlugins: [commonjs()], dir }
     );
@@ -252,7 +251,7 @@ export { fixture as default };
       `
     });
 
-    const output = await build({}, { input: './fixture/index.tsx', dir });
+    const output = await build(rollupImpl, {}, { input: './fixture/index.tsx', dir });
     output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };\n`);
@@ -272,7 +271,7 @@ export { foo };\n`);
       `
     });
 
-    const output = await build({}, { input: './fixture/index.tsx', dir });
+    const output = await build(rollupImpl, {}, { input: './fixture/index.tsx', dir });
     output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };\n`);
@@ -308,7 +307,7 @@ export { foo };\n`);
     });
 
     (
-      await build({ tsconfig: 'tsconfig.react-jsx.json' }, { input: './fixture/index.tsx', dir, external: 'react/jsx-runtime' })
+      await build(rollupImpl, { tsconfig: 'tsconfig.react-jsx.json' }, { input: './fixture/index.tsx', dir, external: 'react/jsx-runtime' })
     )[0].code.should.equal(`import { jsx } from 'react/jsx-runtime';
 
 function Foo() {
@@ -320,7 +319,7 @@ function Foo() {
 export { Foo };\n`);
 
     (
-      await build({ tsconfig: 'tsconfig.react-jsxdev.json' }, { input: './fixture/index.tsx', dir, external: 'react/jsx-dev-runtime' })
+      await build(rollupImpl, { tsconfig: 'tsconfig.react-jsxdev.json' }, { input: './fixture/index.tsx', dir, external: 'react/jsx-dev-runtime' })
     )[0].code.should.equal(`import { jsxDEV } from 'react/jsx-dev-runtime';
 
 function Foo() {
@@ -336,7 +335,7 @@ function Foo() {
 export { Foo };\n`);
 
     (
-      await build({ tsconfig: 'tsconfig.compiled.json' }, { input: './fixture/index.tsx', dir, external: '@compiled/react/jsx-runtime' })
+      await build(rollupImpl, { tsconfig: 'tsconfig.compiled.json' }, { input: './fixture/index.tsx', dir, external: '@compiled/react/jsx-runtime' })
     )[0].code.should.equal(`import { jsx } from '@compiled/react/jsx-runtime';
 
 function Foo() {
@@ -369,7 +368,7 @@ export { Foo };\n`);
     `
     });
 
-    const output = await build({}, { input: './fixture/index.tsx', dir });
+    const output = await build(rollupImpl, {}, { input: './fixture/index.tsx', dir });
     output[0].code.should.equal(`var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));
 
 export { foo };
@@ -398,6 +397,7 @@ export { foo };
     });
 
     const output = await build(
+      rollupImpl,
       { tsconfig: 'tsconfig.build.json' },
       { input: './fixture/index.jsx', dir }
     );
@@ -427,7 +427,7 @@ export { foo };
       `
     });
 
-    const output = await build({ jsc: { target: 'es2022' } }, { dir });
+    const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
     output[0].code.should.eq(`const util = 42;
 
 class Foo {
@@ -468,6 +468,7 @@ console.log(Foo);\n`);
     });
 
     (await build(
+      rollupImpl,
       {},
       { input: './fixture/index.jsx', dir }
     ))[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
@@ -476,6 +477,7 @@ export { foo };
 `);
 
     (await build(
+      rollupImpl,
       { tsconfig: 'jsconfig.json' },
       { input: './fixture/index.jsx', dir }
     ))[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
@@ -515,6 +517,7 @@ export { foo };
     });
 
     (await build(
+      rollupImpl,
       {},
       { input: './fixture/index.jsx', dir }
     ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
@@ -544,10 +547,31 @@ export { baz };
     const tsconfigPath = path.resolve(dir, './fixture/foo/bar/tsconfig.json');
 
     (await build(
+      rollupImpl,
       { tsconfig: tsconfigPath },
       { input: './fixture/index.jsx', dir }
     ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
 export { foo };
 `);
   });
+};
+
+describe('swc (rollup 2)', () => {
+  after(() => {
+    if (fs.existsSync(tmpDir)) {
+      fs.rmSync(tmpDir, { recursive: true });
+    }
+  });
+
+  tests(rollup);
+});
+
+describe('swc (rollup 3)', () => {
+  after(() => {
+    if (fs.existsSync(tmpDir)) {
+      fs.rmSync(tmpDir, { recursive: true });
+    }
+  });
+
+  tests(rollup3);
 });
