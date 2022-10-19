@@ -1,3 +1,8 @@
+## 0.7.0
+
+- Add Rollup 3.0.0 support.
+  - `rollup-plugin-swc` now supports both Rollup 2 and Rollup 3.
+
 ## 0.6.0
 
 - Supports `extends` from `tsconfig.json`/`jsconfig.json`.
