@@ -17,6 +17,7 @@ import { getOptions } from './options';
 export type PluginOptions = {
   include?: FilterPattern
   exclude?: FilterPattern
+  extensions?: string[]
   /**
    * Use given tsconfig file instead
    * Disable it by setting to `false`
@@ -60,6 +61,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
     options.include || INCLUDE_REGEXP,
     options.exclude || EXCLUDE_REGEXP
   );
+  const extensions = ACCEPTED_EXTENSIONS.concat(options.extensions || []);
 
   return {
     name: 'swc',
@@ -92,7 +94,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
 
       const ext = extname(id);
 
-      if (!ACCEPTED_EXTENSIONS.includes(ext)) return null;
+      if (!extensions.includes(ext)) return null;
 
       const isTypeScript = ext === '.ts' || ext === '.tsx';
       const isTsx = ext === '.tsx';
