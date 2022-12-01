@@ -75,24 +75,43 @@ export default {
 const swcPluginConfig = {}
 ```
 
-- `include` and `exclude` can be `String | RegExp | Array<String | RegExp>`, when supplied it will override default values.
-- `rollup-plugin-swc` will read your `tsconfig.json` or [`jsconfig.json`](https://code.visualstudio.com/docs/languages/jsconfig) for default values if your doesn't provide corresponding swc options:
-  - The configuration your passed to `rollup-plugin-swc` will always have the highest priority (higher than `tsconfig.json`/`jsconfig.json`).
-  - `rollup-plugin-swc` will find the nearest `tsconfig.json`/`jsconfig.json` from the file that is currently being transpiled (just like `tsc`).
-    - With `tsconfig` option, you can also provide a custom filename (E.g. `tsconfig.rollup.json`, `jsconfig.compile.json`) for `rollup-plugin-swc` to find and resolve.
-    - You can also provide a full path (E.g. `/path/to/your/tsconfig.json`) to `tsconfig` option, and `rollup-plugin-swc` will only use the provided path as a single source of truth.
-  - You can stop `rollup-plugin-swc` from reading `tsconfig.json`/`jsconfig.json` by setting `tsconfig` option to `false`.
-  - `jsconfig.json` will be ignored if `tsconfig.json` and `jsconfig.json` both exist.
-  - The `extends` of `tsconfig.json`/`jsconfig.json` is ~~not supported~~ now supported.
-  - `target` will be passed to swc's `jsc.target`.
-  - `jsxImportSource`, `jsxFactory`, and `jsxFragmentFactory` will be passed to swc's `jsc.transform.react.importSource`, `jsc.transform.react.pragma` and `jsc.transform.react.pragmaFrag`.
-  - When `jsx` is either `react-jsx` or `react-jsxdev`, swc's `jsc.transform.react.runtime` will be `automatic`, otherwise it will be `classic`.
-    - Note that `jsx: preserve` will be ignored and swc will always transpile your jsx into javascript code.
-    - When `jsx` is `react-jsxdev`, swc's `jsc.transform.react.development` will also be enabled.
-  - `baseUrl` and `paths` will be passed to swc's `jsc.baseUrl` and `jsx.paths` directly. They won't affect how rollup resolve your imports. If you have encounted any issue during bundling, please use other plugins to resolve your imports' aliases (e.g., add [rollup-plugin-typescript-paths](https://www.npmjs.com/package/rollup-plugin-typescript-paths) or [rollup-plugin-tsconfig-paths](https://www.npmjs.com/package/rollup-plugin-tsconfig-paths) before `@rollup/plugin-node-resolve`).
-  - `importHelpers` will be passed to swc's `jsc.externalHelpers`, so you will have to have `@swc/helpers` avaliable in your project when enabled.
-  - `experimentalDecorators` and `emitDecoratorMetadata` will be passed to swc's `jsc.parser.decorators` and `jsc.transform.decoratorMetadata`.
-  - `esModuleInterop` will always be ignored, as swc requires `module.type` to exist when `module.noInterop` is given.
+### `exclude`
+
+- Type: `string | RegExp | Array<String | RegExp>`
+- Default: `/node_modules/`
+
+A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patterns, which specifies the files in the build the plugin should *ignore*.
+
+### `include`
+
+- Type: `string | RegExp | Array<String | RegExp>`
+- Default: `/\.[mc]?[jt]sx?$/`
+
+A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patterns, which specifies the files in the build the plugin should operate on.
+
+### `tsconfig`
+
+- Type: `string | false | undefined`
+- Default: `'tsconfig.json'`
+
+`rollup-plugin-swc` will read your `tsconfig.json` or [`jsconfig.json`](https://code.visualstudio.com/docs/languages/jsconfig) for default values if your doesn't provide corresponding swc options:
+
+- The configuration your passed to `rollup-plugin-swc` will always have the highest priority (higher than `tsconfig.json`/`jsconfig.json`).
+- `rollup-plugin-swc` will find the *nearest* `tsconfig.json`/`jsconfig.json` from the file that is currently being transpiled. This behavior is slightly different from `tsc`.
+  - You can also provide a custom filename (E.g. `tsconfig.rollup.json`, `jsconfig.compile.json`) to `tsconfig` option, and `rollup-plugin-swc` will find and resolve the *nearest* file with that filename.
+  - You can also provide an absolute path (E.g. `/path/to/your/tsconfig.json`) to `tsconfig` option, and `rollup-plugin-swc` will only use the provided path as a single source of truth.
+- You can prevent `rollup-plugin-swc` from reading `tsconfig.json`/`jsconfig.json` by setting `tsconfig` option to `false`.
+- `jsconfig.json` will be ignored if `tsconfig.json` and `jsconfig.json` both exist.
+- The `extends` of `tsconfig.json`/`jsconfig.json` is ~~not supported~~ now supported.
+- `compilerOptions.target` will be passed to swc's `jsc.target`.
+- `compilerOptions.jsxImportSource`, `compilerOptions.jsxFactory`, and `compilerOptions.jsxFragmentFactory` will be passed to swc's `jsc.transform.react.importSource`, `jsc.transform.react.pragma` and `jsc.transform.react.pragmaFrag`.
+- When `compilerOptions.jsx` is either `react-jsx` or `react-jsxdev`, swc's `jsc.transform.react.runtime` will be `automatic`, otherwise it will be `classic`.
+  - `compilerOptions.jsx: react-jsxdev` will also set swc's `jsc.transform.react.development` to `true`.
+  - `compilerOptions.jsx: preserve` will be ignored. swc will always transpile your jsx into javascript code.
+- `compilerOptions.baseUrl` and `compilerOptions.paths` will be passed to swc's `jsc.baseUrl` and `jsc.paths` directly. They won't affect how rollup resolve your imports. If you have encounted any issue during bundling, please use other plugins to resolve your imports' aliases (e.g., add [rollup-plugin-typescript-paths](https://www.npmjs.com/package/rollup-plugin-typescript-paths) or [rollup-plugin-tsconfig-paths](https://www.npmjs.com/package/rollup-plugin-tsconfig-paths) before `@rollup/plugin-node-resolve`).
+- `compilerOptions.importHelpers` will be passed to swc's `jsc.externalHelpers`. You will have to have `@swc/helpers` avaliable in your project when enabled.
+- `compilerOptions.experimentalDecorators` and `compilerOptions.emitDecoratorMetadata` will be passed to swc's `jsc.parser.decorators` and `jsc.transform.decoratorMetadata`.
+- `compilerOptions.esModuleInterop` will always be **ignored**, as swc requires `module.type` to exist when `module.noInterop` is given.
 
 ### Standalone Minify Plugin
 
