@@ -17,11 +17,12 @@ import { getOptions } from './options';
 export type PluginOptions = {
   include?: FilterPattern
   exclude?: FilterPattern
+  extensions?: string[] | undefined
   /**
    * Use given tsconfig file instead
    * Disable it by setting to `false`
    */
-  tsconfig?: string | false
+  tsconfig?: string | false | undefined
 } & Pick<SwcOptions, Exclude<keyof SwcOptions, 'filename' & 'include' & 'exclude'>>;
 
 const INCLUDE_REGEXP = /\.[mc]?[jt]sx?$/;
@@ -43,23 +44,25 @@ const fileExists = (path: string) => {
     .catch(() => false);
 };
 
-const resolveFile = async (resolved: string, index = false) => {
-  const fileWithoutExt = resolved.replace(INCLUDE_REGEXP, '');
-
-  for (const ext of ACCEPTED_EXTENSIONS) {
-    const file = index ? join(resolved, `index${ext}`) : `${fileWithoutExt}${ext}`;
-    // We only check one file at a time, and we can return early
-    // eslint-disable-next-line no-await-in-loop
-    if (await fileExists(file)) return file;
-  }
-  return null;
-};
-
 function swc(options: PluginOptions = {}): RollupPlugin {
   const filter = createFilter(
     options.include || INCLUDE_REGEXP,
     options.exclude || EXCLUDE_REGEXP
   );
+
+  const extensions = options.extensions || ACCEPTED_EXTENSIONS;
+
+  const resolveFile = async (resolved: string, index = false) => {
+    const fileWithoutExt = resolved.replace(INCLUDE_REGEXP, '');
+
+    for (const ext of extensions) {
+      const file = index ? join(resolved, `index${ext}`) : `${fileWithoutExt}${ext}`;
+      // We only check one file at a time, and we can return early
+      // eslint-disable-next-line no-await-in-loop
+      if (await fileExists(file)) return file;
+    }
+    return null;
+  };
 
   return {
     name: 'swc',
@@ -91,10 +94,9 @@ function swc(options: PluginOptions = {}): RollupPlugin {
       }
 
       const ext = extname(id);
+      if (!extensions.includes(ext)) return null;
 
-      if (!ACCEPTED_EXTENSIONS.includes(ext)) return null;
-
-      const isTypeScript = ext === '.ts' || ext === '.tsx';
+      const isTypeScript = ext === '.ts' || ext === '.mts' || ext === '.cts' || ext === '.tsx';
       const isTsx = ext === '.tsx';
       const isJsx = ext === '.jsx';
 
@@ -140,7 +142,8 @@ function swc(options: PluginOptions = {}): RollupPlugin {
         include: _2, // Rollup's filter is incompatible with swc's filter
         exclude: _3,
         tsconfig: _4, // swc doesn't have tsconfig option
-        minify: _5, // We will disable minify during transform, and perform minify in renderChunk
+        extensions: _5, // swc doesn't have extensions option
+        minify: _6, // We will disable minify during transform, and perform minify in renderChunk
         ...restSwcOptions
       } = options;
 
@@ -156,15 +159,10 @@ function swc(options: PluginOptions = {}): RollupPlugin {
         }
       );
 
-      const { code: transformedCode, ...rest } = await swcTransform(
+      return swcTransform(
         code,
         swcOption
       );
-
-      return {
-        ...rest,
-        code: transformedCode
-      };
     },
 
     renderChunk(code: string) {
