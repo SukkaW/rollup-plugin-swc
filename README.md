@@ -184,9 +184,6 @@ export default {
       jsc: {
         experimental: {
           plugins: [['swc-plugin-vue-jsx', {}]] // npm i swc-plugin-vue-jsx
-          // To using this plugin
-          // you need install them
-          // npm i -D swc-plugin-vue-jsx
         }
       }
     })),
