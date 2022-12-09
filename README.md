@@ -174,20 +174,16 @@ You can either configure it in your `tsconfig.json` or in your `rollup.config.js
 
 ```js
 // Vue JSX
-import vueJsx from 'rollup-plugin-vue-jsx-compat'
 import { swc, defineRollupSwcOption } from 'rollup-plugin-swc3';
 
 export default {
   input: 'xxxx',
   output: {},
   plugins: [
-    vueJsx(),
     swc(defineRollupSwcOption({
       jsc: {
-        transform: {
-          react: {
-              pragma: 'vueJsxCompat'
-          }
+        experimental: {
+          plugins: [['swc-plugin-vue-jsx', {}]] // npm i swc-plugin-vue-jsx
         }
       }
     })),
@@ -203,7 +199,6 @@ export default {
   input: 'xxxx',
   output: {},
   plugins: [
-    vueJsx(),
     swc(defineRollupSwcOption({
       jsc: {
         transform:{
