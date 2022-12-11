@@ -554,6 +554,26 @@ export { baz };
 export { foo };
 `);
   });
+
+  it('target - include other files', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/module.cts': `
+        module.exports.foo = 'sukka';
+      `,
+      './fixture/index.mts': `
+        import { foo } from './module'
+        console.log(foo);
+      `
+    });
+
+    (await build(
+      rollupImpl,
+      { extensions: ['.ts', '.mts', '.cts'], tsconfig: false },
+      { input: './fixture/index.mts', dir, otherRollupPlugins: [commonjs({ extensions: ['.cts'] })] }
+    ))[0].code.should.equal(`var foo = "sukka";\n
+console.log(foo);
+`);
+  });
 };
 
 describe('swc (rollup 2)', () => {

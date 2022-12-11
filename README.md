@@ -82,6 +82,13 @@ const swcPluginConfig = {}
 
 A [picomatch pattern](https://github.com/micromatch/picomatch), or array of patterns, which specifies the files in the build the plugin should *ignore*.
 
+### `extensions`
+
+- Type: `string[]`
+- Default: `['.ts', '.tsx', '.mjs', '.js', '.cjs', '.jsx']`
+
+Specifies what kind of files that should be transpiled by swc. And for extensionless imports, the plugin will search and resolve files for extensions in the order specified.
+
 ### `include`
 
 - Type: `string | RegExp | Array<String | RegExp>`
