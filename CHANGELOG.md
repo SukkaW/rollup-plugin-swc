@@ -1,3 +1,9 @@
+## 0.8.0
+
+- Add new option `extensions`.
+  - Along with `include` / `exclude`, this provides a granular way to specify the files that will be processed by the plugin.
+  - For extensionless imports the plugin will search and resolve files for extensions in the order specified.
+
 ## 0.7.0
 
 - Add Rollup 3.0.0 support.
