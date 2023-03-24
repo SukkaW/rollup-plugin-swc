@@ -1,3 +1,7 @@
+## 0.8.1
+
+- Fix TypeScript declaration of `include` and `exclude` option (#32)
+
 ## 0.8.0
 
 - Add new option `extensions`.

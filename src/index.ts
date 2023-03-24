@@ -138,6 +138,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
       };
 
       const {
+        // @ts-expect-error -- We have to make sure that we don't pass these options to swc
         filename: _1, // We will use `id` from rollup instead
         include: _2, // Rollup's filter is incompatible with swc's filter
         exclude: _3,
