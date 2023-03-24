@@ -23,7 +23,7 @@ export type PluginOptions = {
    * Disable it by setting to `false`
    */
   tsconfig?: string | false | undefined
-} & Pick<SwcOptions, Exclude<keyof SwcOptions, 'filename' & 'include' & 'exclude'>>;
+} & Omit<SwcOptions, 'filename' | 'include' | 'exclude'>;
 
 const INCLUDE_REGEXP = /\.[mc]?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
