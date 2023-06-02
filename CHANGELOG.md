@@ -1,3 +1,7 @@
+## 0.8.2
+
+- Enable CI auto publish release + npm provenance
+
 ## 0.8.1
 
 - Fix TypeScript declaration of `include` and `exclude` option (#32)
