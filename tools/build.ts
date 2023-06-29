@@ -42,7 +42,7 @@ async function main() {
     return bundle.write({ file: './dist/index.d.ts' });
   }
 
-  return Promise.all([build(), createDtsFile()]);
+  return Promise.all([build(), createDtsFile()]).then(() => console.log('build finished!'));
 }
 
 main().catch(err => {

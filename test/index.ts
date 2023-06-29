@@ -92,21 +92,39 @@ const tests = (rollupImpl: typeof rollup | typeof rollup3) => {
       `
     });
     const output = await build(rollupImpl, {}, { dir });
-    output[0].code.should.equal(`function _classCallCheck(instance, Constructor) {
+    output[0].code.should.equal(`function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError("Cannot call a class as a function");
     }
 }
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
 var Foo = /*#__PURE__*/ function() {
     function Foo() {
-        _classCallCheck(this, Foo);
+        _class_call_check(this, Foo);
     }
-    var _proto = Foo.prototype;
-    _proto.render = function render() {
-        return /*#__PURE__*/ React.createElement("div", {
-            className: "hehe"
-        }, "hello there!!!");
-    };
+    _create_class(Foo, [
+        {
+            key: "render",
+            value: function render() {
+                return /*#__PURE__*/ React.createElement("div", {
+                    className: "hehe"
+                }, "hello there!!!");
+            }
+        }
+    ]);
     return Foo;
 }();
 
@@ -131,7 +149,7 @@ console.log(bar);\n`);
       `
     });
     const output = await build(rollupImpl, { minify: true, jsc: { target: 'es2022' } }, { dir });
-    output[0].code.should.equal('class e{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(e);\n');
+    output[0].code.should.equal('class Foo{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(Foo);\n');
   });
 
   it('standalone minify', async () => {
@@ -230,7 +248,7 @@ var bar = {};
 bar.Bar = 'bar';
 
 const Foo = foo;
-const { Bar  } = bar;
+const { Bar } = bar;
 console.log(Foo, Bar);
 
 export { fixture as default };
