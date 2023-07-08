@@ -3,10 +3,12 @@ import type { Plugin as RollupPlugin } from 'rollup';
 import fs from 'fs';
 import { extname, resolve, dirname, join } from 'path';
 import { createFilter, type FilterPattern } from '@rollup/pluginutils';
+import type {
+  Options as SwcOptions,
+  JscTarget,
+  JsMinifyOptions
+} from '@swc/core';
 import {
-  type Options as SwcOptions,
-  type JscTarget,
-  type JsMinifyOptions,
   transform as swcTransform,
   minify as swcMinify
 } from '@swc/core';
@@ -196,3 +198,4 @@ function defineRollupSwcMinifyOption(option: JsMinifyOptions) {
 
 export default swc;
 export { swc, defineRollupSwcOption, minify, defineRollupSwcMinifyOption };
+export { preserveUseDirective } from './directive';

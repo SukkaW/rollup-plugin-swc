@@ -5,6 +5,8 @@
 
 [SWC](https://swc.rs/) is an extensible Rust-based platform for the next generation of fast developer tools. This plugin is designed to replace `rollup-plugin-typescript2`, `@rollup/plugin-typescript`, `@rollup/plugin-babel` and `rollup-plugin-terser` for you.
 
+**New:** Build library for React Server Component is now supported! `'use client'` and `'use server'` directives now are handled properly, without triggering rollup warnings. [Start using `'use client'` and `'use server'` in your library by adding two lines in your `rollup.config.js`](#react-server-component-directives-use-client-and-use-server)
+
 ## Comparison
 
 |                                                | [sukkaw/rollup-plugin-swc](https://github.com/SukkaW/rollup-plugin-swc) | [mentaljam/rollup-plugin-swc](https://github.com/mentaljam/rollup-plugin-swc) | [nicholasxjy/rollup-plugin-swc2](https://github.com/nicholasxjy/rollup-plugin-swc2) | [@rollup/plugin-swc](https://github.com/rollup/plugins/tree/master/packages/swc) |
@@ -159,6 +161,104 @@ export default {
 /** @type {import('@swc/core').JsMinifyOptions} */
 const swcMinifyConfig = {}
 ```
+
+### React Server Component directives (`'use client'` and `'use server'`)
+
+Since version `0.9.0`, the support for `'use client'` and `'use server'` has been added:
+
+```js
+// Import `preserveUseDirective` from `rollup-plugin-swc3`...
+import { swc, preserveUseDirective } from 'rollup-plugin-swc3';
+
+// rollup.config.js
+import { swc } from 'rollup-plugin-swc3';
+
+export default {
+  input: 'xxxx',
+  output: {},
+  plugins: [
+    swc(),
+    // And add `preserveUseDirective` plugin after the `swc` plugin
+    preserveUseDirective()
+  ];
+}
+```
+
+And that is it!
+
+`preserveUseDirective` supports:
+
+- Merging duplicated directives in the output bundles
+
+  ```js
+  // src/foo.js
+  'use sukka';
+  'use foxtail';
+
+  export const foo = 'foo';
+
+  // src/bar.js
+  'use sukka';
+  export const bar = 'bar';
+
+  // src/index.js
+  export { foo } from './foo';
+  export { bar } from './bar';
+
+  // rollup.config.js
+  export default {
+    input: 'src/index.js',
+    output: { file: 'dist/index.js' }
+    plugins: [swc(), preserveUseDirective()]
+  }
+
+  // dist/index.js
+  'use sukka';
+  'use foxtail';
+
+  const foo = 'foo';
+  const bar = 'bar';
+
+  export { foo, bar };
+  ```
+
+- When bundle React Client Component and React Server Component separately, mutiple entries will have their own separated and correct directives:
+
+  ```js
+  // src/client.js
+  'use client';
+  import { useState } from 'react';
+  export const Foo = () => { useState('client-only code') };
+
+  // src/server.js
+  'use server';
+  import 'fs';
+  export const bar = 'server only code';
+
+  // rollup.config.js
+  export default {
+    // let rollup bundle client and server separately by adding two entries
+    input: {
+      client: 'src/client.js',
+      server: 'src/server.js'
+    },
+    // output both client bundle and server bundle in the "dist/" directory
+    output: { dir: 'dist/', entryFileName: '[name].js' }
+    plugins: [swc(), preserveUseDirective()]
+  }
+
+  // dist/client.js
+  'use client';
+  import { useState } from 'react';
+  const Foo = () => { useState('client-only code') };
+  export { Foo };
+
+  // dist/server.js
+  'use server';
+  import 'fs';
+  const bar = 'server only code';
+  export { bar };
+  ```
 
 ### Write your Rollup config in TypeScript
 
