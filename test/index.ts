@@ -1,10 +1,11 @@
 import path from 'path';
 import fs from 'fs';
 import { rollup } from 'rollup2';
-import { rollup as rollup3, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
+import { rollup as rollup3 } from 'rollup';
+import type { Plugin as RollupPlugin, ExternalOption, InputOption, RollupOutput } from 'rollup';
 
 import type { PluginOptions } from '../src';
-import { swc, minify } from '../src';
+import { swc, minify, preserveUseDirective } from '../src';
 
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
@@ -14,6 +15,16 @@ import type { JsMinifyOptions } from '@swc/core';
 
 import { should } from 'chai';
 should();
+
+const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) => {
+  if (v == null) {
+    throw new Error('Invariant failed');
+  }
+  if (!('code' in v)) {
+    throw new Error('Non rollup output module found!');
+  }
+  return v;
+};
 
 const tmpDir = path.join(tmpdir() ?? __dirname, '.temp-rollup-plugin-swc-testing');
 
@@ -33,20 +44,33 @@ const build = async (
   {
     input = './fixture/index.js',
     otherRollupPlugins = [],
+    otherRollupPluginsAfterSwc = [],
     sourcemap = false,
     dir = '.',
     external
   }: {
-    input?: string | string[]
+    input?: InputOption
     otherRollupPlugins?: RollupPlugin[]
+    otherRollupPluginsAfterSwc?: RollupPlugin[]
     sourcemap?: boolean
     dir?: string,
     external?: ExternalOption
   } = {}
 ) => {
   const build = await rollupImpl({
-    input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
-    plugins: [...otherRollupPlugins, swc(options)] as any,
+    input: (() => {
+      if (typeof input === 'string') {
+        return path.resolve(dir, input);
+      }
+      if (Array.isArray(input)) {
+        return input.map((v) => path.resolve(dir, v));
+      }
+      return Object.entries(input).reduce<Record<string, string>>((acc, [key, value]) => {
+        acc[key] = path.resolve(dir, value);
+        return acc;
+      }, {});
+    })(),
+    plugins: [...otherRollupPlugins, swc(options), ...otherRollupPluginsAfterSwc] as any,
     external
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
@@ -592,6 +616,98 @@ export { foo };
       { input: './fixture/index.mts', dir, otherRollupPlugins: [commonjs({ extensions: ['.cts'] })] }
     ))[0].code.should.equal(`var foo = "sukka";\n
 console.log(foo);
+`);
+  });
+
+  it('directive - include "use client"', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.tsx': `
+      'use client'
+
+      export default function client() {
+        return React.useState(null) 
+      }
+      `
+    });
+
+    (await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './fixture/index.tsx', dir, otherRollupPluginsAfterSwc: [preserveUseDirective()] }
+    ))[0].code.should.equal(`'use client';
+function client() {
+    return React.useState(null);
+}
+
+export { client as default };
+`);
+  });
+
+  it('directive - merge "use client"', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/foo.ts': `
+        "use client";
+        "use sukka";
+        export const foo = 'sukka';
+      `,
+      './fixture/bar.ts': `
+        "use client";
+        export const bar = 'sukka';
+      `,
+      './fixture/index.tsx': `
+      export { foo } from './foo';
+      export { bar } from './bar';
+      `
+    });
+
+    (await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './fixture/index.tsx', dir, otherRollupPluginsAfterSwc: [preserveUseDirective()] }
+    ))[0].code.should.equal(`'use client';
+'use sukka';
+var foo = "sukka";
+
+var bar = "sukka";
+
+export { bar, foo };
+`);
+  });
+
+  it('directive - only output "use client" / "use server" in the specfic entry', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/client.ts': `
+        "use client";
+        export const foo = 'client';
+      `,
+      './fixture/server.ts': `
+        'use server';
+        export const bar = 'server';
+      `
+    });
+
+    const output = (await build(
+      rollupImpl,
+      { tsconfig: false },
+      {
+        input: {
+          client: './fixture/client.ts',
+          server: './fixture/server.ts'
+        },
+        dir, otherRollupPluginsAfterSwc: [preserveUseDirective()]
+      }
+    ));
+
+    rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code.should.equal(`'use client';
+var foo = "client";
+
+export { foo };
+`);
+
+    rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code.should.equal(`'use server';
+var bar = "server";
+
+export { bar };
 `);
   });
 };
