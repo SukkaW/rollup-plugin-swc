@@ -13,8 +13,10 @@
 
 import type { Plugin } from 'rollup';
 import { MagicString } from '@napi-rs/magic-string';
+import type { RenderedChunk } from 'rollup2';
 
 const isNonNull = <T>(val: T | null | undefined): val is T => val != null;
+const rDirectives = /^(?:['"]use[^'"]+['"][^\n]*|#![^\n]*)/gm;
 
 export function preserveUseDirective(): Plugin {
   const fileDirectivesMap = new Map<string, Set<string>>();
@@ -23,10 +25,9 @@ export function preserveUseDirective(): Plugin {
     name: 'preserve-use-directive',
 
     transform(code, id) {
-      const regex = /^(?:['"]use[^'"]+['"][^\n]*|#![^\n]*)/gm;
       const directives = new Set<string>();
 
-      const replacedCode = code.replace(regex, (match) => {
+      const replacedCode = code.replace(rDirectives, (match) => {
         // replace double quotes with single quotes
         directives.add(match.replace(/["]/g, '\''));
         return '';
@@ -41,7 +42,12 @@ export function preserveUseDirective(): Plugin {
     },
 
     renderChunk(code, chunk, { sourcemap }) {
-      const outputDirectives = chunk.moduleIds
+      // "chunk.moduleIds" is only avaliable in rollup 3. Add a fallback to be rollup 2 compatible
+      const moduleIds = 'moduleIds' in chunk
+        ? chunk.moduleIds
+        : Object.keys((chunk as RenderedChunk).modules);
+
+      const outputDirectives = moduleIds
         .map((id) => fileDirectivesMap.get(id))
         .filter(isNonNull)
         .reduce((acc, directives) => {
@@ -52,7 +58,7 @@ export function preserveUseDirective(): Plugin {
       if (outputDirectives.size === 0) return null;
 
       const s = new MagicString(code);
-      s.prepend(`${[...outputDirectives].join('\n')}\n`);
+      s.prepend(`${Array.from(outputDirectives).join('\n')}\n`);
 
       return {
         code: s.toString(),
