@@ -9,17 +9,12 @@ import pkg from '../package.json';
 const deps = Object.keys(pkg.dependencies);
 const peerDeps = Object.keys(pkg.peerDependencies);
 
-const entries = {
-  index: './src/index.ts',
-  directive: './src/directive.ts'
-};
-
 async function main() {
   const external = [...deps, ...peerDeps, ...builtinModules];
 
   async function build() {
     const bundle = await rollup({
-      input: entries,
+      input: './src/index.ts',
       external,
       plugins: [swc(defineRollupSwcOption({
         jsc: {
@@ -32,19 +27,19 @@ async function main() {
     });
 
     return Promise.all([
-      bundle.write({ dir: './dist/', entryFileNames: '[name].js', format: 'cjs', exports: 'named', interop: 'auto' }),
-      bundle.write({ dir: './dist/', entryFileNames: '[name].mjs', format: 'esm', exports: 'named', interop: 'auto' })
+      bundle.write({ file: './dist/index.js', format: 'cjs', exports: 'named', interop: 'auto' }),
+      bundle.write({ file: './dist/index.mjs', format: 'esm', exports: 'named', interop: 'auto' })
     ]);
   }
 
   async function createDtsFile() {
     const bundle = await rollup({
-      input: entries,
+      input: './src/index.ts',
       external,
       plugins: [dts()]
     });
 
-    return bundle.write({ dir: './dist/', entryFileNames: '[name].d.ts' });
+    return bundle.write({ file: './dist/index.d.ts' });
   }
 
   return Promise.all([build(), createDtsFile()]).then(() => console.log('build finished!'));

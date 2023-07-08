@@ -3,7 +3,9 @@ import fs from 'fs';
 import { rollup } from 'rollup2';
 import { rollup as rollup3, type Plugin as RollupPlugin, type ExternalOption } from 'rollup';
 
-import { swc, type PluginOptions, minify } from '../src';
+import type { PluginOptions } from '../src';
+import { swc, minify } from '../src';
+
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
 import { tmpdir } from 'os';

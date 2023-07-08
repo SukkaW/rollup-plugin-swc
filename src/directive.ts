@@ -16,7 +16,7 @@ import { MagicString } from '@napi-rs/magic-string';
 
 const isNonNull = <T>(val: T | null | undefined): val is T => val != null;
 
-export function preserveUseDirectivePlugin(): Plugin {
+export function preserveUseDirective(): Plugin {
   const fileDirectivesMap = new Map<string, Set<string>>();
 
   return {

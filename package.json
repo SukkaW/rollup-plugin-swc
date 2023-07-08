@@ -12,8 +12,8 @@
   "scripts": {
     "prepublishOnly": "npm run clean && npm run test && npm run build",
     "clean": "rimraf ./dist ./test/temp",
-    "build": "node -r @swc-node/register tools/build.ts",
-    "test": "mocha -r @swc-node/register -p tsconfig.json test/index.ts"
+    "build": "SWC_NODE_PROJECT=./tsconfig.json node -r @swc-node/register tools/build.ts",
+    "test": "SWC_NODE_PROJECT=./tsconfig.json mocha -r @swc-node/register test/index.ts"
   },
   "repository": {
     "type": "git",
@@ -27,11 +27,11 @@
   "homepage": "https://github.com/SukkaW/rollup-plugin-swc#readme",
   "dependencies": {
     "@fastify/deepmerge": "^1.3.0",
+    "@napi-rs/magic-string": "^0.3.4",
     "@rollup/pluginutils": "^4.2.1",
     "get-tsconfig": "^4.6.2"
   },
   "devDependencies": {
-    "@napi-rs/magic-string": "^0.3.4",
     "@rollup/plugin-commonjs": "^23.0.7",
     "@rollup/plugin-json": "^5.0.2",
     "@swc-node/register": "^1.6.6",
@@ -52,13 +52,11 @@
     "rollup": "^3.25.3",
     "rollup-plugin-dts": "^5.3.0",
     "rollup2": "npm:rollup@^2.79.1",
-    "ts-mocha": "^10.0.0",
     "typescript": "^5.1.6"
   },
   "peerDependencies": {
     "@swc/core": ">=1.2.165",
-    "rollup": "^2.0.0 || ^3.0.0",
-    "@napi-rs/magic-string": "*"
+    "rollup": "^2.0.0 || ^3.0.0"
   },
   "engines": {
     "node": ">=12"

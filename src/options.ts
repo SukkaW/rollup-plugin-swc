@@ -1,5 +1,7 @@
-import { getTsconfig, parseTsconfig, type TsConfigJson } from 'get-tsconfig';
+import { getTsconfig, parseTsconfig } from 'get-tsconfig';
 import path from 'path';
+
+import type { TsConfigJson } from 'get-tsconfig';
 
 const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
