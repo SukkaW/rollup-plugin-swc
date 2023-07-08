@@ -167,11 +167,9 @@ const swcMinifyConfig = {}
 Since version `0.9.0`, the support for `'use client'` and `'use server'` has been added:
 
 ```js
+// rollup.config.js
 // Import `preserveUseDirective` from `rollup-plugin-swc3`...
 import { swc, preserveUseDirective } from 'rollup-plugin-swc3';
-
-// rollup.config.js
-import { swc } from 'rollup-plugin-swc3';
 
 export default {
   input: 'xxxx',

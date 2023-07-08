@@ -1,3 +1,29 @@
+## 0.9.0
+
+- Add support for bundling library for React Server Component with the proper `'use client'` and `'use server'` directives handling:
+  - Merge duplicated directives in the final bundles
+  - Multiple output chunks will have their own separated directives, useful when bundling client only code and server only code in different bundles.
+  - Not enabled by default. manually opt-in by changing two lines of code in your `rollup.config.js`:
+
+  ```diff
+  // rollup.config.js
+  // Import `preserveUseDirective` from `rollup-plugin-swc3`...
+  - import { swc } from 'rollup-plugin-swc3';
+  + import { swc, preserveUseDirective } from 'rollup-plugin-swc3';
+
+  // rollup.config.js
+  import { swc } from 'rollup-plugin-swc3';
+
+  export default {
+    input: 'xxxx',
+    output: {},
+    plugins: [
+      swc(),
+  +   preserveUseDirective()
+    ];
+  }
+  ```
+
 ## 0.8.2
 
 - Enable CI auto publish release + npm provenance
