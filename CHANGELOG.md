@@ -1,3 +1,7 @@
+## 0.9.1
+
+- The support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-swc-preserve-directives`](https://github.com/huozhi/rollup-plugin-swc-preserve-directives), maintained by [@huozhi](https://github.com/huozhi) and me. The previous `preserveUseDirective` named export is retained for the backward compatibility.
+
 ## 0.9.0
 
 - Add support for bundling library for React Server Component with the proper `'use client'` and `'use server'` directives handling:
@@ -10,9 +14,6 @@
   // Import `preserveUseDirective` from `rollup-plugin-swc3`...
   - import { swc } from 'rollup-plugin-swc3';
   + import { swc, preserveUseDirective } from 'rollup-plugin-swc3';
-
-  // rollup.config.js
-  import { swc } from 'rollup-plugin-swc3';
 
   export default {
     input: 'xxxx',
