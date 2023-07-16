@@ -5,7 +5,9 @@
 
 [SWC](https://swc.rs/) is an extensible Rust-based platform for the next generation of fast developer tools. This plugin is designed to replace `rollup-plugin-typescript2`, `@rollup/plugin-typescript`, `@rollup/plugin-babel` and `rollup-plugin-terser` for you.
 
-**New:** Build library for React Server Component is now supported! `'use client'` and `'use server'` directives now are handled properly, without triggering rollup warnings. [Start using `'use client'` and `'use server'` in your library by adding two lines in your `rollup.config.js`](#react-server-component-directives-use-client-and-use-server)
+**New:** Building library for React Server Component support is added in `0.9.0`! `'use client'` and `'use server'` directives now are handled properly, without triggering rollup warnings. [Start using `'use client'` and `'use server'` in your library by adding two lines in your `rollup.config.js`](#react-server-component-directives-use-client-and-use-server)
+
+> Since `0.9.1` the support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-swc-preserve-directives`](https://github.com/huozhi/rollup-plugin-swc-preserve-directives), the previous `preserveUseDirective` named export is retained for the backward compatability.
 
 ## Comparison
 
@@ -164,27 +166,38 @@ const swcMinifyConfig = {}
 
 ### React Server Component directives (`'use client'` and `'use server'`)
 
-Since version `0.9.0`, the support for `'use client'` and `'use server'` has been added:
+~~Since version `0.9.0`, the support for `'use client'` and `'use server'` has been added:~~
+
+> The support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-swc-preserve-directives`](https://github.com/huozhi/rollup-plugin-swc-preserve-directives), maintained by [@huozhi](https://github.com/huozhi) and me. The previous `preserveUseDirective` named export is retained for the backward compatibility.
+
+```bash
+# npm
+npm install -D rollup-swc-preserve-directives
+# yarn
+yarn add -D rollup-swc-preserve-directives
+# pnpm
+pnpm add -D rollup-swc-preserve-directives
+```
 
 ```js
 // rollup.config.js
-// Import `preserveUseDirective` from `rollup-plugin-swc3`...
-import { swc, preserveUseDirective } from 'rollup-plugin-swc3';
+import { swc } from 'rollup-plugin-swc3';
+import swcPreserveDirectives from 'rollup-swc-preserve-directives';
 
 export default {
   input: 'xxxx',
   output: {},
   plugins: [
     swc(),
-    // And add `preserveUseDirective` plugin after the `swc` plugin
-    preserveUseDirective()
+    // And add `swcPreserveDirectives` plugin after the `swc` plugin
+    swcPreserveDirectives()
   ];
 }
 ```
 
 And that is it!
 
-`preserveUseDirective` supports:
+`swcPreserveDirectives` supports:
 
 - Merging duplicated directives in the output bundles
 
@@ -207,7 +220,7 @@ And that is it!
   export default {
     input: 'src/index.js',
     output: { file: 'dist/index.js' }
-    plugins: [swc(), preserveUseDirective()]
+    plugins: [swc(), swcPreserveDirectives()]
   }
 
   // dist/index.js
@@ -242,7 +255,7 @@ And that is it!
     },
     // output both client bundle and server bundle in the "dist/" directory
     output: { dir: 'dist/', entryFileName: '[name].js' }
-    plugins: [swc(), preserveUseDirective()]
+    plugins: [swc(), swcPreserveDirectives()]
   }
 
   // dist/client.js
