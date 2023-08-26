@@ -49,10 +49,10 @@ const build = async (
     dir = '.',
     external
   }: {
-    input?: InputOption
-    otherRollupPlugins?: RollupPlugin[]
-    otherRollupPluginsAfterSwc?: RollupPlugin[]
-    sourcemap?: boolean
+    input?: InputOption,
+    otherRollupPlugins?: RollupPlugin[],
+    otherRollupPluginsAfterSwc?: RollupPlugin[],
+    sourcemap?: boolean,
     dir?: string,
     external?: ExternalOption
   } = {}
@@ -446,6 +446,38 @@ export { foo };
       { input: './fixture/index.jsx', dir }
     );
     output[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
+
+export { foo };
+`);
+  });
+
+  it('disable reading tsconfig.json', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.jsx': `
+        export const foo = 1;
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": {
+            "target": "esnext"
+          }
+        }
+      `,
+      './fixture/.swcrc': `
+      {
+        "env": {
+          "targets": "defaults, not dead"
+        }
+      }
+      `
+    });
+
+    const output = await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './fixture/index.jsx', dir }
+    );
+    output[0].code.should.equal(`const foo = 1;
 
 export { foo };
 `);
