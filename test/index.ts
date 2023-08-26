@@ -451,7 +451,7 @@ export { foo };
 `);
   });
 
-  it('disable reading tsconfig.json', async () => {
+  it('disable reading tsconfig.json (issue #42)', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.jsx': `
         export const foo = 1;
@@ -464,6 +464,38 @@ export { foo };
         }
       `,
       './fixture/.swcrc': `
+      {
+        "env": {
+          "targets": "defaults, not dead"
+        }
+      }
+      `
+    });
+
+    const output = await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './fixture/index.jsx', dir }
+    );
+    output[0].code.should.equal(`const foo = 1;
+
+export { foo };
+`);
+  });
+
+  it('disable reading tsconfig.json 2 (issue #42)', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/index.jsx': `
+        export const foo = 1;
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": {
+            "target": "esnext"
+          }
+        }
+      `,
+      './.swcrc': `
       {
         "env": {
           "targets": "defaults, not dead"
