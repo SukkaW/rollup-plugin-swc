@@ -17,9 +17,9 @@ import createDeepMerge from '@fastify/deepmerge';
 import { getOptions } from './options';
 
 export type PluginOptions = {
-  include?: FilterPattern
-  exclude?: FilterPattern
-  extensions?: string[] | undefined
+  include?: FilterPattern,
+  exclude?: FilterPattern,
+  extensions?: string[] | undefined,
   /**
    * Use given tsconfig file instead
    * Disable it by setting to `false`
@@ -59,8 +59,8 @@ function swc(options: PluginOptions = {}): RollupPlugin {
 
     for (const ext of extensions) {
       const file = index ? join(resolved, `index${ext}`) : `${fileWithoutExt}${ext}`;
-      // We only check one file at a time, and we can return early
-      // eslint-disable-next-line no-await-in-loop
+      // We need to respect the order, and we only check one file at a time, and we can return early
+      // eslint-disable-next-line no-await-in-loop -- see above
       if (await fileExists(file)) return file;
     }
     return null;
@@ -75,7 +75,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
         return null;
       }
 
-      if (importer && importee[0] === '.') {
+      if (importer && importee.startsWith('.')) {
         const resolved = resolve(
           importer ? dirname(importer) : process.cwd(),
           importee
