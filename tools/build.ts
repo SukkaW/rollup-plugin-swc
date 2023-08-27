@@ -18,11 +18,17 @@ async function main() {
       external,
       plugins: [swc(defineRollupSwcOption({
         jsc: {
-          target: 'es2019'
-        }
-      // The return type of swc() is `import('rollup2').Plugin` while the required type is `import('rollup3').Plugin`
-      // Although they are identical, typescript is not happy about that
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          target: 'es2019',
+          minify: {
+            compress: true,
+            mangle: true,
+            module: true
+          }
+        },
+        minify: true
+        // The return type of swc() is `import('rollup2').Plugin` while the required type is `import('rollup3').Plugin`
+        // Although they are identical, typescript is not happy about that
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any -- see above
       })) as any]
     });
 
