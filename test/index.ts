@@ -26,7 +26,7 @@ const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) =>
   return v;
 };
 
-const tmpDir = path.join(tmpdir() ?? __dirname, '.temp-rollup-plugin-swc-testing');
+const tmpDir = path.join(tmpdir() || __dirname, '.temp-rollup-plugin-swc-testing');
 
 const realFs = (folderName: string, files: Record<string, string>) => {
   const testDir = path.join(tmpDir, `rollup-plugin-swc/${folderName}`);
@@ -628,6 +628,42 @@ export { baz };
       { input: './fixture/index.jsx', dir }
     ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
 export { foo };
+`);
+  });
+
+  it('tsconfig - baseUrl & paths', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/src/components/a.ts': `
+        export const a = (input) => 'a' + input;
+      `,
+      './fixture/src/lib/b.ts': `
+        export const b = 'b';
+      `,
+      './fixture/src/index.ts': `
+        import { a } from '@/components/a'
+        import { b } from '@/components/b'
+        console.log(a(b));
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": {
+            "baseUrl": "./",
+            "paths": {
+              "@/*": [
+                "./src/*"
+              ]
+            },
+          }
+        }
+      `
+    });
+
+    (await build(
+      rollupImpl,
+      {},
+      { input: './fixture/src/index.ts', dir }
+    ))[0].code.should.equal(`var foo = "sukka";\n
+console.log(foo);
 `);
   });
 
