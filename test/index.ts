@@ -672,6 +672,46 @@ console.log(a(b));
 `);
   });
 
+  it('tsconfig - paths', async () => {
+    const dir = realFs(getTestName(), {
+      './fixture/src/components/a.ts': `
+        export const a = (input) => 'a' + input;
+      `,
+      './fixture/src/lib/b.ts': `
+        export const b = 'b';
+      `,
+      './fixture/src/index.ts': `
+        import { a } from '@/components/a'
+        import { b } from '@/lib/b'
+        console.log(a(b));
+      `,
+      './fixture/tsconfig.json': `
+        {
+          "compilerOptions": {
+            "paths": {
+              "@/*": [
+                "./src/*"
+              ]
+            },
+          }
+        }
+      `
+    });
+
+    (await build(
+      rollupImpl,
+      {},
+      { input: './fixture/src/index.ts', dir }
+    ))[0].code.should.equal(`var a = function(input) {
+    return "a" + input;
+};
+
+var b = "b";
+
+console.log(a(b));
+`);
+  });
+
   it('target - include other files', async () => {
     const dir = realFs(getTestName(), {
       './fixture/module.cts': `

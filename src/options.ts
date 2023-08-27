@@ -18,8 +18,11 @@ export const getOptions = (
   if (tsconfig && path.isAbsolute(tsconfig)) {
     const compilerOptions = parseTsconfig(tsconfig).compilerOptions ?? {};
 
-    if (compilerOptions.baseUrl != null) {
-      compilerOptions.baseUrl = path.resolve(path.dirname(tsconfig), compilerOptions.baseUrl);
+    const tsconfigDir = path.dirname(tsconfig);
+    if (compilerOptions.paths != null) {
+      compilerOptions.baseUrl = compilerOptions.baseUrl != null
+        ? path.resolve(tsconfigDir, compilerOptions.baseUrl)
+        : tsconfigDir;
     }
 
     cache.set(cacheKey, compilerOptions);
@@ -33,8 +36,13 @@ export const getOptions = (
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};
-  if (result?.path && compilerOptions.baseUrl != null) {
-    compilerOptions.baseUrl = path.resolve(path.dirname(result.path), compilerOptions.baseUrl);
+  if (compilerOptions.paths != null) {
+    if (result?.path) {
+      const tsconfigDir = path.dirname(result.path);
+      compilerOptions.baseUrl = compilerOptions.baseUrl != null
+        ? path.resolve(tsconfigDir, compilerOptions.baseUrl)
+        : tsconfigDir;
+    }
   }
 
   cache.set(cacheKey, compilerOptions);
