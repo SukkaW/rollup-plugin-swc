@@ -1,3 +1,9 @@
+## 0.10.0
+
+- Fix #41
+  - `rollup-plugin-swc3` now will resolve `baseUrl` to an absolute path against the `tsconfig.json` and `jsconfig.json` being read.
+  - This is to align with the behavior change of the `swc`: https://github.com/swc-project/swc/issues/7799 and https://github.com/swc-project/swc/issues/7800.
+
 ## 0.9.1
 
 - The support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-swc-preserve-directives`](https://github.com/huozhi/rollup-plugin-swc-preserve-directives), maintained by [@huozhi](https://github.com/huozhi) and me. The previous `preserveUseDirective` named export is retained for the backward compatibility.
