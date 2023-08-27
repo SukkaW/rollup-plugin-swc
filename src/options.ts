@@ -17,6 +17,11 @@ export const getOptions = (
 
   if (tsconfig && path.isAbsolute(tsconfig)) {
     const compilerOptions = parseTsconfig(tsconfig).compilerOptions ?? {};
+
+    if (compilerOptions.baseUrl != null) {
+      compilerOptions.baseUrl = path.resolve(path.dirname(tsconfig), compilerOptions.baseUrl);
+    }
+
     cache.set(cacheKey, compilerOptions);
     return compilerOptions;
   }
@@ -28,6 +33,10 @@ export const getOptions = (
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};
+  if (result?.path && compilerOptions.baseUrl != null) {
+    compilerOptions.baseUrl = path.resolve(path.dirname(result.path), compilerOptions.baseUrl);
+  }
+
   cache.set(cacheKey, compilerOptions);
   return compilerOptions;
 };
