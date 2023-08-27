@@ -641,7 +641,7 @@ export { foo };
       `,
       './fixture/src/index.ts': `
         import { a } from '@/components/a'
-        import { b } from '@/components/b'
+        import { b } from '@/lib/b'
         console.log(a(b));
       `,
       './fixture/tsconfig.json': `
@@ -662,8 +662,13 @@ export { foo };
       rollupImpl,
       {},
       { input: './fixture/src/index.ts', dir }
-    ))[0].code.should.equal(`var foo = "sukka";\n
-console.log(foo);
+    ))[0].code.should.equal(`var a = function(input) {
+    return "a" + input;
+};
+
+var b = "b";
+
+console.log(a(b));
 `);
   });
 
