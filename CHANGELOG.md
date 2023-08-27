@@ -1,3 +1,8 @@
+## 0.10.1
+
+- Fix #41
+  - `rollup-plugin-swc3` now will always provide `baseUrl` (resolve to an absolute path) to swc as long as the `paths` is specified in the `tsconfig.json` or `jsconfig.json` being read.
+
 ## 0.10.0
 
 - Fix #41
