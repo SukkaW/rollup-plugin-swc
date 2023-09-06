@@ -33,6 +33,8 @@ export const getOptions = (
   // Only fallback to `jsconfig.json` when tsconfig can not be resolved AND custom tsconfig filename is not provided
   if (!result && !tsconfig) {
     result = getTsconfig(cwd, 'jsconfig.json');
+  } else {
+    console.warn('[rollup-plugin-swc] tsconfig does not exists, fallback to jsconfig.json');
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};
