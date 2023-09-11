@@ -105,7 +105,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
       const tsconfigOptions
         = options.tsconfig === false
           ? {}
-          : getOptions(dirname(id), options.tsconfig);
+          : getOptions(this, dirname(id), options.tsconfig);
 
       // TODO: SWC is about to add "preserve" jsx
       // https://github.com/swc-project/swc/pull/5661

@@ -2,10 +2,12 @@ import { getTsconfig, parseTsconfig } from 'get-tsconfig';
 import path from 'path';
 
 import type { TsConfigJson } from 'get-tsconfig';
+import type { TransformPluginContext } from 'rollup';
 
 const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
 export const getOptions = (
+  ctx: TransformPluginContext,
   cwd: string,
   tsconfig?: string
 ) => {
@@ -33,6 +35,10 @@ export const getOptions = (
   // Only fallback to `jsconfig.json` when tsconfig can not be resolved AND custom tsconfig filename is not provided
   if (!result && !tsconfig) {
     result = getTsconfig(cwd, 'jsconfig.json');
+    ctx.warn({
+      message: 'Can\'t find tsconfig.json, trying jsconfig.json now',
+      pluginCode: 'SWC_TSCONFIG_NOT_EXISTS'
+    });
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};

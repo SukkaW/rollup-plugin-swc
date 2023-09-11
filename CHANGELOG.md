@@ -1,3 +1,6 @@
+## 0.10.2
+- Add warning message when tsconfig is invalid
+
 ## 0.10.1
 
 - Fix #41
