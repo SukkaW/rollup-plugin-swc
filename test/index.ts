@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-duplicate-type-constituents -- rollup version type overlapping */
 import path from 'path';
 import fs from 'fs';
 import { rollup as rollup2 } from 'rollup2';
-import { rollup as rollup3 } from 'rollup';
+import { rollup as rollup3 } from 'rollup3';
+import { rollup as rollup4 } from 'rollup';
 import type { Plugin as RollupPlugin, ExternalOption, InputOption, RollupOutput } from 'rollup';
 
 import type { PluginOptions } from '../src';
@@ -27,7 +29,7 @@ const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) =>
 };
 
 const build = async (
-  rollupImpl: typeof rollup2 | typeof rollup3,
+  rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4,
   options?: PluginOptions,
   {
     input = './fixture/index.js',
@@ -71,7 +73,7 @@ const build = async (
 };
 
 const runMinify = async (
-  rollupImpl: typeof rollup2 | typeof rollup3,
+  rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4,
   options: JsMinifyOptions,
   {
     input = './fixture/index.js',
@@ -90,7 +92,7 @@ const runMinify = async (
 
 const getTestName = () => String(Date.now());
 
-const tests = (rollupImpl: typeof rollup2 | typeof rollup3, diskPath: string) => {
+const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, diskPath: string) => {
   const realFs = (folderName: string, files: Record<string, string>) => {
     const testDir = path.join(diskPath, `rollup-plugin-swc/${folderName}`);
     Object.keys(files).forEach((file) => {
@@ -843,6 +845,16 @@ describe('swc (rollup 3)', () => {
   const ramDiskPath = init('rolluppluginswc3testrollup3');
 
   tests(rollup3, ramDiskPath);
+
+  after(() => {
+    cleanup(ramDiskPath);
+  });
+});
+
+describe('swc (rollup 4)', () => {
+  const ramDiskPath = init('rolluppluginswc3testrollup4');
+
+  tests(rollup4, ramDiskPath);
 
   after(() => {
     cleanup(ramDiskPath);
