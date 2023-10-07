@@ -34,11 +34,11 @@ export const getOptions = (
   let result = getTsconfig(cwd, tsconfig || 'tsconfig.json');
   // Only fallback to `jsconfig.json` when tsconfig can not be resolved AND custom tsconfig filename is not provided
   if (!result && !tsconfig) {
-    result = getTsconfig(cwd, 'jsconfig.json');
     ctx.warn({
       message: 'Can\'t find tsconfig.json, trying jsconfig.json now',
       pluginCode: 'SWC_TSCONFIG_NOT_EXISTS'
     });
+    result = getTsconfig(cwd, 'jsconfig.json');
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};

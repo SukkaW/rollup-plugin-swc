@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import { rollup } from 'rollup2';
+import { rollup as rollup2 } from 'rollup2';
 import { rollup as rollup3 } from 'rollup';
 import type { Plugin as RollupPlugin, ExternalOption, InputOption, RollupOutput } from 'rollup';
 
@@ -9,11 +9,11 @@ import { swc, minify, preserveUseDirective } from '../src';
 
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
-import { tmpdir } from 'os';
 
 import type { JsMinifyOptions } from '@swc/core';
 
 import { should } from 'chai';
+import { cleanup, init } from './ramdisk';
 should();
 
 const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) => {
@@ -26,20 +26,8 @@ const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) =>
   return v;
 };
 
-const tmpDir = path.join(tmpdir() || __dirname, '.temp-rollup-plugin-swc-testing');
-
-const realFs = (folderName: string, files: Record<string, string>) => {
-  const testDir = path.join(tmpDir, `rollup-plugin-swc/${folderName}`);
-  Object.keys(files).forEach((file) => {
-    const absolute = path.join(testDir, file);
-    fs.mkdirSync(path.dirname(absolute), { recursive: true });
-    fs.writeFileSync(absolute, files[file], 'utf8');
-  });
-  return testDir;
-};
-
 const build = async (
-  rollupImpl: typeof rollup | typeof rollup3,
+  rollupImpl: typeof rollup2 | typeof rollup3,
   options?: PluginOptions,
   {
     input = './fixture/index.js',
@@ -70,6 +58,11 @@ const build = async (
         return acc;
       }, {});
     })(),
+    ...(
+      rollupImpl === rollup2
+        ? {}
+        : { logLevel: 'silent' }
+    ),
     plugins: [...otherRollupPlugins, swc(options), ...otherRollupPluginsAfterSwc] as any,
     external
   });
@@ -78,6 +71,7 @@ const build = async (
 };
 
 const runMinify = async (
+  rollupImpl: typeof rollup2 | typeof rollup3,
   options: JsMinifyOptions,
   {
     input = './fixture/index.js',
@@ -86,7 +80,7 @@ const runMinify = async (
     dir = '.'
   }
 ) => {
-  const build = await rollup({
+  const build = await rollupImpl({
     input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
     plugins: [...otherRollupPlugins, minify(options)] as any
   });
@@ -96,7 +90,17 @@ const runMinify = async (
 
 const getTestName = () => String(Date.now());
 
-const tests = (rollupImpl: typeof rollup | typeof rollup3) => {
+const tests = (rollupImpl: typeof rollup2 | typeof rollup3, diskPath: string) => {
+  const realFs = (folderName: string, files: Record<string, string>) => {
+    const testDir = path.join(diskPath, `rollup-plugin-swc/${folderName}`);
+    Object.keys(files).forEach((file) => {
+      const absolute = path.join(testDir, file);
+      fs.mkdirSync(path.dirname(absolute), { recursive: true });
+      fs.writeFileSync(absolute, files[file], 'utf8');
+    });
+    return testDir;
+  };
+
   it('simple', async () => {
     const dir = realFs(getTestName(), {
       './fixture/index.js': `
@@ -185,7 +189,7 @@ console.log(bar);\n`);
         console.log('b'      +      'c');
       `
     });
-    const output = await runMinify({}, { dir });
+    const output = await runMinify(rollupImpl, {}, { dir });
     output[0].code.should.equal('console.log(1e4),console.log("bc");\n');
   });
 
@@ -826,21 +830,21 @@ export { bar };
 };
 
 describe('swc (rollup 2)', () => {
-  after(() => {
-    if (fs.existsSync(tmpDir)) {
-      fs.rmSync(tmpDir, { recursive: true });
-    }
-  });
+  const ramDiskPath = init('rolluppluginswc3testrollup2');
 
-  tests(rollup);
+  tests(rollup2, ramDiskPath);
+
+  after(() => {
+    cleanup(ramDiskPath);
+  });
 });
 
 describe('swc (rollup 3)', () => {
-  after(() => {
-    if (fs.existsSync(tmpDir)) {
-      fs.rmSync(tmpDir, { recursive: true });
-    }
-  });
+  const ramDiskPath = init('rolluppluginswc3testrollup3');
 
-  tests(rollup3);
+  tests(rollup3, ramDiskPath);
+
+  after(() => {
+    cleanup(ramDiskPath);
+  });
 });
