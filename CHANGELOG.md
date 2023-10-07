@@ -1,5 +1,7 @@
 ## 0.10.2
+
 - Add warning message when tsconfig is invalid
+- Add rollup 4 official support
 
 ## 0.10.1
 
