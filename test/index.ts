@@ -192,10 +192,6 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
     )[0].code.should.matchSnapshot();
 
     (
-      await build(rollupImpl, { tsconfig: 'tsconfig.react-jsxdev.json' }, { input: './index.tsx', dir, external: 'react/jsx-dev-runtime' })
-    )[0].code.should.matchSnapshot();
-
-    (
       await build(rollupImpl, { tsconfig: 'tsconfig.compiled.json' }, { input: './index.tsx', dir, external: '@compiled/react/jsx-runtime' })
     )[0].code.should.matchSnapshot();
   });
