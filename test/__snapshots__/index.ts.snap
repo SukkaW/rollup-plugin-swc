@@ -1,0 +1,805 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rollup-plugin-swc3 swc (rollup 2) directive - include "use client" 1`] = `
+"'use client';
+function client() {
+    return React.useState(null);
+}
+
+export { client as default };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) directive - merge "use client" 1`] = `
+"'use client';
+'use sukka';
+var foo = \\"sukka\\";
+
+var bar = \\"sukka\\";
+
+export { bar, foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) directive - only output "use client" / "use server" in the specfic entry 1`] = `
+"'use client';
+var foo = \\"client\\";
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) directive - only output "use client" / "use server" in the specfic entry 2`] = `
+"'use server';
+var bar = \\"server\\";
+
+export { bar };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) disable reading tsconfig.json 1`] = `
+"const foo = 1;
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) load json 1`] = `
+"var foo = true;
+var foo$1 = {
+	foo: foo
+};
+
+console.log(foo$1);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) load jsx/tsx 1`] = `
+"const util = 42;
+
+class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement(\\"div\\", {
+            className: \\"sukka\\"
+        }, util);
+    }
+}
+
+console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) minify 1`] = `
+"class Foo{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}}console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) react 17 jsx transform 1`] = `
+"import { jsx } from 'react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx(\\"div\\", {
+        children: \\"foo\\"
+    });
+}
+
+export { Foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) react 17 jsx transform 2`] = `
+"import { jsx } from '@compiled/react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx(\\"div\\", {
+        children: \\"foo\\"
+    });
+}
+
+export { Foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) resolve index.(x) 1`] = `
+"class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement(\\"div\\", {
+            className: \\"hehe\\"
+        }, \\"hello there!!!\\");
+    }
+}
+
+console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) simple 1`] = `
+"function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError(\\"Cannot call a class as a function\\");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if (\\"value\\" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
+var Foo = /*#__PURE__*/ function() {
+    function Foo() {
+        _class_call_check(this, Foo);
+    }
+    _create_class(Foo, [
+        {
+            key: \\"render\\",
+            value: function render() {
+                return /*#__PURE__*/ React.createElement(\\"div\\", {
+                    className: \\"hehe\\"
+                }, \\"hello there!!!\\");
+            }
+        }
+    ]);
+    return Foo;
+}();
+
+var bar = \\"baz\\";
+
+console.log(Foo);
+console.log(bar);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) standalone minify 1`] = `
+"console.log(1e4),console.log(\\"bc\\");
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) support rollup virtual module (e.g. commonjs plugin) 1`] = `
+"var rollupCommonjs = {};
+
+var foo = 'foo';
+
+var bar = {};
+
+bar.Bar = 'bar';
+
+const Foo = foo;
+const { Bar } = bar;
+console.log(Foo, Bar);
+
+export { rollupCommonjs as default };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) target - include other files 1`] = `
+"var foo = \\"sukka\\";
+
+console.log(foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig - baseUrl & paths 1`] = `
+"var a = function(input) {
+    return \\"a\\" + input;
+};
+
+var b = \\"b\\";
+
+console.log(a(b));
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig - paths 1`] = `
+"var a = function(input) {
+    return \\"a\\" + input;
+};
+
+var b = \\"b\\";
+
+console.log(a(b));
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig - specify full path 1`] = `
+"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig extends 1`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig extends 2`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig resolve to nearest tsconfig 1`] = `
+"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+
+var bar = /*#__PURE__*/ hBar(\\"div\\", null, \\"bar\\");
+
+var baz = /*#__PURE__*/ h(\\"div\\", null, foo, bar);
+
+export { baz };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) use custom jsxFactory (h) from jsconfig.json 1`] = `
+"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) use custom jsxFactory (h) from tsconfig 1`] = `
+"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) use custom tsconfig.json 1`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1`] = `
+"var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\\"div\\", null, \\"foo\\"));
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) directive - include "use client" 1`] = `
+"'use client';
+function client() {
+    return React.useState(null);
+}
+
+export { client as default };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) directive - merge "use client" 1`] = `
+"'use client';
+'use sukka';
+var foo = \\"sukka\\";
+
+var bar = \\"sukka\\";
+
+export { bar, foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) directive - only output "use client" / "use server" in the specfic entry 1`] = `
+"'use client';
+var foo = \\"client\\";
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) directive - only output "use client" / "use server" in the specfic entry 2`] = `
+"'use server';
+var bar = \\"server\\";
+
+export { bar };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) disable reading tsconfig.json 1`] = `
+"const foo = 1;
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) load json 1`] = `
+"var foo = true;
+var foo$1 = {
+	foo: foo
+};
+
+console.log(foo$1);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) load jsx/tsx 1`] = `
+"const util = 42;
+
+class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement(\\"div\\", {
+            className: \\"sukka\\"
+        }, util);
+    }
+}
+
+console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) minify 1`] = `
+"class Foo{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}}console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) react 17 jsx transform 1`] = `
+"import { jsx } from 'react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx(\\"div\\", {
+        children: \\"foo\\"
+    });
+}
+
+export { Foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) react 17 jsx transform 2`] = `
+"import { jsx } from '@compiled/react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx(\\"div\\", {
+        children: \\"foo\\"
+    });
+}
+
+export { Foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) resolve index.(x) 1`] = `
+"class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement(\\"div\\", {
+            className: \\"hehe\\"
+        }, \\"hello there!!!\\");
+    }
+}
+
+console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) simple 1`] = `
+"function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError(\\"Cannot call a class as a function\\");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if (\\"value\\" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
+var Foo = /*#__PURE__*/ function() {
+    function Foo() {
+        _class_call_check(this, Foo);
+    }
+    _create_class(Foo, [
+        {
+            key: \\"render\\",
+            value: function render() {
+                return /*#__PURE__*/ React.createElement(\\"div\\", {
+                    className: \\"hehe\\"
+                }, \\"hello there!!!\\");
+            }
+        }
+    ]);
+    return Foo;
+}();
+
+var bar = \\"baz\\";
+
+console.log(Foo);
+console.log(bar);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) standalone minify 1`] = `
+"console.log(1e4),console.log(\\"bc\\");
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) support rollup virtual module (e.g. commonjs plugin) 1`] = `
+"var rollupCommonjs = {};
+
+var foo = 'foo';
+
+var bar = {};
+
+bar.Bar = 'bar';
+
+const Foo = foo;
+const { Bar } = bar;
+console.log(Foo, Bar);
+
+export { rollupCommonjs as default };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) target - include other files 1`] = `
+"var foo = \\"sukka\\";
+
+console.log(foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig - baseUrl & paths 1`] = `
+"var a = function(input) {
+    return \\"a\\" + input;
+};
+
+var b = \\"b\\";
+
+console.log(a(b));
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig - paths 1`] = `
+"var a = function(input) {
+    return \\"a\\" + input;
+};
+
+var b = \\"b\\";
+
+console.log(a(b));
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig - specify full path 1`] = `
+"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig extends 1`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig extends 2`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig resolve to nearest tsconfig 1`] = `
+"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+
+var bar = /*#__PURE__*/ hBar(\\"div\\", null, \\"bar\\");
+
+var baz = /*#__PURE__*/ h(\\"div\\", null, foo, bar);
+
+export { baz };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) use custom jsxFactory (h) from jsconfig.json 1`] = `
+"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) use custom jsxFactory (h) from tsconfig 1`] = `
+"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) use custom tsconfig.json 1`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1`] = `
+"var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\\"div\\", null, \\"foo\\"));
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) directive - include "use client" 1`] = `
+"'use client';
+function client() {
+    return React.useState(null);
+}
+
+export { client as default };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) directive - merge "use client" 1`] = `
+"'use client';
+'use sukka';
+var foo = \\"sukka\\";
+
+var bar = \\"sukka\\";
+
+export { bar, foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) directive - only output "use client" / "use server" in the specfic entry 1`] = `
+"'use client';
+var foo = \\"client\\";
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) directive - only output "use client" / "use server" in the specfic entry 2`] = `
+"'use server';
+var bar = \\"server\\";
+
+export { bar };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) disable reading tsconfig.json 1`] = `
+"const foo = 1;
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) load json 1`] = `
+"var foo = true;
+var foo$1 = {
+	foo: foo
+};
+
+console.log(foo$1);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) load jsx/tsx 1`] = `
+"const util = 42;
+
+class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement(\\"div\\", {
+            className: \\"sukka\\"
+        }, util);
+    }
+}
+
+console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) minify 1`] = `
+"class Foo{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}}console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) react 17 jsx transform 1`] = `
+"import { jsx } from 'react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx(\\"div\\", {
+        children: \\"foo\\"
+    });
+}
+
+export { Foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) react 17 jsx transform 2`] = `
+"import { jsx } from '@compiled/react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx(\\"div\\", {
+        children: \\"foo\\"
+    });
+}
+
+export { Foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) resolve index.(x) 1`] = `
+"class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement(\\"div\\", {
+            className: \\"hehe\\"
+        }, \\"hello there!!!\\");
+    }
+}
+
+console.log(Foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) simple 1`] = `
+"function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError(\\"Cannot call a class as a function\\");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if (\\"value\\" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
+var Foo = /*#__PURE__*/ function() {
+    function Foo() {
+        _class_call_check(this, Foo);
+    }
+    _create_class(Foo, [
+        {
+            key: \\"render\\",
+            value: function render() {
+                return /*#__PURE__*/ React.createElement(\\"div\\", {
+                    className: \\"hehe\\"
+                }, \\"hello there!!!\\");
+            }
+        }
+    ]);
+    return Foo;
+}();
+
+var bar = \\"baz\\";
+
+console.log(Foo);
+console.log(bar);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) standalone minify 1`] = `
+"console.log(1e4),console.log(\\"bc\\");
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) support rollup virtual module (e.g. commonjs plugin) 1`] = `
+"var rollupCommonjs = {};
+
+var foo = 'foo';
+
+var bar = {};
+
+bar.Bar = 'bar';
+
+const Foo = foo;
+const { Bar } = bar;
+console.log(Foo, Bar);
+
+export { rollupCommonjs as default };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) target - include other files 1`] = `
+"var foo = \\"sukka\\";
+
+console.log(foo);
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig - baseUrl & paths 1`] = `
+"var a = function(input) {
+    return \\"a\\" + input;
+};
+
+var b = \\"b\\";
+
+console.log(a(b));
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig - paths 1`] = `
+"var a = function(input) {
+    return \\"a\\" + input;
+};
+
+var b = \\"b\\";
+
+console.log(a(b));
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig - specify full path 1`] = `
+"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig extends 1`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig extends 2`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig resolve to nearest tsconfig 1`] = `
+"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+
+var bar = /*#__PURE__*/ hBar(\\"div\\", null, \\"bar\\");
+
+var baz = /*#__PURE__*/ h(\\"div\\", null, foo, bar);
+
+export { baz };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) use custom jsxFactory (h) from jsconfig.json 1`] = `
+"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) use custom jsxFactory (h) from tsconfig 1`] = `
+"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) use custom tsconfig.json 1`] = `
+"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+
+export { foo };
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1`] = `
+"var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\\"div\\", null, \\"foo\\"));
+
+export { foo };
+"
+`;
