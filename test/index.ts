@@ -17,9 +17,13 @@ import commonjs from '@rollup/plugin-commonjs';
 
 import type { JsMinifyOptions } from '@swc/core';
 
-import { should } from 'chai';
+import chai from 'chai';
+import { jestSnapshotPlugin } from 'mocha-chai-jest-snapshot';
+
 import { cleanup, init } from './ramdisk';
-should();
+
+chai.should();
+chai.use(jestSnapshotPlugin());
 
 const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) => {
   if (v == null) {
@@ -122,74 +126,26 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
   it('simple', async () => {
     const dir = await fixture('simple');
     const output = await build(rollupImpl, {}, { dir });
-    output[0].code.should.equal(`function _class_call_check(instance, Constructor) {
-    if (!(instance instanceof Constructor)) {
-        throw new TypeError("Cannot call a class as a function");
-    }
-}
-function _defineProperties(target, props) {
-    for(var i = 0; i < props.length; i++){
-        var descriptor = props[i];
-        descriptor.enumerable = descriptor.enumerable || false;
-        descriptor.configurable = true;
-        if ("value" in descriptor) descriptor.writable = true;
-        Object.defineProperty(target, descriptor.key, descriptor);
-    }
-}
-function _create_class(Constructor, protoProps, staticProps) {
-    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
-    return Constructor;
-}
-var Foo = /*#__PURE__*/ function() {
-    function Foo() {
-        _class_call_check(this, Foo);
-    }
-    _create_class(Foo, [
-        {
-            key: "render",
-            value: function render() {
-                return /*#__PURE__*/ React.createElement("div", {
-                    className: "hehe"
-                }, "hello there!!!");
-            }
-        }
-    ]);
-    return Foo;
-}();
-
-var bar = "baz";
-
-console.log(Foo);
-console.log(bar);\n`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('minify', async () => {
     const dir = await fixture('minify');
     const output = await build(rollupImpl, { minify: true, jsc: { target: 'es2022' } }, { dir });
-    output[0].code.should.equal('class Foo{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}}console.log(Foo);\n');
+    output[0].code.should.matchSnapshot();
   });
 
   it('standalone minify', async () => {
     const dir = await fixture('standalone-minify');
     const output = await runMinify(rollupImpl, {}, { dir });
-    output[0].code.should.equal('console.log(1e4),console.log("bc");\n');
+    output[0].code.should.matchSnapshot();
   });
 
   it('resolve index.(x)', async () => {
     const dir = await fixture('resolve-index');
     const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
 
-    output[0].code.should.equal(`class Foo {
-    render() {
-        return /*#__PURE__*/ React.createElement("div", {
-            className: "hehe"
-        }, "hello there!!!");
-    }
-}
-
-console.log(Foo);
-`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('load json', async () => {
@@ -201,13 +157,7 @@ console.log(Foo);
       { otherRollupPlugins: [json()], dir }
     );
 
-    output[0].code.should.equal(`var foo = true;
-var foo$1 = {
-\tfoo: foo
-};
-
-console.log(foo$1);
-`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('support rollup virtual module (e.g. commonjs plugin)', async () => {
@@ -217,38 +167,21 @@ console.log(foo$1);
       { jsc: { target: 'es2022' } },
       { otherRollupPlugins: [commonjs()], dir }
     );
-    output[0].code.should.equal(`var rollupCommonjs = {};
-
-var foo = 'foo';
-
-var bar = {};
-
-bar.Bar = 'bar';
-
-const Foo = foo;
-const { Bar } = bar;
-console.log(Foo, Bar);
-
-export { rollupCommonjs as default };
-`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('use custom jsxFactory (h) from tsconfig', async () => {
     const dir = await fixture('tsconfig-custom-jsx-factory');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
-
-export { foo };\n`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('use custom jsxFactory (h) from jsconfig.json', async () => {
     const dir = await fixture('jsconfig-custom-jsx-factory');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    output[0].code.should.equal(`var foo = /*#__PURE__*/ h("div", null, "foo");
-
-export { foo };\n`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('react 17 jsx transform', async () => {
@@ -256,53 +189,22 @@ export { foo };\n`);
 
     (
       await build(rollupImpl, { tsconfig: 'tsconfig.react-jsx.json' }, { input: './index.tsx', dir, external: 'react/jsx-runtime' })
-    )[0].code.should.equal(`import { jsx } from 'react/jsx-runtime';
-
-function Foo() {
-    return /*#__PURE__*/ jsx("div", {
-        children: "foo"
-    });
-}
-
-export { Foo };\n`);
+    )[0].code.should.matchSnapshot();
 
     (
       await build(rollupImpl, { tsconfig: 'tsconfig.react-jsxdev.json' }, { input: './index.tsx', dir, external: 'react/jsx-dev-runtime' })
-    )[0].code.should.equal(`import { jsxDEV } from 'react/jsx-dev-runtime';
-
-function Foo() {
-    return /*#__PURE__*/ jsxDEV("div", {
-        children: "foo"
-    }, void 0, false, {
-        fileName: "${dir}/index.tsx",
-        lineNumber: 1,
-        columnNumber: 32
-    }, this);
-}
-
-export { Foo };\n`);
+    )[0].code.should.matchSnapshot();
 
     (
       await build(rollupImpl, { tsconfig: 'tsconfig.compiled.json' }, { input: './index.tsx', dir, external: '@compiled/react/jsx-runtime' })
-    )[0].code.should.equal(`import { jsx } from '@compiled/react/jsx-runtime';
-
-function Foo() {
-    return /*#__PURE__*/ jsx("div", {
-        children: "foo"
-    });
-}
-
-export { Foo };\n`);
+    )[0].code.should.matchSnapshot();
   });
 
   it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async () => {
     const dir = await fixture('tsconfig-jsconfig');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    output[0].code.should.equal(`var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));
-
-export { foo };
-`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('use custom tsconfig.json', async () => {
@@ -313,10 +215,7 @@ export { foo };
       { tsconfig: 'tsconfig.build.json' },
       { input: './index.jsx', dir }
     );
-    output[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
-
-export { foo };
-`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('disable reading tsconfig.json', async () => {
@@ -327,27 +226,14 @@ export { foo };
       { tsconfig: false },
       { input: './index.jsx', dir }
     );
-    output[0].code.should.equal(`const foo = 1;
-
-export { foo };
-`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('load jsx/tsx', async () => {
     const dir = await fixture('load-jsx-tsx');
 
     const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
-    output[0].code.should.eq(`const util = 42;
-
-class Foo {
-    render() {
-        return /*#__PURE__*/ React.createElement("div", {
-            className: "sukka"
-        }, util);
-    }
-}
-
-console.log(Foo);\n`);
+    output[0].code.should.matchSnapshot();
   });
 
   it('tsconfig extends', async () => {
@@ -357,19 +243,13 @@ console.log(Foo);\n`);
       rollupImpl,
       {},
       { input: './index.jsx', dir }
-    ))[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
-
-export { foo };
-`);
+    ))[0].code.should.matchSnapshot();
 
     (await build(
       rollupImpl,
       { tsconfig: 'jsconfig.custom.json' },
       { input: './index.jsx', dir }
-    ))[0].code.should.equal(`var foo = /*#__PURE__*/ custom("div", null, "foo");
-
-export { foo };
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('tsconfig resolve to nearest tsconfig', async () => {
@@ -379,11 +259,7 @@ export { foo };
       rollupImpl,
       {},
       { input: './index.jsx', dir }
-    ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
-var bar = /*#__PURE__*/ hBar("div", null, "bar");\n
-var baz = /*#__PURE__*/ h("div", null, foo, bar);\n
-export { baz };
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('tsconfig - specify full path', async () => {
@@ -395,9 +271,7 @@ export { baz };
       rollupImpl,
       { tsconfig: tsconfigPath },
       { input: './index.jsx', dir }
-    ))[0].code.should.equal(`var foo = /*#__PURE__*/ hFoo("div", null, "foo");\n
-export { foo };
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('tsconfig - baseUrl & paths', async () => {
@@ -407,14 +281,7 @@ export { foo };
       rollupImpl,
       {},
       { input: './src/index.ts', dir }
-    ))[0].code.should.equal(`var a = function(input) {
-    return "a" + input;
-};
-
-var b = "b";
-
-console.log(a(b));
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('tsconfig - paths', async () => {
@@ -424,14 +291,7 @@ console.log(a(b));
       rollupImpl,
       {},
       { input: './src/index.ts', dir }
-    ))[0].code.should.equal(`var a = function(input) {
-    return "a" + input;
-};
-
-var b = "b";
-
-console.log(a(b));
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('target - include other files', async () => {
@@ -441,9 +301,7 @@ console.log(a(b));
       rollupImpl,
       { extensions: ['.ts', '.mts', '.cts'], tsconfig: false },
       { input: './index.mts', dir, otherRollupPlugins: [commonjs({ extensions: ['.cts'] })] }
-    ))[0].code.should.equal(`var foo = "sukka";\n
-console.log(foo);
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('directive - include "use client"', async () => {
@@ -453,13 +311,7 @@ console.log(foo);
       rollupImpl,
       { tsconfig: false },
       { input: './index.tsx', dir, otherRollupPluginsAfterSwc: [preserveUseDirective()] }
-    ))[0].code.should.equal(`'use client';
-function client() {
-    return React.useState(null);
-}
-
-export { client as default };
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('directive - merge "use client"', async () => {
@@ -469,14 +321,7 @@ export { client as default };
       rollupImpl,
       { tsconfig: false },
       { input: './index.tsx', dir, otherRollupPluginsAfterSwc: [preserveUseDirective()] }
-    ))[0].code.should.equal(`'use client';
-'use sukka';
-var foo = "sukka";
-
-var bar = "sukka";
-
-export { bar, foo };
-`);
+    ))[0].code.should.matchSnapshot();
   });
 
   it('directive - only output "use client" / "use server" in the specfic entry', async () => {
@@ -494,17 +339,8 @@ export { bar, foo };
       }
     ));
 
-    rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code.should.equal(`'use client';
-var foo = "client";
-
-export { foo };
-`);
-
-    rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code.should.equal(`'use server';
-var bar = "server";
-
-export { bar };
-`);
+    rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code.should.matchSnapshot();
+    rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code.should.matchSnapshot();
   });
 };
 
