@@ -52,6 +52,7 @@
     "eslint-config-sukka": "^4.0.1",
     "eslint-formatter-sukka": "^4.0.1",
     "mocha": "^10.2.0",
+    "path-scurry": "^1.10.1",
     "picocolors": "^1.0.0",
     "rimraf": "^5.0.5",
     "rollup": "^4.0.2",

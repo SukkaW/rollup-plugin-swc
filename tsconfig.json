@@ -9,5 +9,6 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*", "test/**/*", "tools/**/*"]
+  "include": ["src/**/*", "test/**/*", "tools/**/*"],
+  "exclude": ["test/fixtures/**/*"]
 }
