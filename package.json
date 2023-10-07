@@ -9,6 +9,10 @@
     "import": "./dist/index.mjs",
     "default": "./dist/index.js"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "prepublishOnly": "npm run clean && npm run test && npm run build",
     "clean": "rimraf ./dist ./test/temp",
@@ -33,6 +37,7 @@
     "rollup-swc-preserve-directives": "^0.3.2"
   },
   "devDependencies": {
+    "@eslint-sukka/node": "^4.0.1",
     "@eslint-sukka/ts": "^4.0.1",
     "@rollup/plugin-commonjs": "^25.0.5",
     "@rollup/plugin-json": "^6.0.1",
