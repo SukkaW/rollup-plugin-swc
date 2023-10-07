@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-duplicate-type-constituents -- rollup version type overlapping */
 import path from 'path';
 import fs from 'fs';
+import fsp from 'fs/promises';
 import { rollup as rollup2 } from 'rollup2';
 import { rollup as rollup3 } from 'rollup3';
 import { rollup as rollup4 } from 'rollup';
@@ -92,19 +93,21 @@ const runMinify = async (
 
 const getTestName = () => String(Date.now());
 
-const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, diskPath: string) => {
-  const realFs = (folderName: string, files: Record<string, string>) => {
-    const testDir = path.join(diskPath, `rollup-plugin-swc/${folderName}`);
-    Object.keys(files).forEach((file) => {
+const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, isolateDir: string) => {
+  const realFs = async (folderName: string, files: Record<string, string>) => {
+    const testDir = path.join(isolateDir, 'rollup-plugin-swc', folderName);
+
+    await Promise.all(Object.keys(files).map(async (file) => {
       const absolute = path.join(testDir, file);
-      fs.mkdirSync(path.dirname(absolute), { recursive: true });
-      fs.writeFileSync(absolute, files[file], 'utf8');
-    });
+      await fsp.mkdir(path.dirname(absolute), { recursive: true });
+      return fsp.writeFile(absolute, files[file], 'utf-8');
+    }));
+
     return testDir;
   };
 
   it('simple', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.js': `
         import Foo from './foo'
         console.log(Foo)
@@ -167,7 +170,7 @@ console.log(bar);\n`);
   });
 
   it('minify', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.js': `
         import Foo from './foo'
         console.log(Foo)
@@ -185,7 +188,7 @@ console.log(bar);\n`);
   });
 
   it('standalone minify', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.js': `
         console.log(10000);
         console.log('b'      +      'c');
@@ -196,7 +199,7 @@ console.log(bar);\n`);
   });
 
   it('load index.(x)', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.js': `
         import Foo from './foo'
         console.log(Foo)
@@ -225,7 +228,7 @@ console.log(Foo);
   });
 
   it('load json', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.js': `
           import foo from './foo.json'
           console.log(foo)
@@ -253,7 +256,7 @@ console.log(foo$1);
   });
 
   it('support rollup virtual module (e.g. commonjs plugin)', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.js': `
         const Foo = require('./foo')
         const { Bar } = require('./bar')
@@ -288,7 +291,7 @@ export { fixture as default };
   });
 
   it('use custom jsxFactory (h) from tsconfig', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.tsx': `
         export const foo = <div>foo</div>
       `,
@@ -308,7 +311,7 @@ export { foo };\n`);
   });
 
   it('use custom jsxFactory (h) from jsconfig.json', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.tsx': `
         export const foo = <div>foo</div>
       `,
@@ -328,7 +331,7 @@ export { foo };\n`);
   });
 
   it('react 17 jsx transform', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.tsx': `
         export function Foo() { return <div>foo</div> }
       `,
@@ -398,7 +401,7 @@ export { Foo };\n`);
   });
 
   it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.tsx': `
         export const foo = <><div>foo</div></>
       `,
@@ -426,7 +429,7 @@ export { foo };
   });
 
   it('use custom tsconfig.json', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.jsx': `
         export const foo = <div>foo</div>
       `,
@@ -458,7 +461,7 @@ export { foo };
   });
 
   it('disable reading tsconfig.json', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.jsx': `
         export const foo = 1;
       `,
@@ -490,7 +493,7 @@ export { foo };
   });
 
   it('load jsx/tsx', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.js': `
         import Foo from './foo.jsx'
   
@@ -524,7 +527,7 @@ console.log(Foo);\n`);
   });
 
   it('tsconfig extends', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.jsx': `
         export const foo = <div>foo</div>
       `,
@@ -569,7 +572,7 @@ export { foo };
   });
 
   it('tsconfig resolve to nearest tsconfig', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.jsx': `
         import { foo } from './foo';
         import { bar } from './bar';
@@ -610,7 +613,7 @@ export { baz };
   });
 
   it('tsconfig - specify full path', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.jsx': `
         export const foo = <div>foo</div>
       `,
@@ -638,7 +641,7 @@ export { foo };
   });
 
   it('tsconfig - baseUrl & paths', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/src/components/a.ts': `
         export const a = (input) => 'a' + input;
       `,
@@ -679,7 +682,7 @@ console.log(a(b));
   });
 
   it('tsconfig - paths', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/src/components/a.ts': `
         export const a = (input) => 'a' + input;
       `,
@@ -719,7 +722,7 @@ console.log(a(b));
   });
 
   it('target - include other files', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/module.cts': `
         module.exports.foo = 'sukka';
       `,
@@ -739,7 +742,7 @@ console.log(foo);
   });
 
   it('directive - include "use client"', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/index.tsx': `
       'use client'
 
@@ -763,7 +766,7 @@ export { client as default };
   });
 
   it('directive - merge "use client"', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/foo.ts': `
         "use client";
         "use sukka";
@@ -794,7 +797,7 @@ export { bar, foo };
   });
 
   it('directive - only output "use client" / "use server" in the specfic entry', async () => {
-    const dir = realFs(getTestName(), {
+    const dir = await realFs(getTestName(), {
       './fixture/client.ts': `
         "use client";
         export const foo = 'client';
@@ -831,30 +834,23 @@ export { bar };
   });
 };
 
-describe('swc (rollup 2)', () => {
-  const ramDiskPath = init('rolluppluginswc3testrollup2');
+describe('rollup-plugin-swc3', () => {
+  const ramDiskPath = init('rolluppluginswc3test');
 
-  tests(rollup2, ramDiskPath);
-
-  after(() => {
-    cleanup(ramDiskPath);
+  describe('swc (rollup 2)', () => {
+    const isolateDir = path.join(ramDiskPath, 'rollup2');
+    tests(rollup2, isolateDir);
   });
-});
 
-describe('swc (rollup 3)', () => {
-  const ramDiskPath = init('rolluppluginswc3testrollup3');
-
-  tests(rollup3, ramDiskPath);
-
-  after(() => {
-    cleanup(ramDiskPath);
+  describe('swc (rollup 3)', () => {
+    const isolateDir = path.join(ramDiskPath, 'rollup3');
+    tests(rollup3, isolateDir);
   });
-});
 
-describe('swc (rollup 4)', () => {
-  const ramDiskPath = init('rolluppluginswc3testrollup4');
-
-  tests(rollup4, ramDiskPath);
+  describe('swc (rollup 4)', () => {
+    const isolateDir = path.join(ramDiskPath, 'rollup4');
+    tests(rollup4, isolateDir);
+  });
 
   after(() => {
     cleanup(ramDiskPath);
