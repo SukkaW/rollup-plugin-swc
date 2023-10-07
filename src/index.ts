@@ -27,7 +27,7 @@ export type PluginOptions = {
   tsconfig?: string | false | undefined
 } & Omit<SwcOptions, 'filename' | 'include' | 'exclude'>;
 
-const INCLUDE_REGEXP = /\.[mc]?[jt]sx?$/;
+const INCLUDE_REGEXP = /\.[cm]?[jt]sx?$/;
 const EXCLUDE_REGEXP = /node_modules/;
 
 const ACCEPTED_EXTENSIONS = ['.ts', '.tsx', '.mjs', '.js', '.cjs', '.jsx'];
