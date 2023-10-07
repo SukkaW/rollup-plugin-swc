@@ -9,6 +9,13 @@ on:
       - '**/*.gitignore'
       - .editorconfig
       - docs/**
+  pull_request:
+    paths-ignore:
+      - '**/*.md'
+      - LICENSE
+      - '**/*.gitignore'
+      - .editorconfig
+      - docs/**
 jobs:
   test:
     name: Lint & Test
