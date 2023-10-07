@@ -3,14 +3,6 @@ on:
   push:
     branches:
       - master
-    tags-ignore:
-      - '**'
-    paths-ignore:
-      - '**/*.md'
-      - LICENSE
-      - '**/*.gitignore'
-      - .editorconfig
-      - docs/**
 jobs:
   publish:
     name: Publish
