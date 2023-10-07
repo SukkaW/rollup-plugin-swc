@@ -54,9 +54,10 @@
     "mocha": "^10.2.0",
     "picocolors": "^1.0.0",
     "rimraf": "^5.0.5",
-    "rollup": "^3.29.4",
+    "rollup": "^4.0.2",
     "rollup-plugin-dts": "^5.3.1",
     "rollup2": "npm:rollup@^2.79.1",
+    "rollup3": "npm:rollup@^3.29.4",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
