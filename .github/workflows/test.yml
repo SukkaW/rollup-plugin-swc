@@ -1,21 +1,8 @@
 name: Lint & Test
 on:
   push:
-    tags-ignore:
-      - '**'
-    paths-ignore:
-      - '**/*.md'
-      - LICENSE
-      - '**/*.gitignore'
-      - .editorconfig
-      - docs/**
   pull_request:
-    paths-ignore:
-      - '**/*.md'
-      - LICENSE
-      - '**/*.gitignore'
-      - .editorconfig
-      - docs/**
+    types: [opened, synchronize]
 jobs:
   test:
     name: Lint & Test
