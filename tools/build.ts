@@ -1,6 +1,6 @@
 import { builtinModules } from 'module';
 
-import { rollup } from 'rollup';
+import { rollup, VERSION } from 'rollup';
 
 import dts from 'rollup-plugin-dts';
 import { swc, defineRollupSwcOption } from '../src/index';
@@ -47,6 +47,8 @@ async function main() {
 
     return bundle.write({ file: './dist/index.d.ts' });
   }
+
+  console.log('rollup version', VERSION);
 
   return Promise.all([build(), createDtsFile()]).then(() => console.log('build finished!'));
 }
