@@ -17,8 +17,7 @@ jobs:
           cache: 'npm'
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
-        # TODO: remove once rollup-plugin-dts releases a version including https://github.com/Swatinem/rollup-plugin-dts/pull/294
-        run: npm install -g npm && npm install --legacy-peer-deps
+        run: npm install -g npm && npm install
       - name: Lint
         run: npm run lint
       - name: Test
