@@ -169,7 +169,10 @@ function swc(options: PluginOptions = {}): RollupPlugin {
 
     renderChunk(code: string) {
       if (options.minify || options.jsc?.minify?.mangle || options.jsc?.minify?.compress) {
-        return swcMinify(code, options.jsc?.minify);
+        return swcMinify(code, {
+          ...options.jsc?.minify,
+          module: true
+        });
       }
 
       return null;
