@@ -1,3 +1,7 @@
+## 0.10.3
+
+- Pass correct options to `@swc/core` (https://github.com/SukkaW/rollup-plugin-swc/pull/54 by @kdy1)
+
 ## 0.10.2
 
 - Add warning message when tsconfig is invalid
