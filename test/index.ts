@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-type-constituents -- rollup version type overlapping */
 import path from 'path';
 import fsp from 'fs/promises';
 

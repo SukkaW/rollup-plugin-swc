@@ -117,7 +117,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           externalHelpers: tsconfigOptions.importHelpers,
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
-            [isTypeScript?'tsx':'jsx']: isTypeScript ? isTsx : isJsx,
+            [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : isJsx,
             decorators: tsconfigOptions.experimentalDecorators
           },
           transform: {
