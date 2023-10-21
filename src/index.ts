@@ -117,8 +117,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           externalHelpers: tsconfigOptions.importHelpers,
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
-            tsx: isTypeScript ? isTsx : undefined,
-            jsx: !isTypeScript ? isJsx : undefined,
+            [isTypeScript?'tsx':'jsx']: isTypeScript ? isTsx : isJsx,
             decorators: tsconfigOptions.experimentalDecorators
           },
           transform: {
@@ -170,7 +169,10 @@ function swc(options: PluginOptions = {}): RollupPlugin {
 
     renderChunk(code: string) {
       if (options.minify || options.jsc?.minify?.mangle || options.jsc?.minify?.compress) {
-        return swcMinify(code, options.jsc?.minify);
+        return swcMinify(code, {
+          ...options.jsc?.minify,
+          module: true
+        });
       }
 
       return null;
