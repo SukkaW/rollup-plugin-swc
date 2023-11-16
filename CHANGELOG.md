@@ -1,3 +1,7 @@
+## 0.10.4
+
+- Bump `rollup-swc-preserve-directives` to the latest version
+
 ## 0.10.3
 
 - Pass correct options to `@swc/core` (https://github.com/SukkaW/rollup-plugin-swc/pull/54 by @kdy1)

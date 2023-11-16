@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-swc3",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "description": "Use SWC with Rollup to transform ESNext and TypeScript code.",
   "homepage": "https://github.com/SukkaW/rollup-plugin-swc#readme",
   "repository": {
