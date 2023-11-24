@@ -46,6 +46,13 @@ const fileExists = (path: string) => {
     .catch(() => false);
 };
 
+const lookup = (entry: string, target: string): string => {
+  const dir = dirname(entry);
+  const targetFile = join(dir, target);
+  if (fs.existsSync(targetFile)) return targetFile;
+  return lookup(dir, target);
+};
+
 function swc(options: PluginOptions = {}): RollupPlugin {
   const filter = createFilter(
     options.include || INCLUDE_REGEXP,
@@ -68,7 +75,6 @@ function swc(options: PluginOptions = {}): RollupPlugin {
 
   return {
     name: 'swc',
-
     async resolveId(importee, importer) {
       // ignore IDs with null character, these belong to other plugins
       if (importee.startsWith('\0')) {
@@ -107,6 +113,23 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           ? {}
           : getOptions(this, dirname(id), options.tsconfig);
 
+      let enaleExperimentalDecorators = false;
+      if (isTypeScript) {
+        try {
+          const tsPath = require.resolve('typescript', { paths: [process.cwd()] });
+          const packageJsonPath = lookup(tsPath, 'package.json');
+          const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+          const [major] = version.split(',');
+          // typescript 5.x
+          if (+major >= 5) enaleExperimentalDecorators = true;
+        } catch {
+          this.warn({
+            message: 'Can\'t find typescript, please Check typescript has been installed.',
+            pluginCode: 'SWC_TYPESCRIPT_NOT_EXISTS'
+          });
+        }
+      }
+
       // TODO: SWC is about to add "preserve" jsx
       // https://github.com/swc-project/swc/pull/5661
       // Respect "preserve" after swc adds the support
@@ -118,10 +141,12 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
             [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : isJsx,
-            decorators: tsconfigOptions.experimentalDecorators
+            decorators: enaleExperimentalDecorators || tsconfigOptions.experimentalDecorators
           },
           transform: {
             decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
+            // @ts-expect-error -- swc types loose this :(
+            decoratorVersion: enaleExperimentalDecorators ? '2022-03' : '2021-12',
             react: {
               runtime: useReact17NewTransform
                 ? 'automatic'
