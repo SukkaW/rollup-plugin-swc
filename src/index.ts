@@ -46,13 +46,6 @@ const fileExists = (path: string) => {
     .catch(() => false);
 };
 
-const lookup = (entry: string, target: string): string => {
-  const dir = dirname(entry);
-  const targetFile = join(dir, target);
-  if (fs.existsSync(targetFile)) return targetFile;
-  return lookup(dir, target);
-};
-
 function swc(options: PluginOptions = {}): RollupPlugin {
   const filter = createFilter(
     options.include || INCLUDE_REGEXP,
@@ -116,8 +109,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
       let enaleExperimentalDecorators = false;
       if (isTypeScript) {
         try {
-          const tsPath = require.resolve('typescript', { paths: [process.cwd()] });
-          const packageJsonPath = lookup(tsPath, 'package.json');
+          const packageJsonPath = require.resolve('typescript/package.json', { paths: [process.cwd()] });
           const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
           const [major] = version.split('.');
           // typescript 5.x
