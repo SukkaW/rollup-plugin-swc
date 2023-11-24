@@ -119,7 +119,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           const tsPath = require.resolve('typescript', { paths: [process.cwd()] });
           const packageJsonPath = lookup(tsPath, 'package.json');
           const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-          const [major] = version.split(',');
+          const [major] = version.split('.');
           // typescript 5.x
           if (+major >= 5) enaleExperimentalDecorators = true;
         } catch {
