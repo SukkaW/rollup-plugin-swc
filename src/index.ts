@@ -106,14 +106,14 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           ? {}
           : getOptions(this, dirname(id), options.tsconfig);
 
-      let enaleExperimentalDecorators = false;
+      let enableExperimentalDecorators = false;
       if (isTypeScript) {
         try {
           const packageJsonPath = require.resolve('typescript/package.json', { paths: [process.cwd()] });
           const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
           const [major] = version.split('.');
           // typescript 5.x
-          if (+major >= 5) enaleExperimentalDecorators = true;
+          if (+major >= 5) enableExperimentalDecorators = true;
         } catch {
           this.warn({
             message: 'Failed to find TypeScript. Please check if TypeScript has been installed.',
@@ -133,12 +133,12 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
             [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : isJsx,
-            decorators: enaleExperimentalDecorators || tsconfigOptions.experimentalDecorators
+            decorators: enableExperimentalDecorators || tsconfigOptions.experimentalDecorators
           },
           transform: {
             decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
             // @ts-expect-error -- swc types loose this :(
-            decoratorVersion: enaleExperimentalDecorators ? '2022-03' : '2021-12',
+            decoratorVersion: enableExperimentalDecorators ? '2022-03' : '2021-12',
             react: {
               runtime: useReact17NewTransform
                 ? 'automatic'
