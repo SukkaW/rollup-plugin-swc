@@ -116,7 +116,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           if (+major >= 5) enaleExperimentalDecorators = true;
         } catch {
           this.warn({
-            message: 'Can\'t find typescript, please Check typescript has been installed.',
+            message: 'Failed to find TypeScript. Please check if TypeScript has been installed.',
             pluginCode: 'SWC_TYPESCRIPT_NOT_EXISTS'
           });
         }
