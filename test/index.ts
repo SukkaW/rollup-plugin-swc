@@ -337,6 +337,15 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
     rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code.should.matchSnapshot();
     rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code.should.matchSnapshot();
   });
+
+  it('detect  decorator for typescript5', async () => {
+    const dir = await fixture('decorators');
+    (await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './index.ts', dir }
+    ))[0].code.should.matchSnapshot();
+  });
 };
 
 describe('rollup-plugin-swc3', () => {

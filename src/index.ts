@@ -66,9 +66,18 @@ function swc(options: PluginOptions = {}): RollupPlugin {
     return null;
   };
 
+  let enableExperimentalDecorators = false;
+  try {
+    const packageJsonPath = require.resolve('typescript/package.json', { paths: [process.cwd()] });
+    const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+    const [major] = version.split('.');
+    // typescript 5.x
+    if (+major >= 5) enableExperimentalDecorators = true;
+  } catch {
+  }
+
   return {
     name: 'swc',
-
     async resolveId(importee, importer) {
       // ignore IDs with null character, these belong to other plugins
       if (importee.startsWith('\0')) {
@@ -118,10 +127,12 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
             [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : isJsx,
-            decorators: tsconfigOptions.experimentalDecorators
+            decorators: enableExperimentalDecorators || tsconfigOptions.experimentalDecorators
           },
           transform: {
             decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
+            // @ts-expect-error -- swc types loose this :(
+            decoratorVersion: enableExperimentalDecorators ? '2022-03' : '2021-12',
             react: {
               runtime: useReact17NewTransform
                 ? 'automatic'

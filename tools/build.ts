@@ -1,6 +1,7 @@
 import { builtinModules } from 'module';
 
 import { rollup, VERSION } from 'rollup';
+import type { Plugin } from 'rollup';
 
 import dts from 'rollup-plugin-dts';
 import { swc, defineRollupSwcOption } from '../src/index';
@@ -9,6 +10,24 @@ import pkg from '../package.json';
 const deps = Object.keys(pkg.dependencies);
 const peerDeps = Object.keys(pkg.peerDependencies);
 
+// Trasnform require.resolve
+function injectShims(): Plugin {
+  return {
+    name: 'shim',
+    renderChunk(code, _, opt) {
+      if (opt.format === 'es') {
+        const shims = `
+        import { createRequire } from 'module';
+        const _require = createRequire(import.meta.url);
+        `;
+        code = code.replace('require.resolve', '_require.resolve');
+        code = `${shims}\r\n${code}`;
+        return code;
+      }
+    }
+  };
+}
+
 async function main() {
   const external = [...deps, ...peerDeps, ...builtinModules];
 
@@ -16,7 +35,7 @@ async function main() {
     const bundle = await rollup({
       input: './src/index.ts',
       external,
-      plugins: [swc(defineRollupSwcOption({
+      plugins: [injectShims(), swc(defineRollupSwcOption({
         jsc: {
           target: 'es2019',
           minify: {
