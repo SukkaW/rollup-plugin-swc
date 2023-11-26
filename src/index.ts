@@ -66,6 +66,16 @@ function swc(options: PluginOptions = {}): RollupPlugin {
     return null;
   };
 
+  let enableExperimentalDecorators = false;
+  try {
+    const packageJsonPath = require.resolve('typescript/package.json', { paths: [process.cwd()] });
+    const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+    const [major] = version.split('.');
+    // typescript 5.x
+    if (+major >= 5) enableExperimentalDecorators = true;
+  } catch {
+  }
+
   return {
     name: 'swc',
     async resolveId(importee, importer) {
@@ -105,22 +115,6 @@ function swc(options: PluginOptions = {}): RollupPlugin {
         = options.tsconfig === false
           ? {}
           : getOptions(this, dirname(id), options.tsconfig);
-
-      let enableExperimentalDecorators = false;
-      if (isTypeScript) {
-        try {
-          const packageJsonPath = require.resolve('typescript/package.json', { paths: [process.cwd()] });
-          const { version } = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
-          const [major] = version.split('.');
-          // typescript 5.x
-          if (+major >= 5) enableExperimentalDecorators = true;
-        } catch {
-          this.warn({
-            message: 'Failed to find TypeScript. Please check if TypeScript has been installed.',
-            pluginCode: 'SWC_TYPESCRIPT_NOT_EXISTS'
-          });
-        }
-      }
 
       // TODO: SWC is about to add "preserve" jsx
       // https://github.com/swc-project/swc/pull/5661
