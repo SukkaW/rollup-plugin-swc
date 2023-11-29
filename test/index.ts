@@ -13,6 +13,7 @@ import { swc, minify, preserveUseDirective } from '../src';
 
 import json from '@rollup/plugin-json';
 import commonjs from '@rollup/plugin-commonjs';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 import type { JsMinifyOptions } from '@swc/core';
 
@@ -20,6 +21,8 @@ import chai from 'chai';
 import { jestSnapshotPlugin } from 'mocha-chai-jest-snapshot';
 
 import { cleanup, init } from './ramdisk';
+
+import { async as ezspawn } from '@jsdevtools/ez-spawn';
 
 chai.should();
 chai.use(jestSnapshotPlugin());
@@ -101,6 +104,7 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
     const fixtureDir = path.join(__dirname, 'fixtures', fixtureName);
     const testDir = path.join(isolateDir, 'rollup-plugin-swc', fixtureName);
 
+    let requireInstall = false;
     const dirs = new Set<string>();
     const files: Array<[from: string, to: string]> = [];
 
@@ -113,11 +117,22 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
 
         dirs.add(toDir);
         files.push([from, to]);
+
+        if (entry.name === 'package.json') {
+          const pkg = JSON.parse(await fsp.readFile(from, 'utf8'));
+          if (pkg.devDependencies || pkg.dependencies) {
+            requireInstall = true;
+          }
+        }
       }
     }
 
     await Promise.all(Array.from(dirs).map(dir => fsp.mkdir(dir, { recursive: true })));
     await Promise.all(files.map(([from, to]) => fsp.copyFile(from, to)));
+
+    if (requireInstall) {
+      await ezspawn('npm install', { cwd: testDir });
+    }
 
     return testDir;
   };
@@ -336,6 +351,16 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
 
     rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code.should.matchSnapshot();
     rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code.should.matchSnapshot();
+  });
+
+  it('issue 58 - eventemitter3', async () => {
+    const dir = await fixture('issue-58');
+
+    (await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './index.ts', dir, otherRollupPlugins: [nodeResolve(), commonjs()] }
+    ))[0].code.should.matchSnapshot();
   });
 };
 
