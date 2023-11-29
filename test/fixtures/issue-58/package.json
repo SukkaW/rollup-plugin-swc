@@ -1,0 +1,7 @@
+{
+  "name": "issue-58",
+  "private": true,
+  "devDependencies": {
+    "eventemitter3": "^5.0.1"
+  }
+}
