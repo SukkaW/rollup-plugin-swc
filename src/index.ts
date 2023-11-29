@@ -1,7 +1,7 @@
 import type { Plugin as RollupPlugin } from 'rollup';
 
 import fs from 'fs';
-import { extname, resolve, dirname, join } from 'path';
+import { extname, resolve, dirname, join, sep } from 'path';
 import { createFilter, type FilterPattern } from '@rollup/pluginutils';
 import type {
   Options as SwcOptions,
@@ -75,7 +75,13 @@ function swc(options: PluginOptions = {}): RollupPlugin {
         return null;
       }
 
-      if (importer && importee.startsWith('.')) {
+      // If the importer (the module that is importing the importee) should not be handled by this plugin,
+      // we skip the resolution to avoid the issue like https://github.com/SukkaW/rollup-plugin-swc/issues/58
+      if (!filter(importer)) {
+        return null;
+      }
+
+      if (importer && importee[0] === '.') {
         const resolved = resolve(
           importer ? dirname(importer) : process.cwd(),
           importee
