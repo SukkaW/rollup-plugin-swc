@@ -7,7 +7,7 @@
 
 **New:** Building library for React Server Component support is added in `0.9.0`! `'use client'` and `'use server'` directives now are handled properly, without triggering rollup warnings. [Start using `'use client'` and `'use server'` in your library by adding two lines in your `rollup.config.js`](#react-server-component-directives-use-client-and-use-server)
 
-> Since `0.9.1` the support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-swc-preserve-directives`](https://github.com/huozhi/rollup-plugin-swc-preserve-directives), the previous `preserveUseDirective` named export is retained for the backward compatability.
+> Since `0.9.1` the support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-preserve-directives`](https://github.com/huozhi/rollup-preserve-directives), the previous `preserveUseDirective` named export is retained for the backward compatibility.
 
 ## Comparison
 
@@ -168,36 +168,36 @@ const swcMinifyConfig = {}
 
 ~~Since version `0.9.0`, the support for `'use client'` and `'use server'` has been added:~~
 
-> The support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-swc-preserve-directives`](https://github.com/huozhi/rollup-plugin-swc-preserve-directives), maintained by [@huozhi](https://github.com/huozhi) and me. The previous `preserveUseDirective` named export is retained for the backward compatibility.
+> The support for `'use client'` and `'use server'` has been separated into a standalone rollup plugin [`rollup-preserve-directives`](https://github.com/huozhi/rollup-preserve-directives), maintained by [@huozhi](https://github.com/huozhi) and me. The previous `preserveUseDirective` named export is retained for the backward compatibility.
 
 ```bash
 # npm
-npm install -D rollup-swc-preserve-directives
+npm install -D rollup-preserve-directives
 # yarn
-yarn add -D rollup-swc-preserve-directives
+yarn add -D rollup-preserve-directives
 # pnpm
-pnpm add -D rollup-swc-preserve-directives
+pnpm add -D rollup-preserve-directives
 ```
 
 ```js
 // rollup.config.js
 import { swc } from 'rollup-plugin-swc3';
-import swcPreserveDirectives from 'rollup-swc-preserve-directives';
+import preserveDirectives from 'rollup-preserve-directives';
 
 export default {
   input: 'xxxx',
   output: {},
   plugins: [
     swc(),
-    // And add `swcPreserveDirectives` plugin after the `swc` plugin
-    swcPreserveDirectives()
+    // And add `preserveDirectives` plugin after the `swc` plugin
+    preserveDirectives()
   ];
 }
 ```
 
 And that is it!
 
-`swcPreserveDirectives` supports:
+`preserveDirectives` supports:
 
 - Merging duplicated directives in the output bundles
 
@@ -220,7 +220,7 @@ And that is it!
   export default {
     input: 'src/index.js',
     output: { file: 'dist/index.js' }
-    plugins: [swc(), swcPreserveDirectives()]
+    plugins: [swc(), preserveDirectives()]
   }
 
   // dist/index.js
@@ -255,7 +255,7 @@ And that is it!
     },
     // output both client bundle and server bundle in the "dist/" directory
     output: { dir: 'dist/', entryFileName: '[name].js' }
-    plugins: [swc(), swcPreserveDirectives()]
+    plugins: [swc(), preserveDirectives()]
   }
 
   // dist/client.js
