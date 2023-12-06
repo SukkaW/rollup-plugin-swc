@@ -1,3 +1,9 @@
+## 0.11.0
+
+- Fix [#58](https://github.com/SukkaW/rollup-plugin-swc/issues/58)
+  - `rollup-plugin-swc3` now will only perform module resolution inside the files specified in `include` and `exclude` options.
+- Replace `rollup-swc-preserve-directives` with `rollup-preserve-directives`
+
 ## 0.10.4
 
 - Bump `rollup-swc-preserve-directives` to the latest version
