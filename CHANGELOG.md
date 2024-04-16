@@ -1,3 +1,8 @@
+## 0.11.1
+
+- Fix [#63](https://github.com/SukkaW/rollup-plugin-swc/issues/63)
+  - Previously, `rollup-plugin-swc3` only handled relative `compilerOptions.baseUrl` when `compilerOptions.paths` is specified. It is fixed in [#64](https://github.com/SukkaW/rollup-plugin-swc/pull/64), now `rollup-plugin-swc3` will handle relative `compilerOptions.baseUrl` as long as it is specified.
+
 ## 0.11.0
 
 - Fix [#58](https://github.com/SukkaW/rollup-plugin-swc/issues/58)
