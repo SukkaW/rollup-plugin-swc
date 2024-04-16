@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "module": "ES2022",
+    "target": "ES2017"
+  },
+  "include": ["./index.ts"],
+}

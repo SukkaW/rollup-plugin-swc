@@ -362,6 +362,16 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
       { input: './index.ts', dir, otherRollupPlugins: [nodeResolve(), commonjs()] }
     ))[0].code.should.matchSnapshot();
   });
+
+  it('issue 63 - tsconfig baseUrl only + relative baseUrl', async () => {
+    const dir = await fixture('tsconfig-base-url-only-relative-issue-63');
+
+    (await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './src/index.ts', dir, otherRollupPlugins: [nodeResolve(), commonjs()] }
+    ))[0].code.should.matchSnapshot();
+  });
 };
 
 describe('rollup-plugin-swc3', () => {
