@@ -21,7 +21,7 @@ export const getOptions = (
     const compilerOptions = parseTsconfig(tsconfig).compilerOptions ?? {};
 
     const tsconfigDir = path.dirname(tsconfig);
-    if (compilerOptions.paths != null) {
+    if (compilerOptions.paths != null || compilerOptions.baseUrl != null) {
       compilerOptions.baseUrl = compilerOptions.baseUrl != null
         ? path.resolve(tsconfigDir, compilerOptions.baseUrl)
         : tsconfigDir;
@@ -42,7 +42,7 @@ export const getOptions = (
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};
-  if (compilerOptions.paths != null) {
+  if (compilerOptions.paths != null || compilerOptions.baseUrl != null) {
     if (result?.path) {
       const tsconfigDir = path.dirname(result.path);
       compilerOptions.baseUrl = compilerOptions.baseUrl != null

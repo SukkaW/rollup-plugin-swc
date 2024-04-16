@@ -402,6 +402,38 @@ ee.on(\\"test\\", function() {
 "
 `;
 
+exports[`rollup-plugin-swc3 swc (rollup 2) issue 63 - tsconfig baseUrl only + relative baseUrl 1`] = `
+"function _check_private_redeclaration(obj, privateCollection) {
+    if (privateCollection.has(obj)) {
+        throw new TypeError(\\"Cannot initialize the same private elements twice on an object\\");
+    }
+}
+function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError(\\"Cannot call a class as a function\\");
+    }
+}
+function _class_private_field_init(obj, privateMap, value) {
+    _check_private_redeclaration(obj, privateMap);
+    privateMap.set(obj, value);
+}
+function test(s) {
+    console.log(s);
+}
+test(\\"hello swc!\\");
+var _es2022Feature = /*#__PURE__*/ new WeakMap();
+var Test = function Test() {
+    _class_call_check(this, Test);
+    _class_private_field_init(this, _es2022Feature, {
+        writable: true,
+        value: true
+    });
+};
+
+export { Test };
+"
+`;
+
 exports[`rollup-plugin-swc3 swc (rollup 2) load json 1`] = `
 "var foo = true;
 var foo$1 = {
@@ -1026,6 +1058,38 @@ ee.on(\\"test\\", function() {
 "
 `;
 
+exports[`rollup-plugin-swc3 swc (rollup 3) issue 63 - tsconfig baseUrl only + relative baseUrl 1`] = `
+"function _check_private_redeclaration(obj, privateCollection) {
+    if (privateCollection.has(obj)) {
+        throw new TypeError(\\"Cannot initialize the same private elements twice on an object\\");
+    }
+}
+function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError(\\"Cannot call a class as a function\\");
+    }
+}
+function _class_private_field_init(obj, privateMap, value) {
+    _check_private_redeclaration(obj, privateMap);
+    privateMap.set(obj, value);
+}
+function test(s) {
+    console.log(s);
+}
+test(\\"hello swc!\\");
+var _es2022Feature = /*#__PURE__*/ new WeakMap();
+var Test = function Test() {
+    _class_call_check(this, Test);
+    _class_private_field_init(this, _es2022Feature, {
+        writable: true,
+        value: true
+    });
+};
+
+export { Test };
+"
+`;
+
 exports[`rollup-plugin-swc3 swc (rollup 3) load json 1`] = `
 "var foo = true;
 var foo$1 = {
@@ -1647,6 +1711,38 @@ var ee = new EventEmitter();
 ee.on(\\"test\\", function() {
     console.log(\\"test\\");
 });
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) issue 63 - tsconfig baseUrl only + relative baseUrl 1`] = `
+"function _check_private_redeclaration(obj, privateCollection) {
+    if (privateCollection.has(obj)) {
+        throw new TypeError(\\"Cannot initialize the same private elements twice on an object\\");
+    }
+}
+function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError(\\"Cannot call a class as a function\\");
+    }
+}
+function _class_private_field_init(obj, privateMap, value) {
+    _check_private_redeclaration(obj, privateMap);
+    privateMap.set(obj, value);
+}
+function test(s) {
+    console.log(s);
+}
+test(\\"hello swc!\\");
+var _es2022Feature = /*#__PURE__*/ new WeakMap();
+var Test = function Test() {
+    _class_call_check(this, Test);
+    _class_private_field_init(this, _es2022Feature, {
+        writable: true,
+        value: true
+    });
+};
+
+export { Test };
 "
 `;
 
