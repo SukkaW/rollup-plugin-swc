@@ -392,7 +392,5 @@ describe('rollup-plugin-swc3', () => {
     tests(rollup4, isolateDir);
   });
 
-  after(() => {
-    cleanup(ramDiskPath);
-  });
+  after(() => cleanup(ramDiskPath));
 });
