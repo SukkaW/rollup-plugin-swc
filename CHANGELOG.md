@@ -1,3 +1,23 @@
+## 0.11.2
+
+- New feature `viteMinify` to use swc's minification in Vite.
+  - When used, it will disable Vite's built-in minification and use swc's minification instead.
+
+  ```js
+  import { defineConfig } from 'vite';
+  import { viteMinify } from 'rollup-plugin-swc3'
+
+  export default defineConfig({
+    plugins: [
+      viteMinify({
+        // swc's minify option here
+        // mangle: {}
+        // compress: {}
+      }),
+    ],
+  })
+  ```
+
 ## 0.11.1
 
 - Fix [#63](https://github.com/SukkaW/rollup-plugin-swc/issues/63)

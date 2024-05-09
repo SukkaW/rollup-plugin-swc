@@ -164,6 +164,23 @@ export default {
 const swcMinifyConfig = {}
 ```
 
+If you are are using Vite and you do not want to use `terser` or `esbuild` for minification, `rollup-plugin-swc3` also provides a standalone minify plugin designed for Vite:
+
+```js
+import { defineConfig } from 'vite';
+import { viteMinify } from 'rollup-plugin-swc3'
+
+export default defineConfig({
+  plugins: [
+    viteMinify({
+      // swc's minify option here
+      // mangle: {}
+      // compress: {}
+    }),
+  ],
+})
+```
+
 ### React Server Component directives (`'use client'` and `'use server'`)
 
 ~~Since version `0.9.0`, the support for `'use client'` and `'use server'` has been added:~~
