@@ -16,6 +16,8 @@ import createDeepMerge from '@fastify/deepmerge';
 
 import { getOptions } from './options';
 
+import type { Plugin as VitePlugin } from 'vite';
+
 export type PluginOptions = {
   include?: FilterPattern,
   exclude?: FilterPattern,
@@ -190,10 +192,42 @@ function minify(options: JsMinifyOptions = {}): RollupPlugin {
   return {
     name: 'swc-minify',
 
-    renderChunk(code: string) {
-      return swcMinify(code, options);
+    renderChunk: {
+      order: 'post',
+      handler(code: string) {
+        return swcMinify(code, options);
+      }
     }
   };
+}
+
+// Use `any` here to prevent Vite's type from being output in the dist dts
+function viteMinify(options: JsMinifyOptions = {}): any {
+  return {
+    name: 'vite-swc-minify',
+    // Enforce minification after other plugins
+    enforce: 'post',
+    apply: 'build',
+    config(viteOption) {
+      if (viteOption.build?.minify) {
+        // Disable Vite built-in minification
+        viteOption.build.minify = false
+        // When build.minify is enabled, Vite will also enable build.cssMinify
+        // But here we only want to disable Vite built-in JS minification
+        // So we need to manually enable build.cssMinify after disabling build.minify
+        if (!viteOption.build.cssMinify) {
+          viteOption.build.cssMinify = true
+        }
+      }
+      return viteOption;
+    },
+    renderChunk: {
+      order: 'post',
+      handler(code) {
+        return swcMinify(code, options);
+      },
+    }
+  } satisfies VitePlugin;
 }
 
 function defineRollupSwcOption(option: PluginOptions) {
@@ -205,5 +239,5 @@ function defineRollupSwcMinifyOption(option: JsMinifyOptions) {
 }
 
 export default swc;
-export { swc, defineRollupSwcOption, minify, defineRollupSwcMinifyOption };
+export { swc, defineRollupSwcOption, minify, viteMinify, defineRollupSwcMinifyOption };
 export { preserveUseDirective } from './directive';
