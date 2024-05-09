@@ -211,12 +211,12 @@ function viteMinify(options: JsMinifyOptions = {}): any {
     config(viteOption) {
       if (viteOption.build?.minify) {
         // Disable Vite built-in minification
-        viteOption.build.minify = false
+        viteOption.build.minify = false;
         // When build.minify is enabled, Vite will also enable build.cssMinify
         // But here we only want to disable Vite built-in JS minification
         // So we need to manually enable build.cssMinify after disabling build.minify
         if (!viteOption.build.cssMinify) {
-          viteOption.build.cssMinify = true
+          viteOption.build.cssMinify = true;
         }
       }
       return viteOption;
@@ -225,7 +225,7 @@ function viteMinify(options: JsMinifyOptions = {}): any {
       order: 'post',
       handler(code) {
         return swcMinify(code, options);
-      },
+      }
     }
   } satisfies VitePlugin;
 }
