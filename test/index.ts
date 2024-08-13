@@ -1,7 +1,7 @@
 import path from 'path';
 import fsp from 'fs/promises';
 
-import { PathScurry } from 'path-scurry';
+import { fdir as Fdir } from 'fdir';
 
 import { rollup as rollup2 } from 'rollup2';
 import { rollup as rollup3 } from 'rollup3';
@@ -108,21 +108,23 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
     const dirs = new Set<string>();
     const files: Array<[from: string, to: string]> = [];
 
-    const pw = new PathScurry(fixtureDir);
-    for await (const entry of pw) {
-      if (entry.isFile()) {
-        const from = entry.fullpath();
-        const to = path.join(testDir, entry.relative());
-        const toDir = path.dirname(to);
+    const entries = await new Fdir()
+      .withRelativePaths()
+      .crawl(fixtureDir)
+      .withPromise();
 
-        dirs.add(toDir);
-        files.push([from, to]);
+    for (const entry of entries) {
+      const from = fixtureDir + path.sep + entry;
+      const to = path.join(testDir, entry);
+      const toDir = path.dirname(to);
 
-        if (entry.name === 'package.json') {
-          const pkg = JSON.parse(await fsp.readFile(from, 'utf8'));
-          if (pkg.devDependencies || pkg.dependencies) {
-            requireInstall = true;
-          }
+      dirs.add(toDir);
+      files.push([from, to]);
+
+      if (entry === 'package.json') {
+        const pkg = JSON.parse(await fsp.readFile(from, 'utf8'));
+        if (pkg.devDependencies || pkg.dependencies) {
+          requireInstall = true;
         }
       }
     }
