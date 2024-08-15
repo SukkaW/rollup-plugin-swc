@@ -20,7 +20,7 @@ import type { JsMinifyOptions } from '@swc/core';
 import chai from 'chai';
 import { jestSnapshotPlugin } from 'mocha-chai-jest-snapshot';
 
-import { cleanup, init } from './ramdisk';
+import { create, destroy } from 'memdisk';
 
 import { async as ezspawn } from '@jsdevtools/ez-spawn';
 
@@ -377,7 +377,7 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
 };
 
 describe('rollup-plugin-swc3', () => {
-  const ramDiskPath = init('rolluppluginswc3test');
+  const ramDiskPath = create.sync('rolluppluginswc3test', 64 * 1024 * 1024);
 
   describe('swc (rollup 2)', () => {
     const isolateDir = path.join(ramDiskPath, 'rollup2');
@@ -394,5 +394,5 @@ describe('rollup-plugin-swc3', () => {
     tests(rollup4, isolateDir);
   });
 
-  after(() => cleanup(ramDiskPath));
+  after(() => destroy.sync(ramDiskPath));
 });
