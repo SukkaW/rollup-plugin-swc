@@ -377,7 +377,7 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
 };
 
 describe('rollup-plugin-swc3', () => {
-  const ramDiskPath = create.sync('rolluppluginswc3test', 64 * 1024 * 1024);
+  const ramDiskPath = create.sync('rolluppluginswc3test', 64 * 1024 * 1024, { quiet: false });
 
   describe('swc (rollup 2)', () => {
     const isolateDir = path.join(ramDiskPath, 'rollup2');
@@ -394,5 +394,5 @@ describe('rollup-plugin-swc3', () => {
     tests(rollup4, isolateDir);
   });
 
-  after(() => destroy.sync(ramDiskPath));
+  after(() => destroy.sync(ramDiskPath, { quiet: false }));
 });
