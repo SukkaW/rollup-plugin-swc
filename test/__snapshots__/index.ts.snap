@@ -13,9 +13,9 @@ export { client as default };
 exports[`rollup-plugin-swc3 swc (rollup 2) directive - merge "use client" 1`] = `
 "'use client';
 'use sukka';
-var foo = \\"sukka\\";
+var foo = 'sukka';
 
-var bar = \\"sukka\\";
+var bar = 'sukka';
 
 export { bar, foo };
 "
@@ -23,7 +23,7 @@ export { bar, foo };
 
 exports[`rollup-plugin-swc3 swc (rollup 2) directive - only output "use client" / "use server" in the specfic entry 1`] = `
 "'use client';
-var foo = \\"client\\";
+var foo = 'client';
 
 export { foo };
 "
@@ -31,7 +31,7 @@ export { foo };
 
 exports[`rollup-plugin-swc3 swc (rollup 2) directive - only output "use client" / "use server" in the specfic entry 2`] = `
 "'use server';
-var bar = \\"server\\";
+var bar = 'server';
 
 export { bar };
 "
@@ -396,8 +396,8 @@ var EventEmitter = /*@__PURE__*/getDefaultExportFromCjs(eventemitter3Exports);
 
 // @ts-expect-error -- the dependency is only installed during test
 var ee = new EventEmitter();
-ee.on(\\"test\\", function() {
-    console.log(\\"test\\");
+ee.on('test', function() {
+    console.log('test');
 });
 "
 `;
@@ -420,7 +420,7 @@ function _class_private_field_init(obj, privateMap, value) {
 function test(s) {
     console.log(s);
 }
-test(\\"hello swc!\\");
+test('hello swc!');
 var _es2022Feature = /*#__PURE__*/ new WeakMap();
 var Test = function Test() {
     _class_call_check(this, Test);
@@ -460,7 +460,7 @@ console.log(Foo);
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) minify 1`] = `
-"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
+"console.log(class{render(){return /*#__PURE__*/React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
 "
 `;
 
@@ -540,7 +540,7 @@ var Foo = /*#__PURE__*/ function() {
     return Foo;
 }();
 
-var bar = \\"baz\\";
+var bar = 'baz';
 
 console.log(Foo);
 console.log(bar);
@@ -570,7 +570,7 @@ export { rollupCommonjs as default };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) target - include other files 1`] = `
-"var foo = \\"sukka\\";
+"var foo = 'sukka';
 
 console.log(foo);
 "
@@ -578,10 +578,10 @@ console.log(foo);
 
 exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig - baseUrl & paths 1`] = `
 "var a = function(input) {
-    return \\"a\\" + input;
+    return 'a' + input;
 };
 
-var b = \\"b\\";
+var b = 'b';
 
 console.log(a(b));
 "
@@ -589,10 +589,10 @@ console.log(a(b));
 
 exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig - paths 1`] = `
 "var a = function(input) {
-    return \\"a\\" + input;
+    return 'a' + input;
 };
 
-var b = \\"b\\";
+var b = 'b';
 
 console.log(a(b));
 "
@@ -671,9 +671,9 @@ export { client as default };
 exports[`rollup-plugin-swc3 swc (rollup 3) directive - merge "use client" 1`] = `
 "'use client';
 'use sukka';
-var foo = \\"sukka\\";
+var foo = 'sukka';
 
-var bar = \\"sukka\\";
+var bar = 'sukka';
 
 export { bar, foo };
 "
@@ -681,7 +681,7 @@ export { bar, foo };
 
 exports[`rollup-plugin-swc3 swc (rollup 3) directive - only output "use client" / "use server" in the specfic entry 1`] = `
 "'use client';
-var foo = \\"client\\";
+var foo = 'client';
 
 export { foo };
 "
@@ -689,7 +689,7 @@ export { foo };
 
 exports[`rollup-plugin-swc3 swc (rollup 3) directive - only output "use client" / "use server" in the specfic entry 2`] = `
 "'use server';
-var bar = \\"server\\";
+var bar = 'server';
 
 export { bar };
 "
@@ -1052,8 +1052,8 @@ var EventEmitter = /*@__PURE__*/getDefaultExportFromCjs(eventemitter3Exports);
 
 // @ts-expect-error -- the dependency is only installed during test
 var ee = new EventEmitter();
-ee.on(\\"test\\", function() {
-    console.log(\\"test\\");
+ee.on('test', function() {
+    console.log('test');
 });
 "
 `;
@@ -1076,7 +1076,7 @@ function _class_private_field_init(obj, privateMap, value) {
 function test(s) {
     console.log(s);
 }
-test(\\"hello swc!\\");
+test('hello swc!');
 var _es2022Feature = /*#__PURE__*/ new WeakMap();
 var Test = function Test() {
     _class_call_check(this, Test);
@@ -1116,7 +1116,7 @@ console.log(Foo);
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) minify 1`] = `
-"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
+"console.log(class{render(){return /*#__PURE__*/React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
 "
 `;
 
@@ -1196,7 +1196,7 @@ var Foo = /*#__PURE__*/ function() {
     return Foo;
 }();
 
-var bar = \\"baz\\";
+var bar = 'baz';
 
 console.log(Foo);
 console.log(bar);
@@ -1226,7 +1226,7 @@ export { rollupCommonjs as default };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) target - include other files 1`] = `
-"var foo = \\"sukka\\";
+"var foo = 'sukka';
 
 console.log(foo);
 "
@@ -1234,10 +1234,10 @@ console.log(foo);
 
 exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig - baseUrl & paths 1`] = `
 "var a = function(input) {
-    return \\"a\\" + input;
+    return 'a' + input;
 };
 
-var b = \\"b\\";
+var b = 'b';
 
 console.log(a(b));
 "
@@ -1245,10 +1245,10 @@ console.log(a(b));
 
 exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig - paths 1`] = `
 "var a = function(input) {
-    return \\"a\\" + input;
+    return 'a' + input;
 };
 
-var b = \\"b\\";
+var b = 'b';
 
 console.log(a(b));
 "
@@ -1327,9 +1327,9 @@ export { client as default };
 exports[`rollup-plugin-swc3 swc (rollup 4) directive - merge "use client" 1`] = `
 "'use client';
 'use sukka';
-var foo = \\"sukka\\";
+var foo = 'sukka';
 
-var bar = \\"sukka\\";
+var bar = 'sukka';
 
 export { bar, foo };
 "
@@ -1337,7 +1337,7 @@ export { bar, foo };
 
 exports[`rollup-plugin-swc3 swc (rollup 4) directive - only output "use client" / "use server" in the specfic entry 1`] = `
 "'use client';
-var foo = \\"client\\";
+var foo = 'client';
 
 export { foo };
 "
@@ -1345,7 +1345,7 @@ export { foo };
 
 exports[`rollup-plugin-swc3 swc (rollup 4) directive - only output "use client" / "use server" in the specfic entry 2`] = `
 "'use server';
-var bar = \\"server\\";
+var bar = 'server';
 
 export { bar };
 "
@@ -1708,8 +1708,8 @@ var EventEmitter = /*@__PURE__*/getDefaultExportFromCjs(eventemitter3Exports);
 
 // @ts-expect-error -- the dependency is only installed during test
 var ee = new EventEmitter();
-ee.on(\\"test\\", function() {
-    console.log(\\"test\\");
+ee.on('test', function() {
+    console.log('test');
 });
 "
 `;
@@ -1732,7 +1732,7 @@ function _class_private_field_init(obj, privateMap, value) {
 function test(s) {
     console.log(s);
 }
-test(\\"hello swc!\\");
+test('hello swc!');
 var _es2022Feature = /*#__PURE__*/ new WeakMap();
 var Test = function Test() {
     _class_call_check(this, Test);
@@ -1772,7 +1772,7 @@ console.log(Foo);
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) minify 1`] = `
-"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
+"console.log(class{render(){return /*#__PURE__*/React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
 "
 `;
 
@@ -1832,7 +1832,6 @@ function _defineProperties(target, props) {
 }
 function _create_class(Constructor, protoProps, staticProps) {
     if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) _defineProperties(Constructor, staticProps);
     return Constructor;
 }
 var Foo = /*#__PURE__*/ function() {
@@ -1852,7 +1851,7 @@ var Foo = /*#__PURE__*/ function() {
     return Foo;
 }();
 
-var bar = \\"baz\\";
+var bar = 'baz';
 
 console.log(Foo);
 console.log(bar);
@@ -1882,7 +1881,7 @@ export { rollupCommonjs as default };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) target - include other files 1`] = `
-"var foo = \\"sukka\\";
+"var foo = 'sukka';
 
 console.log(foo);
 "
@@ -1890,10 +1889,10 @@ console.log(foo);
 
 exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig - baseUrl & paths 1`] = `
 "var a = function(input) {
-    return \\"a\\" + input;
+    return 'a' + input;
 };
 
-var b = \\"b\\";
+var b = 'b';
 
 console.log(a(b));
 "
@@ -1901,10 +1900,10 @@ console.log(a(b));
 
 exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig - paths 1`] = `
 "var a = function(input) {
-    return \\"a\\" + input;
+    return 'a' + input;
 };
 
-var b = \\"b\\";
+var b = 'b';
 
 console.log(a(b));
 "
