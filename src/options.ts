@@ -1,5 +1,5 @@
 import { getTsconfig, parseTsconfig } from 'get-tsconfig';
-import path from 'path';
+import path from 'node:path';
 
 import type { TsConfigJson } from 'get-tsconfig';
 import type { TransformPluginContext } from 'rollup';
@@ -22,9 +22,9 @@ export const getOptions = (
 
     const tsconfigDir = path.dirname(tsconfig);
     if (compilerOptions.paths != null || compilerOptions.baseUrl != null) {
-      compilerOptions.baseUrl = compilerOptions.baseUrl != null
-        ? path.resolve(tsconfigDir, compilerOptions.baseUrl)
-        : tsconfigDir;
+      compilerOptions.baseUrl = compilerOptions.baseUrl == null
+        ? tsconfigDir
+        : path.resolve(tsconfigDir, compilerOptions.baseUrl);
     }
 
     cache.set(cacheKey, compilerOptions);
@@ -42,13 +42,14 @@ export const getOptions = (
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};
-  if (compilerOptions.paths != null || compilerOptions.baseUrl != null) {
-    if (result?.path) {
-      const tsconfigDir = path.dirname(result.path);
-      compilerOptions.baseUrl = compilerOptions.baseUrl != null
-        ? path.resolve(tsconfigDir, compilerOptions.baseUrl)
-        : tsconfigDir;
-    }
+  if (
+    (compilerOptions.paths != null || compilerOptions.baseUrl != null)
+    && result?.path
+  ) {
+    const tsconfigDir = path.dirname(result.path);
+    compilerOptions.baseUrl = compilerOptions.baseUrl == null
+      ? tsconfigDir
+      : path.resolve(tsconfigDir, compilerOptions.baseUrl);
   }
 
   cache.set(cacheKey, compilerOptions);

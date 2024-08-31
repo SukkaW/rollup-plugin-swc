@@ -1,5 +1,5 @@
-import path from 'path';
-import fsp from 'fs/promises';
+import path from 'node:path';
+import fsp from 'node:fs/promises';
 
 import { fdir as Fdir } from 'fdir';
 
@@ -122,6 +122,7 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
       files.push([from, to]);
 
       if (entry === 'package.json') {
+        // eslint-disable-next-line no-await-in-loop -- concurrent fs operation
         const pkg = JSON.parse(await fsp.readFile(from, 'utf8'));
         if (pkg.devDependencies || pkg.dependencies) {
           requireInstall = true;

@@ -1,4 +1,5 @@
-import { builtinModules } from 'module';
+import { builtinModules } from 'node:module';
+import process from 'node:process';
 
 import { rollup, VERSION } from 'rollup';
 
@@ -55,5 +56,6 @@ async function main() {
 
 main().catch(err => {
   console.error(err);
+  // eslint-disable-next-line sukka/unicorn/no-process-exit -- CLI tool
   process.exit(1);
 });

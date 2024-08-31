@@ -1,7 +1,8 @@
 import type { Plugin as RollupPlugin } from 'rollup';
 
-import fs from 'fs';
-import { extname, resolve, dirname, join } from 'path';
+import fs from 'node:fs';
+import process from 'node:process';
+import { extname, resolve, dirname, join } from 'node:path';
 import { createFilter, type FilterPattern } from '@rollup/pluginutils';
 import type {
   Options as SwcOptions,
