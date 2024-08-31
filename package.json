@@ -69,7 +69,7 @@
     "rollup": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "overrides": {
     "rollup": "$rollup"
