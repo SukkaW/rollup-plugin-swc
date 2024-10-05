@@ -375,6 +375,15 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
       { input: './src/index.ts', dir, otherRollupPlugins: [nodeResolve(), commonjs()] }
     ))[0].code.should.matchSnapshot();
   });
+
+  it('detect  decorator for typescript5', async () => {
+    const dir = await fixture('decorators');
+    (await build(
+      rollupImpl,
+      { tsconfig: false },
+      { input: './index.ts', dir }
+    ))[0].code.should.matchSnapshot();
+  });
 };
 
 describe('rollup-plugin-swc3', () => {

@@ -1,5 +1,4 @@
 import type { Plugin as RollupPlugin } from 'rollup';
-
 import fs from 'node:fs';
 import process from 'node:process';
 import { extname, resolve, dirname, join } from 'node:path';
@@ -15,7 +14,7 @@ import {
 } from '@swc/core';
 import createDeepMerge from '@fastify/deepmerge';
 
-import { getOptions } from './options';
+import { getOptions, getEnableExperimentalDecorators } from './options';
 
 import type { Plugin as VitePlugin } from 'vite';
 
@@ -116,6 +115,8 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           ? {}
           : getOptions(this, dirname(id), options.tsconfig);
 
+      const enableExperimentalDecorators = getEnableExperimentalDecorators(this, isTypeScript, dirname(id), options.tsconfig);
+
       // TODO: SWC is about to add "preserve" jsx
       // https://github.com/swc-project/swc/pull/5661
       // Respect "preserve" after swc adds the support
@@ -127,7 +128,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
             [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : isJsx,
-            decorators: tsconfigOptions.experimentalDecorators
+            decorators: enableExperimentalDecorators || tsconfigOptions.experimentalDecorators
           },
           transform: {
             decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
@@ -139,7 +140,8 @@ function swc(options: PluginOptions = {}): RollupPlugin {
               pragma: tsconfigOptions.jsxFactory,
               pragmaFrag: tsconfigOptions.jsxFragmentFactory,
               development: tsconfigOptions.jsx === 'react-jsxdev' ? true : undefined
-            }
+            },
+            decoratorVersion: enableExperimentalDecorators ? '2022-03' : '2021-12'
           },
           target: tsconfigOptions.target?.toLowerCase() as JscTarget | undefined,
           baseUrl: tsconfigOptions.baseUrl,
