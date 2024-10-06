@@ -1,3 +1,8 @@
+## 0.12.0
+
+- The minimum required version has been bumped from 12 to 16.
+- Now when TypeScript 5 is detected in your projects will `rollup-plugin-swc3` enable decorators by default (with decorator version `2022-03`), otherwise it is depended by `experimentalDecorators` from `tsconfig.json` (and decorator version `2021-12` will be used). See [#65](https://github.com/SukkaW/rollup-plugin-swc/pull/65/)
+
 ## 0.11.2
 
 - New feature `viteMinify` to use swc's minification in Vite.
