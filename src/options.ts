@@ -66,10 +66,7 @@ export const getEnableExperimentalDecorators = () => {
     const { version } = JSON.parse(fs.readFileSync(fileURLToPath(tsPath), 'utf-8'));
     const [major] = version.split('.');
     // Only check experimental decorators for TypeScript 5+
-    if (+major >= 5) {
-      return true;
-    }
-    return false;
+    return +major >= 5;
   } catch {
     return false;
   }

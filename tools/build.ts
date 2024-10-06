@@ -7,6 +7,7 @@ import dts from 'rollup-plugin-dts';
 import { swc, defineRollupSwcOption } from '../src/index';
 
 import pkg from '../package.json';
+
 const deps = Object.keys(pkg.dependencies);
 const peerDeps = Object.keys(pkg.peerDependencies);
 

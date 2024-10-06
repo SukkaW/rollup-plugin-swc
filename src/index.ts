@@ -2,7 +2,8 @@ import type { Plugin as RollupPlugin } from 'rollup';
 import fs from 'node:fs';
 import process from 'node:process';
 import { extname, resolve, dirname, join } from 'node:path';
-import { createFilter, type FilterPattern } from '@rollup/pluginutils';
+import { createFilter } from '@rollup/pluginutils';
+import type { FilterPattern } from '@rollup/pluginutils';
 import type {
   Options as SwcOptions,
   JscTarget,
@@ -42,11 +43,9 @@ const deepmerge = createDeepMerge({
   }
 });
 
-const fileExists = (path: string) => {
-  return fs.promises.access(path, fs.constants.F_OK)
-    .then(() => true)
-    .catch(() => false);
-};
+const fileExists = (path: string) => fs.promises.access(path, fs.constants.F_OK)
+  .then(() => true)
+  .catch(() => false);
 
 function swc(options: PluginOptions = {}): RollupPlugin {
   const filter = createFilter(
