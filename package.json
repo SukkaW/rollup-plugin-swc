@@ -31,6 +31,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "@dual-bundle/import-meta-resolve": "^4.1.0",
     "@fastify/deepmerge": "^2.0.0",
     "@rollup/pluginutils": "^5.1.0",
     "get-tsconfig": "^4.8.0",

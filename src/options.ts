@@ -1,8 +1,11 @@
 import { getTsconfig, parseTsconfig } from 'get-tsconfig';
+import { resolve } from '@dual-bundle/import-meta-resolve';
 import path from 'node:path';
+import fs from 'node:fs';
 
 import type { TsConfigJson } from 'get-tsconfig';
 import type { TransformPluginContext } from 'rollup';
+import { fileURLToPath } from 'node:url';
 
 const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
@@ -54,4 +57,20 @@ export const getOptions = (
 
   cache.set(cacheKey, compilerOptions);
   return compilerOptions;
+};
+
+export const getEnableExperimentalDecorators = () => {
+  try {
+    // @ts-expect-error -- It's required to using 'import.mtea.url' but i don't want to change the tsconfig.
+    const tsPath = resolve('typescript/package.json', import.meta.url);
+    const { version } = JSON.parse(fs.readFileSync(fileURLToPath(tsPath), 'utf-8'));
+    const [major] = version.split('.');
+    // Only check experimental decorators for TypeScript 5+
+    if (+major >= 5) {
+      return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
 };
