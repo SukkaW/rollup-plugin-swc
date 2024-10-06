@@ -68,6 +68,8 @@ function swc(options: PluginOptions = {}): RollupPlugin {
     return null;
   };
 
+  const enableExperimentalDecorators = getEnableExperimentalDecorators();
+
   return {
     name: 'swc',
 
@@ -114,8 +116,6 @@ function swc(options: PluginOptions = {}): RollupPlugin {
         = options.tsconfig === false
           ? {}
           : getOptions(this, dirname(id), options.tsconfig);
-
-      const enableExperimentalDecorators = getEnableExperimentalDecorators(this, isTypeScript, dirname(id), options.tsconfig);
 
       // TODO: SWC is about to add "preserve" jsx
       // https://github.com/swc-project/swc/pull/5661
