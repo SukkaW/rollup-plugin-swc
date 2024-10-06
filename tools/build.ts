@@ -2,18 +2,17 @@ import { builtinModules } from 'node:module';
 import process from 'node:process';
 
 import { rollup, VERSION } from 'rollup';
+import type { ExternalOption } from 'rollup';
 
 import dts from 'rollup-plugin-dts';
 import { swc, defineRollupSwcOption } from '../src/index';
 
 import pkg from '../package.json';
 
-const deps = Object.keys(pkg.dependencies);
-const peerDeps = Object.keys(pkg.peerDependencies);
+const externalModules = new Set(Object.keys(pkg.dependencies).concat(Object.keys(pkg.peerDependencies)).concat(builtinModules));
+const external: ExternalOption = (id) => id.startsWith('node:') || externalModules.has(id);
 
 async function main() {
-  const external = [...deps, ...peerDeps, ...builtinModules];
-
   async function build() {
     const bundle = await rollup({
       input: './src/index.ts',
