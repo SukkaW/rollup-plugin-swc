@@ -1,3 +1,7 @@
+## 0.12.1
+
+- Fix: respect legacy decorators. See [#67](https://github.com/SukkaW/rollup-plugin-swc/pull/67/)
+
 ## 0.12.0
 
 - The minimum required version has been bumped from 12 to 16.
