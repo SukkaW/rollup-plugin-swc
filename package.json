@@ -25,7 +25,7 @@
     "prepublishOnly": "npm run clean && npm run test && npm run build",
     "clean": "rimraf ./dist ./test/temp",
     "build": "SWC_NODE_PROJECT=./tsconfig.json node -r @swc-node/register tools/build.ts",
-    "test": "SWC_NODE_PROJECT=./tsconfig.json mocha -r @swc-node/register test/index.ts",
+    "test": "SWC_NODE_PROJECT=./tsconfig.json mocha -r @swc-node/register test/index.ts --update",
     "lint": "eslint --format sukka ."
   },
   "author": "",
