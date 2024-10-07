@@ -15,7 +15,7 @@ import {
 } from '@swc/core';
 import createDeepMerge from '@fastify/deepmerge';
 
-import { getOptions, getEnableExperimentalDecorators } from './options';
+import { getOptions, checkIsLegacyTypeScript } from './options';
 
 import type { Plugin as VitePlugin } from 'vite';
 
@@ -67,7 +67,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
     return null;
   };
 
-  const enableExperimentalDecorators = getEnableExperimentalDecorators();
+  const isLegacyTypeScript = checkIsLegacyTypeScript();
 
   return {
     name: 'swc',
@@ -127,7 +127,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
             [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : isJsx,
-            decorators: enableExperimentalDecorators || tsconfigOptions.experimentalDecorators
+            decorators: !isLegacyTypeScript || tsconfigOptions.experimentalDecorators
           },
           transform: {
             decoratorMetadata: tsconfigOptions.emitDecoratorMetadata,
@@ -140,7 +140,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
               pragmaFrag: tsconfigOptions.jsxFragmentFactory,
               development: tsconfigOptions.jsx === 'react-jsxdev' ? true : undefined
             },
-            decoratorVersion: enableExperimentalDecorators ? '2022-03' : '2021-12'
+            decoratorVersion: isLegacyTypeScript ? '2021-12' : (tsconfigOptions.experimentalDecorators ? '2021-12' : '2022-03')
           },
           target: tsconfigOptions.target?.toLowerCase() as JscTarget | undefined,
           baseUrl: tsconfigOptions.baseUrl,
