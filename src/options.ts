@@ -65,7 +65,7 @@ export const checkIsLegacyTypeScript = () => {
     const tsPath = resolve('typescript/package.json', import.meta.url);
     const { version } = JSON.parse(fs.readFileSync(fileURLToPath(tsPath), 'utf-8'));
     const [major] = version.split('.');
-    // Only check experimental decorators for TypeScript 5+
+    // typescript 5+ enable experimentalDecorators by default so we think it's not legacy
     return +major < 5;
   } catch {
     return false;
