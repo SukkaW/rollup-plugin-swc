@@ -59,14 +59,14 @@ export const getOptions = (
   return compilerOptions;
 };
 
-export const getEnableExperimentalDecorators = () => {
+export const checkIsLegacyTypeScript = () => {
   try {
     // @ts-expect-error -- It's required to using 'import.mtea.url' but i don't want to change the tsconfig.
     const tsPath = resolve('typescript/package.json', import.meta.url);
     const { version } = JSON.parse(fs.readFileSync(fileURLToPath(tsPath), 'utf-8'));
     const [major] = version.split('.');
-    // Only check experimental decorators for TypeScript 5+
-    return +major >= 5;
+    // typescript 5+ enable experimentalDecorators by default so we think it's not legacy
+    return +major < 5;
   } catch {
     return false;
   }

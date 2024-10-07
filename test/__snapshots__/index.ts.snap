@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`rollup-plugin-swc3 swc (rollup 2) detect  decorator for typescript5 1`] = `
+exports[`rollup-plugin-swc3 swc (rollup 2) detect decorator for typescript5 1`] = `
 "function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
@@ -13,6 +13,20 @@ function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError(\\"Cannot call a class as a function\\");
     }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if (\\"value\\" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
 }
 function _define_property(obj, key, value) {
     if (key in obj) {
@@ -437,23 +451,97 @@ function applyDecs2203RFactory() {
 function _apply_decs_2203_r(targetClass, memberDecs, classDecs, parentClass) {
     return (_apply_decs_2203_r = applyDecs2203RFactory())(targetClass, memberDecs, classDecs, parentClass);
 }
-var // @ts-expect-error
-_init_name;
-var printMemberName = function(target, memberName) {
-    console.log(memberName);
-};
-var Person = function Person() {
-    _class_call_check(this, Person);
-    _define_property(this, \\"name\\", _init_name(this, \\"Jon\\"));
-};
+var _initProto;
+function trace(value, param) {
+    var kind = param.kind; param.name;
+    if (kind === 'method') {
+        return function() {
+            for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+                args[_key] = arguments[_key];
+            }
+            console.log('trace');
+            return value.apply(this, args);
+        };
+    }
+}
+var People = /*#__PURE__*/ function() {
+    function People() {
+        _class_call_check(this, People);
+        _define_property(this, \\"xzy\\", void 0);
+        _initProto(this);
+        this.xzy = 'xzy';
+    }
+    _create_class(People, [
+        {
+            key: \\"test\\",
+            value: function test() {
+                return this.xzy;
+            }
+        }
+    ]);
+    return People;
+}();
 var ref, ref1;
-ref = _apply_decs_2203_r(Person, [
+ref = _apply_decs_2203_r(People, [
     [
-        printMemberName,
-        0,
-        \\"name\\"
+        trace,
+        2,
+        \\"test\\"
     ]
-], []), ref1 = _sliced_to_array(ref.e, 1), _init_name = ref1[0];
+], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];
+var p = new People();
+p.test();
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 2) detect legacy decorator for typescript5 1`] = `
+"function _define_property(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
+    }
+    return obj;
+}
+function _ts_decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
+    else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+function _ts_metadata(k, v) {
+    if (typeof Reflect === \\"object\\" && typeof Reflect.metadata === \\"function\\") return Reflect.metadata(k, v);
+}
+function trace(_target, _name, descriptor) {
+    const original = descriptor.value;
+    descriptor.value = function() {
+        console.log('trace');
+        return original.call(this);
+    };
+    return descriptor;
+}
+class People {
+    test() {
+        return this.xzy;
+    }
+    constructor(){
+        _define_property(this, \\"xzy\\", void 0);
+        this.xzy = 'xzy';
+    }
+}
+_ts_decorate([
+    trace,
+    _ts_metadata(\\"design:type\\", Function),
+    _ts_metadata(\\"design:paramtypes\\", []),
+    _ts_metadata(\\"design:returntype\\", void 0)
+], People.prototype, \\"test\\", null);
+const p = new People();
+p.test();
 "
 `;
 
@@ -1158,7 +1246,7 @@ export { foo };
 "
 `;
 
-exports[`rollup-plugin-swc3 swc (rollup 3) detect  decorator for typescript5 1`] = `
+exports[`rollup-plugin-swc3 swc (rollup 3) detect decorator for typescript5 1`] = `
 "function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
@@ -1171,6 +1259,20 @@ function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError(\\"Cannot call a class as a function\\");
     }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if (\\"value\\" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
 }
 function _define_property(obj, key, value) {
     if (key in obj) {
@@ -1595,23 +1697,97 @@ function applyDecs2203RFactory() {
 function _apply_decs_2203_r(targetClass, memberDecs, classDecs, parentClass) {
     return (_apply_decs_2203_r = applyDecs2203RFactory())(targetClass, memberDecs, classDecs, parentClass);
 }
-var // @ts-expect-error
-_init_name;
-var printMemberName = function(target, memberName) {
-    console.log(memberName);
-};
-var Person = function Person() {
-    _class_call_check(this, Person);
-    _define_property(this, \\"name\\", _init_name(this, \\"Jon\\"));
-};
+var _initProto;
+function trace(value, param) {
+    var kind = param.kind; param.name;
+    if (kind === 'method') {
+        return function() {
+            for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+                args[_key] = arguments[_key];
+            }
+            console.log('trace');
+            return value.apply(this, args);
+        };
+    }
+}
+var People = /*#__PURE__*/ function() {
+    function People() {
+        _class_call_check(this, People);
+        _define_property(this, \\"xzy\\", void 0);
+        _initProto(this);
+        this.xzy = 'xzy';
+    }
+    _create_class(People, [
+        {
+            key: \\"test\\",
+            value: function test() {
+                return this.xzy;
+            }
+        }
+    ]);
+    return People;
+}();
 var ref, ref1;
-ref = _apply_decs_2203_r(Person, [
+ref = _apply_decs_2203_r(People, [
     [
-        printMemberName,
-        0,
-        \\"name\\"
+        trace,
+        2,
+        \\"test\\"
     ]
-], []), ref1 = _sliced_to_array(ref.e, 1), _init_name = ref1[0];
+], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];
+var p = new People();
+p.test();
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 3) detect legacy decorator for typescript5 1`] = `
+"function _define_property(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
+    }
+    return obj;
+}
+function _ts_decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
+    else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+function _ts_metadata(k, v) {
+    if (typeof Reflect === \\"object\\" && typeof Reflect.metadata === \\"function\\") return Reflect.metadata(k, v);
+}
+function trace(_target, _name, descriptor) {
+    const original = descriptor.value;
+    descriptor.value = function() {
+        console.log('trace');
+        return original.call(this);
+    };
+    return descriptor;
+}
+class People {
+    test() {
+        return this.xzy;
+    }
+    constructor(){
+        _define_property(this, \\"xzy\\", void 0);
+        this.xzy = 'xzy';
+    }
+}
+_ts_decorate([
+    trace,
+    _ts_metadata(\\"design:type\\", Function),
+    _ts_metadata(\\"design:paramtypes\\", []),
+    _ts_metadata(\\"design:returntype\\", void 0)
+], People.prototype, \\"test\\", null);
+const p = new People();
+p.test();
 "
 `;
 
@@ -2314,7 +2490,7 @@ export { foo };
 "
 `;
 
-exports[`rollup-plugin-swc3 swc (rollup 4) detect  decorator for typescript5 1`] = `
+exports[`rollup-plugin-swc3 swc (rollup 4) detect decorator for typescript5 1`] = `
 "function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
@@ -2327,6 +2503,19 @@ function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
         throw new TypeError(\\"Cannot call a class as a function\\");
     }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if (\\"value\\" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    return Constructor;
 }
 function _define_property(obj, key, value) {
     if (key in obj) {
@@ -2751,23 +2940,97 @@ function applyDecs2203RFactory() {
 function _apply_decs_2203_r(targetClass, memberDecs, classDecs, parentClass) {
     return (_apply_decs_2203_r = applyDecs2203RFactory())(targetClass, memberDecs, classDecs, parentClass);
 }
-var // @ts-expect-error
-_init_name;
-var printMemberName = function(target, memberName) {
-    console.log(memberName);
-};
-var Person = function Person() {
-    _class_call_check(this, Person);
-    _define_property(this, \\"name\\", _init_name(this, \\"Jon\\"));
-};
+var _initProto;
+function trace(value, param) {
+    var kind = param.kind; param.name;
+    if (kind === 'method') {
+        return function() {
+            for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+                args[_key] = arguments[_key];
+            }
+            console.log('trace');
+            return value.apply(this, args);
+        };
+    }
+}
+var People = /*#__PURE__*/ function() {
+    function People() {
+        _class_call_check(this, People);
+        _define_property(this, \\"xzy\\", void 0);
+        _initProto(this);
+        this.xzy = 'xzy';
+    }
+    _create_class(People, [
+        {
+            key: \\"test\\",
+            value: function test() {
+                return this.xzy;
+            }
+        }
+    ]);
+    return People;
+}();
 var ref, ref1;
-ref = _apply_decs_2203_r(Person, [
+ref = _apply_decs_2203_r(People, [
     [
-        printMemberName,
-        0,
-        \\"name\\"
+        trace,
+        2,
+        \\"test\\"
     ]
-], []), ref1 = _sliced_to_array(ref.e, 1), _init_name = ref1[0];
+], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];
+var p = new People();
+p.test();
+"
+`;
+
+exports[`rollup-plugin-swc3 swc (rollup 4) detect legacy decorator for typescript5 1`] = `
+"function _define_property(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
+    }
+    return obj;
+}
+function _ts_decorate(decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
+    else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+}
+function _ts_metadata(k, v) {
+    if (typeof Reflect === \\"object\\" && typeof Reflect.metadata === \\"function\\") return Reflect.metadata(k, v);
+}
+function trace(_target, _name, descriptor) {
+    const original = descriptor.value;
+    descriptor.value = function() {
+        console.log('trace');
+        return original.call(this);
+    };
+    return descriptor;
+}
+class People {
+    test() {
+        return this.xzy;
+    }
+    constructor(){
+        _define_property(this, \\"xzy\\", void 0);
+        this.xzy = 'xzy';
+    }
+}
+_ts_decorate([
+    trace,
+    _ts_metadata(\\"design:type\\", Function),
+    _ts_metadata(\\"design:paramtypes\\", []),
+    _ts_metadata(\\"design:returntype\\", void 0)
+], People.prototype, \\"test\\", null);
+const p = new People();
+p.test();
 "
 `;
 

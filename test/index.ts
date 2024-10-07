@@ -376,11 +376,19 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
     ))[0].code.should.matchSnapshot();
   });
 
-  it('detect  decorator for typescript5', async () => {
+  it('detect decorator for typescript5', async () => {
     const dir = await fixture('decorators');
     (await build(
       rollupImpl,
       { tsconfig: false },
+      { input: './index.ts', dir }
+    ))[0].code.should.matchSnapshot();
+  });
+  it('detect legacy decorator for typescript5', async () => {
+    const dir = await fixture('legacy-decorators');
+    (await build(
+      rollupImpl,
+      {},
       { input: './index.ts', dir }
     ))[0].code.should.matchSnapshot();
   });
