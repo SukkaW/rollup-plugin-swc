@@ -7,8 +7,10 @@
     "outDir": "./dist",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true
+    "strict": true,
+    "strictNullChecks": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*", "test/**/*", "tools/**/*"],
-  "exclude": ["test/fixtures/**/*"]
+  "exclude": ["test/fixtures/**/*", "node_modules"]
 }
