@@ -9,11 +9,11 @@ import { fileURLToPath } from 'node:url';
 
 const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
-export const getOptions = (
+export function getOptions(
   ctx: TransformPluginContext,
   cwd: string,
   tsconfig?: string
-) => {
+) {
   const cacheKey = `${cwd}:${tsconfig ?? 'undefined'}`;
 
   if (cache.has(cacheKey)) {
@@ -57,9 +57,9 @@ export const getOptions = (
 
   cache.set(cacheKey, compilerOptions);
   return compilerOptions;
-};
+}
 
-export const checkIsLegacyTypeScript = () => {
+export function checkIsLegacyTypeScript() {
   try {
     // @ts-expect-error -- It's required to using 'import.mtea.url' but i don't want to change the tsconfig.
     const tsPath = resolve('typescript/package.json', import.meta.url);
@@ -70,4 +70,4 @@ export const checkIsLegacyTypeScript = () => {
   } catch {
     return false;
   }
-};
+}

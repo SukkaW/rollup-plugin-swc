@@ -43,9 +43,11 @@ const deepmerge = createDeepMerge({
   }
 });
 
-const fileExists = (path: string) => fs.promises.access(path, fs.constants.F_OK)
-  .then(() => true)
-  .catch(() => false);
+function fileExists(path: string) {
+  return fs.promises.access(path, fs.constants.F_OK)
+    .then(() => true)
+    .catch(() => false);
+}
 
 function swc(options: PluginOptions = {}): RollupPlugin {
   const filter = createFilter(
@@ -116,9 +118,6 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           ? {}
           : getOptions(this, dirname(id), options.tsconfig);
 
-      // TODO: SWC is about to add "preserve" jsx
-      // https://github.com/swc-project/swc/pull/5661
-      // Respect "preserve" after swc adds the support
       const useReact17NewTransform = tsconfigOptions.jsx === 'react-jsx' || tsconfigOptions.jsx === 'react-jsxdev';
 
       const swcOptionsFromTsConfig: SwcOptions = {
