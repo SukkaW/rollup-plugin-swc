@@ -34,6 +34,7 @@
     "@dual-bundle/import-meta-resolve": "^4.1.0",
     "@fastify/deepmerge": "^2.0.0",
     "@rollup/pluginutils": "^5.1.2",
+    "@swc/types": "^0.1.12",
     "get-tsconfig": "^4.8.1",
     "rollup-preserve-directives": "^1.1.2"
   },

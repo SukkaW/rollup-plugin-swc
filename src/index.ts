@@ -8,7 +8,7 @@ import type {
   Options as SwcOptions,
   JscTarget,
   JsMinifyOptions
-} from '@swc/core';
+} from '@swc/types';
 import {
   transform as swcTransform,
   minify as swcMinify
