@@ -27,7 +27,7 @@ import { async as ezspawn } from '@jsdevtools/ez-spawn';
 chai.should();
 chai.use(jestSnapshotPlugin());
 
-const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) => {
+function rollupInvriant(v: RollupOutput['output'][number] | undefined | null) {
   if (v == null) {
     throw new Error('Invariant failed');
   }
@@ -35,10 +35,9 @@ const rollupInvriant = (v: RollupOutput['output'][number] | undefined | null) =>
     throw new Error('Non rollup output module found!');
   }
   return v;
-};
+}
 
-const build = async (
-  rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4,
+async function build(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4,
   options?: PluginOptions,
   {
     input = './index.js',
@@ -54,8 +53,7 @@ const build = async (
     sourcemap?: boolean,
     dir?: string,
     external?: ExternalOption
-  } = {}
-) => {
+  } = {}) {
   const build = await rollupImpl({
     input: (() => {
       if (typeof input === 'string') {
@@ -79,27 +77,25 @@ const build = async (
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
   return output;
-};
+}
 
-const runMinify = async (
-  rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4,
+async function runMinify(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4,
   options: JsMinifyOptions,
   {
     input = './index.js',
     otherRollupPlugins = [],
     sourcemap = false,
     dir = '.'
-  }
-) => {
+  }) {
   const build = await rollupImpl({
     input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
     plugins: [...otherRollupPlugins, minify(options)] as any
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
   return output;
-};
+}
 
-const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, isolateDir: string) => {
+function tests(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, isolateDir: string) {
   const fixture = async (fixtureName: string) => {
     const fixtureDir = path.join(__dirname, 'fixtures', fixtureName);
     const testDir = path.join(isolateDir, 'rollup-plugin-swc', fixtureName);
@@ -392,7 +388,7 @@ const tests = (rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
       { input: './index.ts', dir }
     ))[0].code.should.matchSnapshot();
   });
-};
+}
 
 describe('rollup-plugin-swc3', () => {
   const ramDiskPath = create.sync('rolluppluginswc3test', 64 * 1024 * 1024, { quiet: false });

@@ -8,23 +8,20 @@ jobs:
     name: Lint & Test
     strategy:
       matrix:
-        node-version: [16, 18, 20, 22]
+        node-version: [18, 20, 22]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - name: Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           check-latest: true
-          cache: 'npm'
+          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
-      - name: Install dependencies
-        run: npm install
-      - name: Lint
-        if: matrix.node-version == 22
-        run: npm run lint
-      - name: Test
-        run: npm run test
-      - name: Build
-        run: npm run build
+      - run: pnpm install
+      - if: matrix.node-version == 22
+        run: pnpm run lint
+      - run: pnpm run test
+      - run: pnpm run build

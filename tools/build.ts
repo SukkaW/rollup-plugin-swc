@@ -43,7 +43,9 @@ async function main() {
     const bundle = await rollup({
       input: './src/index.ts',
       external,
-      plugins: [dts()]
+      plugins: [dts({
+        respectExternal: true
+      })]
     });
 
     return bundle.write({ file: './dist/index.d.ts' });
