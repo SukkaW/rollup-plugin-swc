@@ -22,7 +22,8 @@ import { jestSnapshotPlugin } from 'mocha-chai-jest-snapshot';
 
 import { create, destroy } from 'memdisk';
 
-import { async as ezspawn } from '@jsdevtools/ez-spawn';
+import which from 'which';
+import { exec } from 'tinyexec';
 
 chai.should();
 chai.use(jestSnapshotPlugin());
@@ -130,7 +131,8 @@ function tests(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
     await Promise.all(files.map(([from, to]) => fsp.copyFile(from, to)));
 
     if (requireInstall) {
-      await ezspawn('npm install', { cwd: testDir });
+      const packageManager = (await which('pnpm', { nothrow: true })) || 'npm';
+      await exec(packageManager, ['install'], { throwOnError: true, nodeOptions: { cwd: testDir } });
     }
 
     return testDir;
