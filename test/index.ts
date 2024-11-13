@@ -22,7 +22,7 @@ import { jestSnapshotPlugin } from 'mocha-chai-jest-snapshot';
 
 import { create, destroy } from 'memdisk';
 
-import which from 'which';
+import { sync as whichSync } from 'which';
 import { exec } from 'tinyexec';
 
 chai.should();
@@ -96,7 +96,11 @@ async function runMinify(rollupImpl: typeof rollup2 | typeof rollup3 | typeof ro
   return output;
 }
 
-function tests(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, isolateDir: string) {
+function tests(
+  rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4,
+  isolateDir: string,
+  packageManager: string
+) {
   const fixture = async (fixtureName: string) => {
     const fixtureDir = path.join(__dirname, 'fixtures', fixtureName);
     const testDir = path.join(isolateDir, 'rollup-plugin-swc', fixtureName);
@@ -131,7 +135,6 @@ function tests(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
     await Promise.all(files.map(([from, to]) => fsp.copyFile(from, to)));
 
     if (requireInstall) {
-      const packageManager = (await which('pnpm', { nothrow: true })) || 'npm';
       await exec(packageManager, ['install'], { throwOnError: true, nodeOptions: { cwd: testDir } });
     }
 
@@ -393,21 +396,23 @@ function tests(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, iso
 }
 
 describe('rollup-plugin-swc3', () => {
+  const packageManager = whichSync('pnpm', { nothrow: true }) || 'npm';
+
   const ramDiskPath = create.sync('rolluppluginswc3test', 64 * 1024 * 1024, { quiet: false });
 
   describe('swc (rollup 2)', () => {
     const isolateDir = path.join(ramDiskPath, 'rollup2');
-    tests(rollup2, isolateDir);
+    tests(rollup2, isolateDir, packageManager);
   });
 
   describe('swc (rollup 3)', () => {
     const isolateDir = path.join(ramDiskPath, 'rollup3');
-    tests(rollup3, isolateDir);
+    tests(rollup3, isolateDir, packageManager);
   });
 
   describe('swc (rollup 4)', () => {
     const isolateDir = path.join(ramDiskPath, 'rollup4');
-    tests(rollup4, isolateDir);
+    tests(rollup4, isolateDir, packageManager);
   });
 
   after(() => destroy.sync(ramDiskPath, { quiet: false }));
