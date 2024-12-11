@@ -111,7 +111,6 @@ function swc(options: PluginOptions = {}): RollupPlugin {
 
       const isTypeScript = ext === '.ts' || ext === '.mts' || ext === '.cts' || ext === '.tsx';
       const isTsx = ext === '.tsx';
-      const isJsx = ext === '.jsx';
 
       const tsconfigOptions
         = options.tsconfig === false
@@ -125,7 +124,7 @@ function swc(options: PluginOptions = {}): RollupPlugin {
           externalHelpers: tsconfigOptions.importHelpers,
           parser: {
             syntax: isTypeScript ? 'typescript' : 'ecmascript',
-            [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : isJsx,
+            [isTypeScript ? 'tsx' : 'jsx']: isTypeScript ? isTsx : true,
             decorators: !isLegacyTypeScript || tsconfigOptions.experimentalDecorators
           },
           transform: {
