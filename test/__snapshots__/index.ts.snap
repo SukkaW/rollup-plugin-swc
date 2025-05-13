@@ -1012,7 +1012,7 @@ console.log(Foo);
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) minify 1`] = `
-"console.log(class{render(){return /*#__PURE__*/React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
+"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
 "
 `;
 
@@ -2256,7 +2256,7 @@ console.log(Foo);
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) minify 1`] = `
-"console.log(class{render(){return /*#__PURE__*/React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
+"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
 "
 `;
 
@@ -3499,7 +3499,7 @@ console.log(Foo);
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) minify 1`] = `
-"console.log(class{render(){return /*#__PURE__*/React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
+"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
 "
 `;
 
