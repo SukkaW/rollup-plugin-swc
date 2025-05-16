@@ -11,7 +11,7 @@ function _array_with_holes(arr) {
 }
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _defineProperties(target, props) {
@@ -19,7 +19,7 @@ function _defineProperties(target, props) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if (\\"value\\" in descriptor) descriptor.writable = true;
+        if ("value" in descriptor) descriptor.writable = true;
         Object.defineProperty(target, descriptor.key, descriptor);
     }
 }
@@ -42,7 +42,7 @@ function _define_property(obj, key, value) {
     return obj;
 }
 function _iterable_to_array_limit(arr, i) {
-    var _i = arr == null ? null : typeof Symbol !== \\"undefined\\" && arr[Symbol.iterator] || arr[\\"@@iterator\\"];
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
     if (_i == null) return;
     var _arr = [];
     var _n = true;
@@ -58,7 +58,7 @@ function _iterable_to_array_limit(arr, i) {
         _e = err;
     } finally{
         try {
-            if (!_n && _i[\\"return\\"] != null) _i[\\"return\\"]();
+            if (!_n && _i["return"] != null) _i["return"]();
         } finally{
             if (_d) throw _e;
         }
@@ -66,24 +66,24 @@ function _iterable_to_array_limit(arr, i) {
     return _arr;
 }
 function _non_iterable_rest() {
-    throw new TypeError(\\"Invalid attempt to destructure non-iterable instance.\\\\\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\");
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _sliced_to_array(arr, i) {
     return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
 }
 function _unsupported_iterable_to_array(o, minLen) {
     if (!o) return;
-    if (typeof o === \\"string\\") return _array_like_to_array(o, minLen);
+    if (typeof o === "string") return _array_like_to_array(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === \\"Object\\" && o.constructor) n = o.constructor.name;
-    if (n === \\"Map\\" || n === \\"Set\\") return Array.from(n);
-    if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
 function applyDecs2203RFactory() {
     function createAddInitializerMethod(initializers, decoratorFinishedRef) {
         return function addInitializer(initializer) {
-            assertNotFinished(decoratorFinishedRef, \\"addInitializer\\");
-            assertCallable(initializer, \\"An initializer\\");
+            assertNotFinished(decoratorFinishedRef, "addInitializer");
+            assertCallable(initializer, "An initializer");
             initializers.push(initializer);
         };
     }
@@ -91,23 +91,23 @@ function applyDecs2203RFactory() {
         var kindStr;
         switch(kind){
             case 1:
-                kindStr = \\"accessor\\";
+                kindStr = "accessor";
                 break;
             case 2:
-                kindStr = \\"method\\";
+                kindStr = "method";
                 break;
             case 3:
-                kindStr = \\"getter\\";
+                kindStr = "getter";
                 break;
             case 4:
-                kindStr = \\"setter\\";
+                kindStr = "setter";
                 break;
             default:
-                kindStr = \\"field\\";
+                kindStr = "field";
         }
         var ctx = {
             kind: kindStr,
-            name: isPrivate ? \\"#\\" + name : name,
+            name: isPrivate ? "#" + name : name,
             static: isStatic,
             private: isPrivate,
             metadata: metadata
@@ -161,39 +161,39 @@ function applyDecs2203RFactory() {
     }
     function assertNotFinished(decoratorFinishedRef, fnName) {
         if (decoratorFinishedRef.v) {
-            throw new Error(\\"attempted to call \\" + fnName + \\" after decoration was finished\\");
+            throw new Error("attempted to call " + fnName + " after decoration was finished");
         }
     }
     function assertCallable(fn, hint) {
-        if (typeof fn !== \\"function\\") {
-            throw new TypeError(hint + \\" must be a function\\");
+        if (typeof fn !== "function") {
+            throw new TypeError(hint + " must be a function");
         }
     }
     function assertValidReturnValue(kind, value) {
         var type = typeof value;
         if (kind === 1) {
-            if (type !== \\"object\\" || value === null) {
-                throw new TypeError(\\"accessor decorators must return an object with get, set, or init properties or void 0\\");
+            if (type !== "object" || value === null) {
+                throw new TypeError("accessor decorators must return an object with get, set, or init properties or void 0");
             }
             if (value.get !== undefined) {
-                assertCallable(value.get, \\"accessor.get\\");
+                assertCallable(value.get, "accessor.get");
             }
             if (value.set !== undefined) {
-                assertCallable(value.set, \\"accessor.set\\");
+                assertCallable(value.set, "accessor.set");
             }
             if (value.init !== undefined) {
-                assertCallable(value.init, \\"accessor.init\\");
+                assertCallable(value.init, "accessor.init");
             }
-        } else if (type !== \\"function\\") {
+        } else if (type !== "function") {
             var hint;
             if (kind === 0) {
-                hint = \\"field\\";
+                hint = "field";
             } else if (kind === 10) {
-                hint = \\"class\\";
+                hint = "class";
             } else {
-                hint = \\"method\\";
+                hint = "method";
             }
-            throw new TypeError(hint + \\" decorators must return a function or void 0\\");
+            throw new TypeError(hint + " decorators must return a function or void 0");
         }
     }
     function applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata) {
@@ -234,7 +234,7 @@ function applyDecs2203RFactory() {
             value = desc.set;
         }
         var newValue, get, set;
-        if (typeof decs === \\"function\\") {
+        if (typeof decs === "function") {
             newValue = memberDec(decs, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);
             if (newValue !== void 0) {
                 assertValidReturnValue(kind, newValue);
@@ -275,7 +275,7 @@ function applyDecs2203RFactory() {
                     if (newInit !== void 0) {
                         if (init === void 0) {
                             init = newInit;
-                        } else if (typeof init === \\"function\\") {
+                        } else if (typeof init === "function") {
                             init = [
                                 init,
                                 newInit
@@ -292,7 +292,7 @@ function applyDecs2203RFactory() {
                 init = function(instance, init) {
                     return init;
                 };
-            } else if (typeof init !== \\"function\\") {
+            } else if (typeof init !== "function") {
                 var ownInitializers = init;
                 init = function(instance, init) {
                     var value = init;
@@ -369,7 +369,7 @@ function applyDecs2203RFactory() {
                 var existingNonFields = isStatic ? existingStaticNonFields : existingProtoNonFields;
                 var existingKind = existingNonFields.get(name) || 0;
                 if (existingKind === true || existingKind === 3 && kind !== 4 || existingKind === 4 && kind !== 3) {
-                    throw new Error(\\"Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: \\" + name);
+                    throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + name);
                 } else if (!existingKind && kind > 2) {
                     existingNonFields.set(name, kind);
                 } else {
@@ -403,7 +403,7 @@ function applyDecs2203RFactory() {
                 };
                 try {
                     var nextNewClass = classDecs[i](newClass, {
-                        kind: \\"class\\",
+                        kind: "class",
                         name: name,
                         addInitializer: createAddInitializerMethod(initializers, decoratorFinishedRef),
                         metadata
@@ -427,7 +427,7 @@ function applyDecs2203RFactory() {
         }
     }
     function defineMetadata(Class, metadata) {
-        return Object.defineProperty(Class, Symbol.metadata || Symbol.for(\\"Symbol.metadata\\"), {
+        return Object.defineProperty(Class, Symbol.metadata || Symbol.for("Symbol.metadata"), {
             configurable: true,
             enumerable: true,
             value: metadata
@@ -435,7 +435,7 @@ function applyDecs2203RFactory() {
     }
     return function applyDecs2203R(targetClass, memberDecs, classDecs, parentClass) {
         if (parentClass !== void 0) {
-            var parentMetadata = parentClass[Symbol.metadata || Symbol.for(\\"Symbol.metadata\\")];
+            var parentMetadata = parentClass[Symbol.metadata || Symbol.for("Symbol.metadata")];
         }
         var metadata = Object.create(parentMetadata === void 0 ? null : parentMetadata);
         var e = applyMemberDecs(targetClass, memberDecs, metadata);
@@ -467,13 +467,13 @@ function trace(value, param) {
 var People = /*#__PURE__*/ function() {
     function People() {
         _class_call_check(this, People);
-        _define_property(this, \\"xzy\\", void 0);
+        _define_property(this, "xzy", void 0);
         _initProto(this);
         this.xzy = 'xzy';
     }
     _create_class(People, [
         {
-            key: \\"test\\",
+            key: "test",
             value: function test() {
                 return this.xzy;
             }
@@ -486,7 +486,7 @@ ref = _apply_decs_2203_r(People, [
     [
         trace,
         2,
-        \\"test\\"
+        "test"
     ]
 ], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];
 var p = new People();
@@ -510,12 +510,12 @@ exports[`rollup-plugin-swc3 swc (rollup 2) detect legacy decorator for typescrip
 }
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 function _ts_metadata(k, v) {
-    if (typeof Reflect === \\"object\\" && typeof Reflect.metadata === \\"function\\") return Reflect.metadata(k, v);
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 }
 function trace(_target, _name, descriptor) {
     const original = descriptor.value;
@@ -530,16 +530,16 @@ class People {
         return this.xzy;
     }
     constructor(){
-        _define_property(this, \\"xzy\\", void 0);
+        _define_property(this, "xzy", void 0);
         this.xzy = 'xzy';
     }
 }
 _ts_decorate([
     trace,
-    _ts_metadata(\\"design:type\\", Function),
-    _ts_metadata(\\"design:paramtypes\\", []),
-    _ts_metadata(\\"design:returntype\\", void 0)
-], People.prototype, \\"test\\", null);
+    _ts_metadata("design:type", Function),
+    _ts_metadata("design:paramtypes", []),
+    _ts_metadata("design:returntype", void 0)
+], People.prototype, "test", null);
 const p = new People();
 p.test();
 "
@@ -583,10 +583,39 @@ export { bar };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) disable reading tsconfig.json 1`] = `
-"const foo = 1;
+{
+  "code": "const foo = 1;
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/disable-reading-tsconfig/index.jsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/disable-reading-tsconfig/index.jsx": {
+      "code": "const foo = 1;",
+      "originalLength": 22,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 14,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) issue 58 - eventemitter3 1`] = `
@@ -957,12 +986,12 @@ ee.on('test', function() {
 exports[`rollup-plugin-swc3 swc (rollup 2) issue 63 - tsconfig baseUrl only + relative baseUrl 1`] = `
 "function _check_private_redeclaration(obj, privateCollection) {
     if (privateCollection.has(obj)) {
-        throw new TypeError(\\"Cannot initialize the same private elements twice on an object\\");
+        throw new TypeError("Cannot initialize the same private elements twice on an object");
     }
 }
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _class_private_field_init(obj, privateMap, value) {
@@ -987,41 +1016,168 @@ export { Test };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) load json 1`] = `
-"var foo = true;
+{
+  "code": "var foo = true;
 var foo$1 = {
 	foo: foo
 };
 
 console.log(foo$1);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-json/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-json/foo.json": {
+      "code": "var foo = true;
+var foo$1 = {
+	foo: foo
+};",
+      "originalLength": 18,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+        "default",
+      ],
+      "renderedLength": 42,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-json/index.js": {
+      "code": "console.log(foo$1);",
+      "originalLength": 46,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 19,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) load jsx/tsx 1`] = `
-"const util = 42;
+{
+  "code": "const util = 42;
 
 class Foo {
     render() {
-        return /*#__PURE__*/ React.createElement(\\"div\\", {
-            className: \\"sukka\\"
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "sukka"
         }, util);
     }
 }
 
 console.log(Foo);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/foo.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "sukka"
+        }, util);
+    }
+}",
+      "originalLength": 128,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 141,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 45,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/some.util.ts": {
+      "code": "const util = 42;",
+      "originalLength": 23,
+      "removedExports": [],
+      "renderedExports": [
+        "util",
+      ],
+      "renderedLength": 16,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) minify 1`] = `
-"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
-"
+{
+  "code": "console.log(class{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}});
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/minify/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/minify/foo.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
+    }
+}",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 152,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/minify/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 41,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) react 17 jsx transform 1`] = `
 "import { jsx } from 'react/jsx-runtime';
 
 function Foo() {
-    return /*#__PURE__*/ jsx(\\"div\\", {
-        children: \\"foo\\"
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
     });
 }
 
@@ -1033,8 +1189,8 @@ exports[`rollup-plugin-swc3 swc (rollup 2) react 17 jsx transform 2`] = `
 "import { jsx } from '@compiled/react/jsx-runtime';
 
 function Foo() {
-    return /*#__PURE__*/ jsx(\\"div\\", {
-        children: \\"foo\\"
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
     });
 }
 
@@ -1043,22 +1199,63 @@ export { Foo };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) resolve index.(x) 1`] = `
-"class Foo {
+{
+  "code": "class Foo {
     render() {
-        return /*#__PURE__*/ React.createElement(\\"div\\", {
-            className: \\"hehe\\"
-        }, \\"hello there!!!\\");
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
     }
 }
 
 console.log(Foo);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/resolve-index/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/resolve-index/foo/index.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
+    }
+}",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 152,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/resolve-index/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 41,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) simple 1`] = `
-"function _class_call_check(instance, Constructor) {
+{
+  "code": "function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _defineProperties(target, props) {
@@ -1066,7 +1263,7 @@ function _defineProperties(target, props) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if (\\"value\\" in descriptor) descriptor.writable = true;
+        if ("value" in descriptor) descriptor.writable = true;
         Object.defineProperty(target, descriptor.key, descriptor);
     }
 }
@@ -1081,11 +1278,11 @@ var Foo = /*#__PURE__*/ function() {
     }
     _create_class(Foo, [
         {
-            key: \\"render\\",
+            key: "render",
             value: function render() {
-                return /*#__PURE__*/ React.createElement(\\"div\\", {
-                    className: \\"hehe\\"
-                }, \\"hello there!!!\\");
+                return /*#__PURE__*/ React.createElement("div", {
+                    className: "hehe"
+                }, "hello there!!!");
             }
         }
     ]);
@@ -1096,16 +1293,120 @@ var bar = 'baz';
 
 console.log(Foo);
 console.log(bar);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/bar.mjs": {
+      "code": "var bar = 'baz';",
+      "originalLength": 37,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 16,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/foo.tsx": {
+      "code": "function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
+var Foo = /*#__PURE__*/ function() {
+    function Foo() {
+        _class_call_check(this, Foo);
+    }
+    _create_class(Foo, [
+        {
+            key: "render",
+            value: function render() {
+                return /*#__PURE__*/ React.createElement("div", {
+                    className: "hehe"
+                }, "hello there!!!");
+            }
+        }
+    ]);
+    return Foo;
+}();",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 1162,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/index.js": {
+      "code": "console.log(Foo);
+console.log(bar);",
+      "originalLength": 82,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 35,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) standalone minify 1`] = `
-"console.log(1e4),console.log(\\"bc\\");
-"
+{
+  "code": "console.log(1e4),console.log("bc");
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/standalone-minify/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/standalone-minify/index.js": {
+      "code": "console.log(10000);
+console.log('b'      +      'c');",
+      "originalLength": 54,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 53,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) support rollup virtual module (e.g. commonjs plugin) 1`] = `
-"function getDefaultExportFromCjs (x) {
+{
+  "code": "function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
@@ -1144,7 +1445,119 @@ var rollupCommonjsExports = requireRollupCommonjs();
 var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);
 
 export { index as default };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "default",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    " /Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports": {
+      "code": "var bar = {};",
+      "originalLength": 39,
+      "removedExports": [],
+      "renderedExports": [
+        "__exports",
+      ],
+      "renderedLength": 13,
+    },
+    " /Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports": {
+      "code": "var rollupCommonjs = {};",
+      "originalLength": 61,
+      "removedExports": [],
+      "renderedExports": [
+        "__exports",
+      ],
+      "renderedLength": 24,
+    },
+    " commonjsHelpers.js": {
+      "code": "function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}",
+      "originalLength": 1335,
+      "removedExports": [
+        "commonjsGlobal",
+        "getDefaultExportFromNamespaceIfPresent",
+        "getDefaultExportFromNamespaceIfNotNamed",
+        "getAugmentedNamespace",
+      ],
+      "renderedExports": [
+        "getDefaultExportFromCjs",
+      ],
+      "renderedLength": 140,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/bar.js": {
+      "code": "var hasRequiredBar;
+function requireBar() {
+    if (hasRequiredBar) return bar;
+    hasRequiredBar = 1;
+    bar.Bar = 'bar';
+    return bar;
+}",
+      "originalLength": 20,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 142,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/foo.js": {
+      "code": "var foo;
+var hasRequiredFoo;
+function requireFoo() {
+    if (hasRequiredFoo) return foo;
+    hasRequiredFoo = 1;
+    foo = 'foo';
+    return foo;
+}",
+      "originalLength": 23,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 147,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js": {
+      "code": "var hasRequiredRollupCommonjs;
+function requireRollupCommonjs() {
+    if (hasRequiredRollupCommonjs) return rollupCommonjs;
+    hasRequiredRollupCommonjs = 1;
+    const Foo = requireFoo();
+    const { Bar } = requireBar();
+    console.log(Foo, Bar);
+    return rollupCommonjs;
+}",
+      "originalLength": 84,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 278,
+    },
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry": {
+      "code": "var rollupCommonjsExports = requireRollupCommonjs();
+var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);",
+      "originalLength": 379,
+      "removedExports": [],
+      "renderedExports": [
+        "__moduleExports",
+        "default",
+      ],
+      "renderedLength": 125,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) target - include other files 1`] = `
@@ -1187,63 +1600,179 @@ console.log(a(b));
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig - specify full path 1`] = `
-"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ hFoo("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig extends 1`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig extends 2`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) tsconfig resolve to nearest tsconfig 1`] = `
-"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ hFoo("div", null, "foo");
 
-var bar = /*#__PURE__*/ hBar(\\"div\\", null, \\"bar\\");
+var bar = /*#__PURE__*/ hBar("div", null, "bar");
 
-var baz = /*#__PURE__*/ h(\\"div\\", null, foo, bar);
+var baz = /*#__PURE__*/ h("div", null, foo, bar);
 
 export { baz };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) use custom jsxFactory (h) from jsconfig.json 1`] = `
-"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ h("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 46,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) use custom jsxFactory (h) from tsconfig 1`] = `
-"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ h("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 46,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) use custom tsconfig.json 1`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/custom-tsconfig/index.jsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/custom-tsconfig/index.jsx": {
+      "code": "var foo = /*#__PURE__*/ custom("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 51,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 2) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1`] = `
-"var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\\"div\\", null, \\"foo\\"));
+{
+  "code": "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-jsconfig/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-jsconfig/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));",
+      "originalLength": 39,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 121,
+    },
+  },
+  "name": "index",
+  "referencedFiles": [],
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) detect decorator for typescript5 1`] = `
@@ -1257,7 +1786,7 @@ function _array_with_holes(arr) {
 }
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _defineProperties(target, props) {
@@ -1265,7 +1794,7 @@ function _defineProperties(target, props) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if (\\"value\\" in descriptor) descriptor.writable = true;
+        if ("value" in descriptor) descriptor.writable = true;
         Object.defineProperty(target, descriptor.key, descriptor);
     }
 }
@@ -1288,7 +1817,7 @@ function _define_property(obj, key, value) {
     return obj;
 }
 function _iterable_to_array_limit(arr, i) {
-    var _i = arr == null ? null : typeof Symbol !== \\"undefined\\" && arr[Symbol.iterator] || arr[\\"@@iterator\\"];
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
     if (_i == null) return;
     var _arr = [];
     var _n = true;
@@ -1304,7 +1833,7 @@ function _iterable_to_array_limit(arr, i) {
         _e = err;
     } finally{
         try {
-            if (!_n && _i[\\"return\\"] != null) _i[\\"return\\"]();
+            if (!_n && _i["return"] != null) _i["return"]();
         } finally{
             if (_d) throw _e;
         }
@@ -1312,24 +1841,24 @@ function _iterable_to_array_limit(arr, i) {
     return _arr;
 }
 function _non_iterable_rest() {
-    throw new TypeError(\\"Invalid attempt to destructure non-iterable instance.\\\\\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\");
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _sliced_to_array(arr, i) {
     return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
 }
 function _unsupported_iterable_to_array(o, minLen) {
     if (!o) return;
-    if (typeof o === \\"string\\") return _array_like_to_array(o, minLen);
+    if (typeof o === "string") return _array_like_to_array(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === \\"Object\\" && o.constructor) n = o.constructor.name;
-    if (n === \\"Map\\" || n === \\"Set\\") return Array.from(n);
-    if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
 function applyDecs2203RFactory() {
     function createAddInitializerMethod(initializers, decoratorFinishedRef) {
         return function addInitializer(initializer) {
-            assertNotFinished(decoratorFinishedRef, \\"addInitializer\\");
-            assertCallable(initializer, \\"An initializer\\");
+            assertNotFinished(decoratorFinishedRef, "addInitializer");
+            assertCallable(initializer, "An initializer");
             initializers.push(initializer);
         };
     }
@@ -1337,23 +1866,23 @@ function applyDecs2203RFactory() {
         var kindStr;
         switch(kind){
             case 1:
-                kindStr = \\"accessor\\";
+                kindStr = "accessor";
                 break;
             case 2:
-                kindStr = \\"method\\";
+                kindStr = "method";
                 break;
             case 3:
-                kindStr = \\"getter\\";
+                kindStr = "getter";
                 break;
             case 4:
-                kindStr = \\"setter\\";
+                kindStr = "setter";
                 break;
             default:
-                kindStr = \\"field\\";
+                kindStr = "field";
         }
         var ctx = {
             kind: kindStr,
-            name: isPrivate ? \\"#\\" + name : name,
+            name: isPrivate ? "#" + name : name,
             static: isStatic,
             private: isPrivate,
             metadata: metadata
@@ -1407,39 +1936,39 @@ function applyDecs2203RFactory() {
     }
     function assertNotFinished(decoratorFinishedRef, fnName) {
         if (decoratorFinishedRef.v) {
-            throw new Error(\\"attempted to call \\" + fnName + \\" after decoration was finished\\");
+            throw new Error("attempted to call " + fnName + " after decoration was finished");
         }
     }
     function assertCallable(fn, hint) {
-        if (typeof fn !== \\"function\\") {
-            throw new TypeError(hint + \\" must be a function\\");
+        if (typeof fn !== "function") {
+            throw new TypeError(hint + " must be a function");
         }
     }
     function assertValidReturnValue(kind, value) {
         var type = typeof value;
         if (kind === 1) {
-            if (type !== \\"object\\" || value === null) {
-                throw new TypeError(\\"accessor decorators must return an object with get, set, or init properties or void 0\\");
+            if (type !== "object" || value === null) {
+                throw new TypeError("accessor decorators must return an object with get, set, or init properties or void 0");
             }
             if (value.get !== undefined) {
-                assertCallable(value.get, \\"accessor.get\\");
+                assertCallable(value.get, "accessor.get");
             }
             if (value.set !== undefined) {
-                assertCallable(value.set, \\"accessor.set\\");
+                assertCallable(value.set, "accessor.set");
             }
             if (value.init !== undefined) {
-                assertCallable(value.init, \\"accessor.init\\");
+                assertCallable(value.init, "accessor.init");
             }
-        } else if (type !== \\"function\\") {
+        } else if (type !== "function") {
             var hint;
             if (kind === 0) {
-                hint = \\"field\\";
+                hint = "field";
             } else if (kind === 10) {
-                hint = \\"class\\";
+                hint = "class";
             } else {
-                hint = \\"method\\";
+                hint = "method";
             }
-            throw new TypeError(hint + \\" decorators must return a function or void 0\\");
+            throw new TypeError(hint + " decorators must return a function or void 0");
         }
     }
     function applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata) {
@@ -1480,7 +2009,7 @@ function applyDecs2203RFactory() {
             value = desc.set;
         }
         var newValue, get, set;
-        if (typeof decs === \\"function\\") {
+        if (typeof decs === "function") {
             newValue = memberDec(decs, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);
             if (newValue !== void 0) {
                 assertValidReturnValue(kind, newValue);
@@ -1521,7 +2050,7 @@ function applyDecs2203RFactory() {
                     if (newInit !== void 0) {
                         if (init === void 0) {
                             init = newInit;
-                        } else if (typeof init === \\"function\\") {
+                        } else if (typeof init === "function") {
                             init = [
                                 init,
                                 newInit
@@ -1538,7 +2067,7 @@ function applyDecs2203RFactory() {
                 init = function(instance, init) {
                     return init;
                 };
-            } else if (typeof init !== \\"function\\") {
+            } else if (typeof init !== "function") {
                 var ownInitializers = init;
                 init = function(instance, init) {
                     var value = init;
@@ -1615,7 +2144,7 @@ function applyDecs2203RFactory() {
                 var existingNonFields = isStatic ? existingStaticNonFields : existingProtoNonFields;
                 var existingKind = existingNonFields.get(name) || 0;
                 if (existingKind === true || existingKind === 3 && kind !== 4 || existingKind === 4 && kind !== 3) {
-                    throw new Error(\\"Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: \\" + name);
+                    throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + name);
                 } else if (!existingKind && kind > 2) {
                     existingNonFields.set(name, kind);
                 } else {
@@ -1649,7 +2178,7 @@ function applyDecs2203RFactory() {
                 };
                 try {
                     var nextNewClass = classDecs[i](newClass, {
-                        kind: \\"class\\",
+                        kind: "class",
                         name: name,
                         addInitializer: createAddInitializerMethod(initializers, decoratorFinishedRef),
                         metadata
@@ -1673,7 +2202,7 @@ function applyDecs2203RFactory() {
         }
     }
     function defineMetadata(Class, metadata) {
-        return Object.defineProperty(Class, Symbol.metadata || Symbol.for(\\"Symbol.metadata\\"), {
+        return Object.defineProperty(Class, Symbol.metadata || Symbol.for("Symbol.metadata"), {
             configurable: true,
             enumerable: true,
             value: metadata
@@ -1681,7 +2210,7 @@ function applyDecs2203RFactory() {
     }
     return function applyDecs2203R(targetClass, memberDecs, classDecs, parentClass) {
         if (parentClass !== void 0) {
-            var parentMetadata = parentClass[Symbol.metadata || Symbol.for(\\"Symbol.metadata\\")];
+            var parentMetadata = parentClass[Symbol.metadata || Symbol.for("Symbol.metadata")];
         }
         var metadata = Object.create(parentMetadata === void 0 ? null : parentMetadata);
         var e = applyMemberDecs(targetClass, memberDecs, metadata);
@@ -1713,13 +2242,13 @@ function trace(value, param) {
 var People = /*#__PURE__*/ function() {
     function People() {
         _class_call_check(this, People);
-        _define_property(this, \\"xzy\\", void 0);
+        _define_property(this, "xzy", void 0);
         _initProto(this);
         this.xzy = 'xzy';
     }
     _create_class(People, [
         {
-            key: \\"test\\",
+            key: "test",
             value: function test() {
                 return this.xzy;
             }
@@ -1732,7 +2261,7 @@ ref = _apply_decs_2203_r(People, [
     [
         trace,
         2,
-        \\"test\\"
+        "test"
     ]
 ], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];
 var p = new People();
@@ -1756,12 +2285,12 @@ exports[`rollup-plugin-swc3 swc (rollup 3) detect legacy decorator for typescrip
 }
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 function _ts_metadata(k, v) {
-    if (typeof Reflect === \\"object\\" && typeof Reflect.metadata === \\"function\\") return Reflect.metadata(k, v);
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 }
 function trace(_target, _name, descriptor) {
     const original = descriptor.value;
@@ -1776,16 +2305,16 @@ class People {
         return this.xzy;
     }
     constructor(){
-        _define_property(this, \\"xzy\\", void 0);
+        _define_property(this, "xzy", void 0);
         this.xzy = 'xzy';
     }
 }
 _ts_decorate([
     trace,
-    _ts_metadata(\\"design:type\\", Function),
-    _ts_metadata(\\"design:paramtypes\\", []),
-    _ts_metadata(\\"design:returntype\\", void 0)
-], People.prototype, \\"test\\", null);
+    _ts_metadata("design:type", Function),
+    _ts_metadata("design:paramtypes", []),
+    _ts_metadata("design:returntype", void 0)
+], People.prototype, "test", null);
 const p = new People();
 p.test();
 "
@@ -1829,10 +2358,44 @@ export { bar };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) disable reading tsconfig.json 1`] = `
-"const foo = 1;
+{
+  "code": "const foo = 1;
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/disable-reading-tsconfig/index.jsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/disable-reading-tsconfig/index.jsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/disable-reading-tsconfig/index.jsx": {
+      "code": "const foo = 1;",
+      "originalLength": 22,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 14,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) issue 58 - eventemitter3 1`] = `
@@ -2201,12 +2764,12 @@ ee.on('test', function() {
 exports[`rollup-plugin-swc3 swc (rollup 3) issue 63 - tsconfig baseUrl only + relative baseUrl 1`] = `
 "function _check_private_redeclaration(obj, privateCollection) {
     if (privateCollection.has(obj)) {
-        throw new TypeError(\\"Cannot initialize the same private elements twice on an object\\");
+        throw new TypeError("Cannot initialize the same private elements twice on an object");
     }
 }
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _class_private_field_init(obj, privateMap, value) {
@@ -2231,41 +2794,187 @@ export { Test };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) load json 1`] = `
-"var foo = true;
+{
+  "code": "var foo = true;
 var foo$1 = {
 	foo: foo
 };
 
 console.log(foo$1);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/foo.json",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/foo.json": {
+      "code": "var foo = true;
+var foo$1 = {
+	foo: foo
+};",
+      "originalLength": 18,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+        "default",
+      ],
+      "renderedLength": 42,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/index.js": {
+      "code": "console.log(foo$1);",
+      "originalLength": 46,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 19,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) load jsx/tsx 1`] = `
-"const util = 42;
+{
+  "code": "const util = 42;
 
 class Foo {
     render() {
-        return /*#__PURE__*/ React.createElement(\\"div\\", {
-            className: \\"sukka\\"
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "sukka"
         }, util);
     }
 }
 
 console.log(Foo);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/some.util.ts",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/foo.tsx",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/foo.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "sukka"
+        }, util);
+    }
+}",
+      "originalLength": 128,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 141,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 45,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/some.util.ts": {
+      "code": "const util = 42;",
+      "originalLength": 23,
+      "removedExports": [],
+      "renderedExports": [
+        "util",
+      ],
+      "renderedLength": 16,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) minify 1`] = `
-"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
-"
+{
+  "code": "console.log(class{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}});
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/foo.tsx",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/foo.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
+    }
+}",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 152,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 41,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) react 17 jsx transform 1`] = `
 "import { jsx } from 'react/jsx-runtime';
 
 function Foo() {
-    return /*#__PURE__*/ jsx(\\"div\\", {
-        children: \\"foo\\"
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
     });
 }
 
@@ -2277,8 +2986,8 @@ exports[`rollup-plugin-swc3 swc (rollup 3) react 17 jsx transform 2`] = `
 "import { jsx } from '@compiled/react/jsx-runtime';
 
 function Foo() {
-    return /*#__PURE__*/ jsx(\\"div\\", {
-        children: \\"foo\\"
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
     });
 }
 
@@ -2287,22 +2996,69 @@ export { Foo };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) resolve index.(x) 1`] = `
-"class Foo {
+{
+  "code": "class Foo {
     render() {
-        return /*#__PURE__*/ React.createElement(\\"div\\", {
-            className: \\"hehe\\"
-        }, \\"hello there!!!\\");
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
     }
 }
 
 console.log(Foo);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/foo/index.tsx",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/foo/index.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
+    }
+}",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 152,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 41,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) simple 1`] = `
-"function _class_call_check(instance, Constructor) {
+{
+  "code": "function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _defineProperties(target, props) {
@@ -2310,7 +3066,7 @@ function _defineProperties(target, props) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if (\\"value\\" in descriptor) descriptor.writable = true;
+        if ("value" in descriptor) descriptor.writable = true;
         Object.defineProperty(target, descriptor.key, descriptor);
     }
 }
@@ -2325,11 +3081,11 @@ var Foo = /*#__PURE__*/ function() {
     }
     _create_class(Foo, [
         {
-            key: \\"render\\",
+            key: "render",
             value: function render() {
-                return /*#__PURE__*/ React.createElement(\\"div\\", {
-                    className: \\"hehe\\"
-                }, \\"hello there!!!\\");
+                return /*#__PURE__*/ React.createElement("div", {
+                    className: "hehe"
+                }, "hello there!!!");
             }
         }
     ]);
@@ -2340,16 +3096,132 @@ var bar = 'baz';
 
 console.log(Foo);
 console.log(bar);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/foo.tsx",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/bar.mjs",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/bar.mjs": {
+      "code": "var bar = 'baz';",
+      "originalLength": 37,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 16,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/foo.tsx": {
+      "code": "function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
+var Foo = /*#__PURE__*/ function() {
+    function Foo() {
+        _class_call_check(this, Foo);
+    }
+    _create_class(Foo, [
+        {
+            key: "render",
+            value: function render() {
+                return /*#__PURE__*/ React.createElement("div", {
+                    className: "hehe"
+                }, "hello there!!!");
+            }
+        }
+    ]);
+    return Foo;
+}();",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 1162,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/index.js": {
+      "code": "console.log(Foo);
+console.log(bar);",
+      "originalLength": 82,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 35,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) standalone minify 1`] = `
-"console.log(1e4),console.log(\\"bc\\");
-"
+{
+  "code": "console.log(1e4),console.log("bc");
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/standalone-minify/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/standalone-minify/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/standalone-minify/index.js": {
+      "code": "console.log(10000);
+console.log('b'      +      'c');",
+      "originalLength": 54,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 53,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) support rollup virtual module (e.g. commonjs plugin) 1`] = `
-"function getDefaultExportFromCjs (x) {
+{
+  "code": "function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
@@ -2388,7 +3260,130 @@ var rollupCommonjsExports = requireRollupCommonjs();
 var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);
 
 export { index as default };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "default",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    " commonjsHelpers.js",
+    " /Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/foo.js",
+    " /Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js",
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry",
+  ],
+  "modules": {
+    " /Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports": {
+      "code": "var bar = {};",
+      "originalLength": 39,
+      "removedExports": [],
+      "renderedExports": [
+        "__exports",
+      ],
+      "renderedLength": 13,
+    },
+    " /Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports": {
+      "code": "var rollupCommonjs = {};",
+      "originalLength": 61,
+      "removedExports": [],
+      "renderedExports": [
+        "__exports",
+      ],
+      "renderedLength": 24,
+    },
+    " commonjsHelpers.js": {
+      "code": "function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}",
+      "originalLength": 1335,
+      "removedExports": [
+        "commonjsGlobal",
+        "getDefaultExportFromNamespaceIfPresent",
+        "getDefaultExportFromNamespaceIfNotNamed",
+        "getAugmentedNamespace",
+      ],
+      "renderedExports": [
+        "getDefaultExportFromCjs",
+      ],
+      "renderedLength": 140,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js": {
+      "code": "var hasRequiredBar;
+function requireBar() {
+    if (hasRequiredBar) return bar;
+    hasRequiredBar = 1;
+    bar.Bar = 'bar';
+    return bar;
+}",
+      "originalLength": 20,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 142,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/foo.js": {
+      "code": "var foo;
+var hasRequiredFoo;
+function requireFoo() {
+    if (hasRequiredFoo) return foo;
+    hasRequiredFoo = 1;
+    foo = 'foo';
+    return foo;
+}",
+      "originalLength": 23,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 147,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js": {
+      "code": "var hasRequiredRollupCommonjs;
+function requireRollupCommonjs() {
+    if (hasRequiredRollupCommonjs) return rollupCommonjs;
+    hasRequiredRollupCommonjs = 1;
+    const Foo = requireFoo();
+    const { Bar } = requireBar();
+    console.log(Foo, Bar);
+    return rollupCommonjs;
+}",
+      "originalLength": 84,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 278,
+    },
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry": {
+      "code": "var rollupCommonjsExports = requireRollupCommonjs();
+var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);",
+      "originalLength": 379,
+      "removedExports": [],
+      "renderedExports": [
+        "__moduleExports",
+        "default",
+      ],
+      "renderedLength": 125,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) target - include other files 1`] = `
@@ -2431,63 +3426,199 @@ console.log(a(b));
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig - specify full path 1`] = `
-"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ hFoo("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig extends 1`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig extends 2`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) tsconfig resolve to nearest tsconfig 1`] = `
-"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ hFoo("div", null, "foo");
 
-var bar = /*#__PURE__*/ hBar(\\"div\\", null, \\"bar\\");
+var bar = /*#__PURE__*/ hBar("div", null, "bar");
 
-var baz = /*#__PURE__*/ h(\\"div\\", null, foo, bar);
+var baz = /*#__PURE__*/ h("div", null, foo, bar);
 
 export { baz };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) use custom jsxFactory (h) from jsconfig.json 1`] = `
-"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ h("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 46,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) use custom jsxFactory (h) from tsconfig 1`] = `
-"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ h("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 46,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) use custom tsconfig.json 1`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/custom-tsconfig/index.jsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/custom-tsconfig/index.jsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/custom-tsconfig/index.jsx": {
+      "code": "var foo = /*#__PURE__*/ custom("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 51,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 3) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1`] = `
-"var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\\"div\\", null, \\"foo\\"));
+{
+  "code": "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-jsconfig/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-jsconfig/index.tsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-jsconfig/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));",
+      "originalLength": 39,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 121,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) detect decorator for typescript5 1`] = `
@@ -2501,7 +3632,7 @@ function _array_with_holes(arr) {
 }
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _defineProperties(target, props) {
@@ -2509,7 +3640,7 @@ function _defineProperties(target, props) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if (\\"value\\" in descriptor) descriptor.writable = true;
+        if ("value" in descriptor) descriptor.writable = true;
         Object.defineProperty(target, descriptor.key, descriptor);
     }
 }
@@ -2531,7 +3662,7 @@ function _define_property(obj, key, value) {
     return obj;
 }
 function _iterable_to_array_limit(arr, i) {
-    var _i = arr == null ? null : typeof Symbol !== \\"undefined\\" && arr[Symbol.iterator] || arr[\\"@@iterator\\"];
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
     if (_i == null) return;
     var _arr = [];
     var _n = true;
@@ -2547,7 +3678,7 @@ function _iterable_to_array_limit(arr, i) {
         _e = err;
     } finally{
         try {
-            if (!_n && _i[\\"return\\"] != null) _i[\\"return\\"]();
+            if (!_n && _i["return"] != null) _i["return"]();
         } finally{
             if (_d) throw _e;
         }
@@ -2555,24 +3686,24 @@ function _iterable_to_array_limit(arr, i) {
     return _arr;
 }
 function _non_iterable_rest() {
-    throw new TypeError(\\"Invalid attempt to destructure non-iterable instance.\\\\\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\\");
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _sliced_to_array(arr, i) {
     return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
 }
 function _unsupported_iterable_to_array(o, minLen) {
     if (!o) return;
-    if (typeof o === \\"string\\") return _array_like_to_array(o, minLen);
+    if (typeof o === "string") return _array_like_to_array(o, minLen);
     var n = Object.prototype.toString.call(o).slice(8, -1);
-    if (n === \\"Object\\" && o.constructor) n = o.constructor.name;
-    if (n === \\"Map\\" || n === \\"Set\\") return Array.from(n);
-    if (n === \\"Arguments\\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
 function applyDecs2203RFactory() {
     function createAddInitializerMethod(initializers, decoratorFinishedRef) {
         return function addInitializer(initializer) {
-            assertNotFinished(decoratorFinishedRef, \\"addInitializer\\");
-            assertCallable(initializer, \\"An initializer\\");
+            assertNotFinished(decoratorFinishedRef, "addInitializer");
+            assertCallable(initializer, "An initializer");
             initializers.push(initializer);
         };
     }
@@ -2580,23 +3711,23 @@ function applyDecs2203RFactory() {
         var kindStr;
         switch(kind){
             case 1:
-                kindStr = \\"accessor\\";
+                kindStr = "accessor";
                 break;
             case 2:
-                kindStr = \\"method\\";
+                kindStr = "method";
                 break;
             case 3:
-                kindStr = \\"getter\\";
+                kindStr = "getter";
                 break;
             case 4:
-                kindStr = \\"setter\\";
+                kindStr = "setter";
                 break;
             default:
-                kindStr = \\"field\\";
+                kindStr = "field";
         }
         var ctx = {
             kind: kindStr,
-            name: isPrivate ? \\"#\\" + name : name,
+            name: isPrivate ? "#" + name : name,
             static: isStatic,
             private: isPrivate,
             metadata: metadata
@@ -2650,39 +3781,39 @@ function applyDecs2203RFactory() {
     }
     function assertNotFinished(decoratorFinishedRef, fnName) {
         if (decoratorFinishedRef.v) {
-            throw new Error(\\"attempted to call \\" + fnName + \\" after decoration was finished\\");
+            throw new Error("attempted to call " + fnName + " after decoration was finished");
         }
     }
     function assertCallable(fn, hint) {
-        if (typeof fn !== \\"function\\") {
-            throw new TypeError(hint + \\" must be a function\\");
+        if (typeof fn !== "function") {
+            throw new TypeError(hint + " must be a function");
         }
     }
     function assertValidReturnValue(kind, value) {
         var type = typeof value;
         if (kind === 1) {
-            if (type !== \\"object\\" || value === null) {
-                throw new TypeError(\\"accessor decorators must return an object with get, set, or init properties or void 0\\");
+            if (type !== "object" || value === null) {
+                throw new TypeError("accessor decorators must return an object with get, set, or init properties or void 0");
             }
             if (value.get !== undefined) {
-                assertCallable(value.get, \\"accessor.get\\");
+                assertCallable(value.get, "accessor.get");
             }
             if (value.set !== undefined) {
-                assertCallable(value.set, \\"accessor.set\\");
+                assertCallable(value.set, "accessor.set");
             }
             if (value.init !== undefined) {
-                assertCallable(value.init, \\"accessor.init\\");
+                assertCallable(value.init, "accessor.init");
             }
-        } else if (type !== \\"function\\") {
+        } else if (type !== "function") {
             var hint;
             if (kind === 0) {
-                hint = \\"field\\";
+                hint = "field";
             } else if (kind === 10) {
-                hint = \\"class\\";
+                hint = "class";
             } else {
-                hint = \\"method\\";
+                hint = "method";
             }
-            throw new TypeError(hint + \\" decorators must return a function or void 0\\");
+            throw new TypeError(hint + " decorators must return a function or void 0");
         }
     }
     function applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata) {
@@ -2723,7 +3854,7 @@ function applyDecs2203RFactory() {
             value = desc.set;
         }
         var newValue, get, set;
-        if (typeof decs === \\"function\\") {
+        if (typeof decs === "function") {
             newValue = memberDec(decs, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);
             if (newValue !== void 0) {
                 assertValidReturnValue(kind, newValue);
@@ -2764,7 +3895,7 @@ function applyDecs2203RFactory() {
                     if (newInit !== void 0) {
                         if (init === void 0) {
                             init = newInit;
-                        } else if (typeof init === \\"function\\") {
+                        } else if (typeof init === "function") {
                             init = [
                                 init,
                                 newInit
@@ -2781,7 +3912,7 @@ function applyDecs2203RFactory() {
                 init = function(instance, init) {
                     return init;
                 };
-            } else if (typeof init !== \\"function\\") {
+            } else if (typeof init !== "function") {
                 var ownInitializers = init;
                 init = function(instance, init) {
                     var value = init;
@@ -2858,7 +3989,7 @@ function applyDecs2203RFactory() {
                 var existingNonFields = isStatic ? existingStaticNonFields : existingProtoNonFields;
                 var existingKind = existingNonFields.get(name) || 0;
                 if (existingKind === true || existingKind === 3 && kind !== 4 || existingKind === 4 && kind !== 3) {
-                    throw new Error(\\"Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: \\" + name);
+                    throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + name);
                 } else if (!existingKind && kind > 2) {
                     existingNonFields.set(name, kind);
                 } else {
@@ -2892,7 +4023,7 @@ function applyDecs2203RFactory() {
                 };
                 try {
                     var nextNewClass = classDecs[i](newClass, {
-                        kind: \\"class\\",
+                        kind: "class",
                         name: name,
                         addInitializer: createAddInitializerMethod(initializers, decoratorFinishedRef),
                         metadata
@@ -2916,7 +4047,7 @@ function applyDecs2203RFactory() {
         }
     }
     function defineMetadata(Class, metadata) {
-        return Object.defineProperty(Class, Symbol.metadata || Symbol.for(\\"Symbol.metadata\\"), {
+        return Object.defineProperty(Class, Symbol.metadata || Symbol.for("Symbol.metadata"), {
             configurable: true,
             enumerable: true,
             value: metadata
@@ -2924,7 +4055,7 @@ function applyDecs2203RFactory() {
     }
     return function applyDecs2203R(targetClass, memberDecs, classDecs, parentClass) {
         if (parentClass !== void 0) {
-            var parentMetadata = parentClass[Symbol.metadata || Symbol.for(\\"Symbol.metadata\\")];
+            var parentMetadata = parentClass[Symbol.metadata || Symbol.for("Symbol.metadata")];
         }
         var metadata = Object.create(parentMetadata === void 0 ? null : parentMetadata);
         var e = applyMemberDecs(targetClass, memberDecs, metadata);
@@ -2956,13 +4087,13 @@ function trace(value, param) {
 var People = /*#__PURE__*/ function() {
     function People() {
         _class_call_check(this, People);
-        _define_property(this, \\"xzy\\", void 0);
+        _define_property(this, "xzy", void 0);
         _initProto(this);
         this.xzy = 'xzy';
     }
     _create_class(People, [
         {
-            key: \\"test\\",
+            key: "test",
             value: function test() {
                 return this.xzy;
             }
@@ -2975,7 +4106,7 @@ ref = _apply_decs_2203_r(People, [
     [
         trace,
         2,
-        \\"test\\"
+        "test"
     ]
 ], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];
 var p = new People();
@@ -2999,12 +4130,12 @@ exports[`rollup-plugin-swc3 swc (rollup 4) detect legacy decorator for typescrip
 }
 function _ts_decorate(decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === \\"object\\" && typeof Reflect.decorate === \\"function\\") r = Reflect.decorate(decorators, target, key, desc);
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 }
 function _ts_metadata(k, v) {
-    if (typeof Reflect === \\"object\\" && typeof Reflect.metadata === \\"function\\") return Reflect.metadata(k, v);
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 }
 function trace(_target, _name, descriptor) {
     const original = descriptor.value;
@@ -3019,16 +4150,16 @@ class People {
         return this.xzy;
     }
     constructor(){
-        _define_property(this, \\"xzy\\", void 0);
+        _define_property(this, "xzy", void 0);
         this.xzy = 'xzy';
     }
 }
 _ts_decorate([
     trace,
-    _ts_metadata(\\"design:type\\", Function),
-    _ts_metadata(\\"design:paramtypes\\", []),
-    _ts_metadata(\\"design:returntype\\", void 0)
-], People.prototype, \\"test\\", null);
+    _ts_metadata("design:type", Function),
+    _ts_metadata("design:paramtypes", []),
+    _ts_metadata("design:returntype", void 0)
+], People.prototype, "test", null);
 const p = new People();
 p.test();
 "
@@ -3072,10 +4203,44 @@ export { bar };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) disable reading tsconfig.json 1`] = `
-"const foo = 1;
+{
+  "code": "const foo = 1;
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/disable-reading-tsconfig/index.jsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/disable-reading-tsconfig/index.jsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/disable-reading-tsconfig/index.jsx": {
+      "code": "const foo = 1;",
+      "originalLength": 22,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 14,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) issue 58 - eventemitter3 1`] = `
@@ -3444,12 +4609,12 @@ ee.on('test', function() {
 exports[`rollup-plugin-swc3 swc (rollup 4) issue 63 - tsconfig baseUrl only + relative baseUrl 1`] = `
 "function _check_private_redeclaration(obj, privateCollection) {
     if (privateCollection.has(obj)) {
-        throw new TypeError(\\"Cannot initialize the same private elements twice on an object\\");
+        throw new TypeError("Cannot initialize the same private elements twice on an object");
     }
 }
 function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _class_private_field_init(obj, privateMap, value) {
@@ -3474,41 +4639,187 @@ export { Test };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) load json 1`] = `
-"var foo = true;
+{
+  "code": "var foo = true;
 var foo$1 = {
 	foo: foo
 };
 
 console.log(foo$1);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/foo.json",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/foo.json": {
+      "code": "var foo = true;
+var foo$1 = {
+	foo: foo
+};",
+      "originalLength": 18,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+        "default",
+      ],
+      "renderedLength": 42,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/index.js": {
+      "code": "console.log(foo$1);",
+      "originalLength": 46,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 19,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) load jsx/tsx 1`] = `
-"const util = 42;
+{
+  "code": "const util = 42;
 
 class Foo {
     render() {
-        return /*#__PURE__*/ React.createElement(\\"div\\", {
-            className: \\"sukka\\"
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "sukka"
         }, util);
     }
 }
 
 console.log(Foo);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/some.util.ts",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/foo.tsx",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/foo.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "sukka"
+        }, util);
+    }
+}",
+      "originalLength": 128,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 141,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 45,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/some.util.ts": {
+      "code": "const util = 42;",
+      "originalLength": 23,
+      "removedExports": [],
+      "renderedExports": [
+        "util",
+      ],
+      "renderedLength": 16,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) minify 1`] = `
-"console.log(class{render(){return React.createElement(\\"div\\",{className:\\"hehe\\"},\\"hello there!!!\\")}});
-"
+{
+  "code": "console.log(class{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}});
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/foo.tsx",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/foo.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
+    }
+}",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 152,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 41,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) react 17 jsx transform 1`] = `
 "import { jsx } from 'react/jsx-runtime';
 
 function Foo() {
-    return /*#__PURE__*/ jsx(\\"div\\", {
-        children: \\"foo\\"
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
     });
 }
 
@@ -3520,8 +4831,8 @@ exports[`rollup-plugin-swc3 swc (rollup 4) react 17 jsx transform 2`] = `
 "import { jsx } from '@compiled/react/jsx-runtime';
 
 function Foo() {
-    return /*#__PURE__*/ jsx(\\"div\\", {
-        children: \\"foo\\"
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
     });
 }
 
@@ -3530,22 +4841,69 @@ export { Foo };
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) resolve index.(x) 1`] = `
-"class Foo {
+{
+  "code": "class Foo {
     render() {
-        return /*#__PURE__*/ React.createElement(\\"div\\", {
-            className: \\"hehe\\"
-        }, \\"hello there!!!\\");
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
     }
 }
 
 console.log(Foo);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/foo/index.tsx",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/foo/index.tsx": {
+      "code": "class Foo {
+    render() {
+        return /*#__PURE__*/ React.createElement("div", {
+            className: "hehe"
+        }, "hello there!!!");
+    }
+}",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 152,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/index.js": {
+      "code": "console.log(Foo);",
+      "originalLength": 41,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 17,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) simple 1`] = `
-"function _class_call_check(instance, Constructor) {
+{
+  "code": "function _class_call_check(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
-        throw new TypeError(\\"Cannot call a class as a function\\");
+        throw new TypeError("Cannot call a class as a function");
     }
 }
 function _defineProperties(target, props) {
@@ -3553,7 +4911,7 @@ function _defineProperties(target, props) {
         var descriptor = props[i];
         descriptor.enumerable = descriptor.enumerable || false;
         descriptor.configurable = true;
-        if (\\"value\\" in descriptor) descriptor.writable = true;
+        if ("value" in descriptor) descriptor.writable = true;
         Object.defineProperty(target, descriptor.key, descriptor);
     }
 }
@@ -3567,11 +4925,11 @@ var Foo = /*#__PURE__*/ function() {
     }
     _create_class(Foo, [
         {
-            key: \\"render\\",
+            key: "render",
             value: function render() {
-                return /*#__PURE__*/ React.createElement(\\"div\\", {
-                    className: \\"hehe\\"
-                }, \\"hello there!!!\\");
+                return /*#__PURE__*/ React.createElement("div", {
+                    className: "hehe"
+                }, "hello there!!!");
             }
         }
     ]);
@@ -3582,16 +4940,131 @@ var bar = 'baz';
 
 console.log(Foo);
 console.log(bar);
-"
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/foo.tsx",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/bar.mjs",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/bar.mjs": {
+      "code": "var bar = 'baz';",
+      "originalLength": 37,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 16,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/foo.tsx": {
+      "code": "function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    return Constructor;
+}
+var Foo = /*#__PURE__*/ function() {
+    function Foo() {
+        _class_call_check(this, Foo);
+    }
+    _create_class(Foo, [
+        {
+            key: "render",
+            value: function render() {
+                return /*#__PURE__*/ React.createElement("div", {
+                    className: "hehe"
+                }, "hello there!!!");
+            }
+        }
+    ]);
+    return Foo;
+}();",
+      "originalLength": 100,
+      "removedExports": [],
+      "renderedExports": [
+        "default",
+      ],
+      "renderedLength": 1096,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/index.js": {
+      "code": "console.log(Foo);
+console.log(bar);",
+      "originalLength": 82,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 35,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) standalone minify 1`] = `
-"console.log(1e4),console.log(\\"bc\\");
-"
+{
+  "code": "console.log(1e4),console.log("bc");
+",
+  "dynamicImports": [],
+  "exports": [],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/standalone-minify/index.js",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/standalone-minify/index.js",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/standalone-minify/index.js": {
+      "code": "console.log(10000);
+console.log('b'      +      'c');",
+      "originalLength": 54,
+      "removedExports": [],
+      "renderedExports": [],
+      "renderedLength": 53,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) support rollup virtual module (e.g. commonjs plugin) 1`] = `
-"function getDefaultExportFromCjs (x) {
+{
+  "code": "function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
 }
 
@@ -3630,7 +5103,130 @@ var rollupCommonjsExports = requireRollupCommonjs();
 var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);
 
 export { index as default };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "default",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    " commonjsHelpers.js",
+    " /Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/foo.js",
+    " /Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js",
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry",
+  ],
+  "modules": {
+    " /Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports": {
+      "code": "var bar = {};",
+      "originalLength": 39,
+      "removedExports": [],
+      "renderedExports": [
+        "__exports",
+      ],
+      "renderedLength": 13,
+    },
+    " /Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports": {
+      "code": "var rollupCommonjs = {};",
+      "originalLength": 61,
+      "removedExports": [],
+      "renderedExports": [
+        "__exports",
+      ],
+      "renderedLength": 24,
+    },
+    " commonjsHelpers.js": {
+      "code": "function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}",
+      "originalLength": 1335,
+      "removedExports": [
+        "commonjsGlobal",
+        "getDefaultExportFromNamespaceIfPresent",
+        "getDefaultExportFromNamespaceIfNotNamed",
+        "getAugmentedNamespace",
+      ],
+      "renderedExports": [
+        "getDefaultExportFromCjs",
+      ],
+      "renderedLength": 140,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js": {
+      "code": "var hasRequiredBar;
+function requireBar() {
+    if (hasRequiredBar) return bar;
+    hasRequiredBar = 1;
+    bar.Bar = 'bar';
+    return bar;
+}",
+      "originalLength": 20,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 142,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/foo.js": {
+      "code": "var foo;
+var hasRequiredFoo;
+function requireFoo() {
+    if (hasRequiredFoo) return foo;
+    hasRequiredFoo = 1;
+    foo = 'foo';
+    return foo;
+}",
+      "originalLength": 23,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 147,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js": {
+      "code": "var hasRequiredRollupCommonjs;
+function requireRollupCommonjs() {
+    if (hasRequiredRollupCommonjs) return rollupCommonjs;
+    hasRequiredRollupCommonjs = 1;
+    const Foo = requireFoo();
+    const { Bar } = requireBar();
+    console.log(Foo, Bar);
+    return rollupCommonjs;
+}",
+      "originalLength": 84,
+      "removedExports": [],
+      "renderedExports": [
+        "__require",
+      ],
+      "renderedLength": 278,
+    },
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry": {
+      "code": "var rollupCommonjsExports = requireRollupCommonjs();
+var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);",
+      "originalLength": 379,
+      "removedExports": [],
+      "renderedExports": [
+        "__moduleExports",
+        "default",
+      ],
+      "renderedLength": 125,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) target - include other files 1`] = `
@@ -3673,61 +5269,197 @@ console.log(a(b));
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig - specify full path 1`] = `
-"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ hFoo("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig extends 1`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig extends 2`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) tsconfig resolve to nearest tsconfig 1`] = `
-"var foo = /*#__PURE__*/ hFoo(\\"div\\", null, \\"foo\\");
+"var foo = /*#__PURE__*/ hFoo("div", null, "foo");
 
-var bar = /*#__PURE__*/ hBar(\\"div\\", null, \\"bar\\");
+var bar = /*#__PURE__*/ hBar("div", null, "bar");
 
-var baz = /*#__PURE__*/ h(\\"div\\", null, foo, bar);
+var baz = /*#__PURE__*/ h("div", null, foo, bar);
 
 export { baz };
 "
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) use custom jsxFactory (h) from jsconfig.json 1`] = `
-"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ h("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 46,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) use custom jsxFactory (h) from tsconfig 1`] = `
-"var foo = /*#__PURE__*/ h(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ h("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ h("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 46,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) use custom tsconfig.json 1`] = `
-"var foo = /*#__PURE__*/ custom(\\"div\\", null, \\"foo\\");
+{
+  "code": "var foo = /*#__PURE__*/ custom("div", null, "foo");
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/custom-tsconfig/index.jsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/custom-tsconfig/index.jsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/custom-tsconfig/index.jsx": {
+      "code": "var foo = /*#__PURE__*/ custom("div", null, "foo");",
+      "originalLength": 34,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 51,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
 
 exports[`rollup-plugin-swc3 swc (rollup 4) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1`] = `
-"var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\\"div\\", null, \\"foo\\"));
+{
+  "code": "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));
 
 export { foo };
-"
+",
+  "dynamicImports": [],
+  "exports": [
+    "foo",
+  ],
+  "facadeModuleId": "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-jsconfig/index.tsx",
+  "fileName": "index.js",
+  "implicitlyLoadedBefore": [],
+  "importedBindings": {},
+  "imports": [],
+  "isDynamicEntry": false,
+  "isEntry": true,
+  "isImplicitEntry": false,
+  "map": null,
+  "moduleIds": [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-jsconfig/index.tsx",
+  ],
+  "modules": {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-jsconfig/index.tsx": {
+      "code": "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));",
+      "originalLength": 39,
+      "removedExports": [],
+      "renderedExports": [
+        "foo",
+      ],
+      "renderedLength": 121,
+    },
+  },
+  "name": "index",
+  "preliminaryFileName": "index.js",
+  "referencedFiles": [],
+  "sourcemapFileName": null,
+  "type": "chunk",
+}
 `;
