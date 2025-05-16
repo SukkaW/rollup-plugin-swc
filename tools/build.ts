@@ -4,7 +4,7 @@ import process from 'node:process';
 import { rollup, VERSION } from 'rollup';
 import type { ExternalOption } from 'rollup';
 
-import dts from 'rollup-plugin-dts';
+import { dts } from 'rollup-plugin-dts';
 import { swc, defineRollupSwcOption } from '../src/index';
 
 import pkg from '../package.json';
@@ -39,21 +39,21 @@ async function main() {
     ]);
   }
 
-  async function createDtsFile() {
-    const bundle = await rollup({
-      input: './src/index.ts',
-      external,
-      plugins: [dts({
-        respectExternal: true
-      })]
-    });
-
-    return bundle.write({ file: './dist/index.d.ts' });
-  }
-
   console.log('rollup version', VERSION);
 
   return Promise.all([build(), createDtsFile()]).then(() => console.log('build finished!'));
+}
+
+async function createDtsFile() {
+  const bundle = await rollup({
+    input: './src/index.ts',
+    external,
+    plugins: [dts({
+      respectExternal: true
+    })]
+  });
+
+  return bundle.write({ file: './dist/index.d.ts' });
 }
 
 main().catch(err => {
