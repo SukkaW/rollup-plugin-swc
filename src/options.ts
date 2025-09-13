@@ -5,7 +5,7 @@ import fs from 'node:fs';
 
 import type { TsConfigJson } from 'get-tsconfig';
 import type { TransformPluginContext } from 'rollup';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
@@ -61,8 +61,8 @@ export function getOptions(
 
 export function checkIsLegacyTypeScript() {
   try {
-    // @ts-expect-error -- It's required to using 'import.mtea.url' but i don't want to change the tsconfig.
-    const tsPath = resolve('typescript/package.json', import.meta.url);
+    // @ts-expect-error -- It's required to using 'import.meta.url' but i don't want to change the tsconfig.
+    const tsPath = resolve('typescript/package.json', typeof __filename === 'string' ? pathToFileURL(__filename).href : import.meta.url);
     const { version } = JSON.parse(fs.readFileSync(fileURLToPath(tsPath), 'utf-8'));
     const [major] = version.split('.');
     // typescript 5+ enable experimentalDecorators by default so we think it's not legacy
