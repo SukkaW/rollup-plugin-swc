@@ -3,4 +3,4 @@ onlyBuiltDependencies:
 
 overrides:
   rollup: $rollup
-  eslint>chalk: npm:picocolors@^1.1.0
+  eslint>chalk: npm:picocolors@^1.1.1
