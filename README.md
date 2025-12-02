@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://pic.skk.moe/file/sukkaw/gh/rollup-plugin-swc.png" width="550px">
+  <img src="https://img.skk.moe/gh/rollup-plugin-swc.png" width="550px">
 </div>
 <h1 align="center">rollup-plugin-swc</h1>
 
