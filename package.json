@@ -22,10 +22,11 @@
     "default": "./dist/index.js"
   },
   "scripts": {
-    "prepublishOnly": "npm run clean && npm run test && npm run build",
+    "prepublishOnly": "pnpm run clean && pnpm run test && pnpm run build",
     "clean": "premove ./dist ./test/temp",
     "build": "SWC_NODE_PROJECT=./tsconfig.json node -r @swc-node/register tools/build.ts",
     "test": "SWC_NODE_PROJECT=./tsconfig.json mocha -r @swc-node/register test/index.ts",
+    "test:update": "UPDATE_SNAPSHOTS=true SWC_NODE_PROJECT=./tsconfig.json mocha -r @swc-node/register test/index.ts",
     "lint": "eslint --format sukka ."
   },
   "author": "",

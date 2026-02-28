@@ -7,6 +7,7 @@ import { fdir as Fdir } from 'fdir';
 import { rollup as rollup2 } from 'rollup2';
 import { rollup as rollup3 } from 'rollup3';
 import { rollup as rollup4 } from 'rollup';
+
 import type { Plugin as RollupPlugin, ExternalOption, InputOption, RollupOutput } from 'rollup';
 
 import type { PluginOptions } from '../src';
@@ -140,26 +141,26 @@ function tests(
   it('simple', async function () {
     const dir = await fixture('simple');
     const output = await build(rollupImpl, {}, { dir });
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('minify', async function () {
     const dir = await fixture('minify');
     const output = await build(rollupImpl, { minify: true, jsc: { target: 'es2022' } }, { dir });
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('standalone minify', async function () {
     const dir = await fixture('standalone-minify');
     const output = await runMinify(rollupImpl, {}, { dir });
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('resolve index.(x)', async function () {
     const dir = await fixture('resolve-index');
     const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
 
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('load json', async function () {
@@ -171,7 +172,7 @@ function tests(
       { otherRollupPlugins: [json()], dir }
     );
 
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('support rollup virtual module (e.g. commonjs plugin)', async function () {
@@ -181,21 +182,21 @@ function tests(
       { jsc: { target: 'es2022' } },
       { otherRollupPlugins: [commonjs()], dir }
     );
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('use custom jsxFactory (h) from tsconfig', async function () {
     const dir = await fixture('tsconfig-custom-jsx-factory');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('use custom jsxFactory (h) from jsconfig.json', async function () {
     const dir = await fixture('jsconfig-custom-jsx-factory');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('react 17 jsx transform', async function () {
@@ -214,7 +215,7 @@ function tests(
     const dir = await fixture('tsconfig-jsconfig');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('use custom tsconfig.json', async function () {
@@ -225,7 +226,7 @@ function tests(
       { tsconfig: 'tsconfig.build.json' },
       { input: './index.jsx', dir }
     );
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('disable reading tsconfig.json', async function () {
@@ -236,14 +237,14 @@ function tests(
       { tsconfig: false },
       { input: './index.jsx', dir }
     );
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('load jsx/tsx', async function () {
     const dir = await fixture('load-jsx-tsx');
 
     const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
-    expect(output[0]).toMatchSnapshot(this);
+    expect(output[0].code).toMatchSnapshot(this);
   });
 
   it('tsconfig extends', async function () {
