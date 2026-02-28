@@ -22,8 +22,7 @@ import { create, destroy } from 'memdisk';
 
 import { sync as whichSync } from 'which';
 import { exec } from 'tinyexec';
-import { jestExpect as expect } from 'mocha-expect-snapshot';
-import 'mocha-expect-snapshot';
+import { expect } from 'earl';
 
 function rollupInvriant(v: RollupOutput['output'][number] | undefined | null) {
   if (v == null) {
@@ -138,32 +137,32 @@ function tests(
     return testDir;
   };
 
-  it('simple', async () => {
+  it('simple', async function () {
     const dir = await fixture('simple');
     const output = await build(rollupImpl, {}, { dir });
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('minify', async () => {
+  it('minify', async function () {
     const dir = await fixture('minify');
     const output = await build(rollupImpl, { minify: true, jsc: { target: 'es2022' } }, { dir });
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('standalone minify', async () => {
+  it('standalone minify', async function () {
     const dir = await fixture('standalone-minify');
     const output = await runMinify(rollupImpl, {}, { dir });
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('resolve index.(x)', async () => {
+  it('resolve index.(x)', async function () {
     const dir = await fixture('resolve-index');
     const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
 
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('load json', async () => {
+  it('load json', async function () {
     const dir = await fixture('load-json');
 
     const output = await build(
@@ -172,53 +171,53 @@ function tests(
       { otherRollupPlugins: [json()], dir }
     );
 
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('support rollup virtual module (e.g. commonjs plugin)', async () => {
+  it('support rollup virtual module (e.g. commonjs plugin)', async function () {
     const dir = await fixture('rollup-commonjs');
     const output = await build(
       rollupImpl,
       { jsc: { target: 'es2022' } },
       { otherRollupPlugins: [commonjs()], dir }
     );
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('use custom jsxFactory (h) from tsconfig', async () => {
+  it('use custom jsxFactory (h) from tsconfig', async function () {
     const dir = await fixture('tsconfig-custom-jsx-factory');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('use custom jsxFactory (h) from jsconfig.json', async () => {
+  it('use custom jsxFactory (h) from jsconfig.json', async function () {
     const dir = await fixture('jsconfig-custom-jsx-factory');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('react 17 jsx transform', async () => {
+  it('react 17 jsx transform', async function () {
     const dir = await fixture('react-17-jsx-transform');
 
     expect((
       await build(rollupImpl, { tsconfig: 'tsconfig.react-jsx.json' }, { input: './index.tsx', dir, external: 'react/jsx-runtime' })
-    )[0].code).toMatchSnapshot();
+    )[0].code).toMatchSnapshot(this);
 
     expect((
       await build(rollupImpl, { tsconfig: 'tsconfig.compiled.json' }, { input: './index.tsx', dir, external: '@compiled/react/jsx-runtime' })
-    )[0].code).toMatchSnapshot();
+    )[0].code).toMatchSnapshot(this);
   });
 
-  it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async () => {
+  it('use tsconfig.json when tsconfig.json & jsconfig.json both exists', async function () {
     const dir = await fixture('tsconfig-jsconfig');
 
     const output = await build(rollupImpl, {}, { input: './index.tsx', dir });
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('use custom tsconfig.json', async () => {
+  it('use custom tsconfig.json', async function () {
     const dir = await fixture('custom-tsconfig');
 
     const output = await build(
@@ -226,10 +225,10 @@ function tests(
       { tsconfig: 'tsconfig.build.json' },
       { input: './index.jsx', dir }
     );
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('disable reading tsconfig.json', async () => {
+  it('disable reading tsconfig.json', async function () {
     const dir = await fixture('disable-reading-tsconfig');
 
     const output = await build(
@@ -237,43 +236,43 @@ function tests(
       { tsconfig: false },
       { input: './index.jsx', dir }
     );
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('load jsx/tsx', async () => {
+  it('load jsx/tsx', async function () {
     const dir = await fixture('load-jsx-tsx');
 
     const output = await build(rollupImpl, { jsc: { target: 'es2022' } }, { dir });
-    expect(output[0]).toMatchSnapshot();
+    expect(output[0]).toMatchSnapshot(this);
   });
 
-  it('tsconfig extends', async () => {
+  it('tsconfig extends', async function () {
     const dir = await fixture('tsconfig-extends');
 
     expect((await build(
       rollupImpl,
       {},
       { input: './index.jsx', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
 
     expect((await build(
       rollupImpl,
       { tsconfig: 'jsconfig.custom.json' },
       { input: './index.jsx', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('tsconfig resolve to nearest tsconfig', async () => {
+  it('tsconfig resolve to nearest tsconfig', async function () {
     const dir = await fixture('tsconfig-resolve-to-nearest-tsconfig');
 
     expect((await build(
       rollupImpl,
       {},
       { input: './index.jsx', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('tsconfig - specify full path', async () => {
+  it('tsconfig - specify full path', async function () {
     const dir = await fixture('tsconfig-full-path');
 
     const tsconfigPath = path.resolve(dir, './foo/bar/tsconfig.json');
@@ -282,60 +281,60 @@ function tests(
       rollupImpl,
       { tsconfig: tsconfigPath },
       { input: './index.jsx', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('tsconfig - baseUrl & paths', async () => {
+  it('tsconfig - baseUrl & paths', async function () {
     const dir = await fixture('tsconfig-baseurl-paths');
 
     expect((await build(
       rollupImpl,
       {},
       { input: './src/index.ts', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('tsconfig - paths', async () => {
+  it('tsconfig - paths', async function () {
     const dir = await fixture('tsconfig-paths');
 
     expect((await build(
       rollupImpl,
       {},
       { input: './src/index.ts', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('target - include other files', async () => {
+  it('target - include other files', async function () {
     const dir = await fixture('extensions');
 
     expect((await build(
       rollupImpl,
       { extensions: ['.ts', '.mts', '.cts'], tsconfig: false },
       { input: './index.mts', dir, otherRollupPlugins: [commonjs({ extensions: ['.cts'] })] }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('directive - include "use client"', async () => {
+  it('directive - include "use client"', async function () {
     const dir = await fixture('directive-include-use-client');
 
     expect((await build(
       rollupImpl,
       { tsconfig: false },
       { input: './index.tsx', dir, otherRollupPluginsAfterSwc: [preserveUseDirective()] }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('directive - merge "use client"', async () => {
+  it('directive - merge "use client"', async function () {
     const dir = await fixture('directive-merge-use-client');
 
     expect((await build(
       rollupImpl,
       { tsconfig: false },
       { input: './index.tsx', dir, otherRollupPluginsAfterSwc: [preserveUseDirective()] }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('directive - only output "use client" / "use server" in the specfic entry', async () => {
+  it('directive - only output "use client" / "use server" in the specfic entry', async function () {
     const dir = await fixture('directive-split-entry');
 
     const output = (await build(
@@ -350,45 +349,45 @@ function tests(
       }
     ));
 
-    expect(rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code).toMatchSnapshot();
-    expect(rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code).toMatchSnapshot();
+    expect(rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code).toMatchSnapshot(this);
+    expect(rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code).toMatchSnapshot(this);
   });
 
-  it('issue 58 - eventemitter3', async () => {
+  it('issue 58 - eventemitter3', async function () {
     const dir = await fixture('issue-58');
 
     expect((await build(
       rollupImpl,
       { tsconfig: false },
       { input: './index.ts', dir, otherRollupPlugins: [nodeResolve(), commonjs()] }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('issue 63 - tsconfig baseUrl only + relative baseUrl', async () => {
+  it('issue 63 - tsconfig baseUrl only + relative baseUrl', async function () {
     const dir = await fixture('tsconfig-base-url-only-relative-issue-63');
 
     expect((await build(
       rollupImpl,
       { tsconfig: false },
       { input: './src/index.ts', dir, otherRollupPlugins: [nodeResolve(), commonjs()] }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 
-  it('detect decorator for typescript5', async () => {
+  it('detect decorator for typescript5', async function () {
     const dir = await fixture('decorators');
     expect((await build(
       rollupImpl,
       { tsconfig: false },
       { input: './index.ts', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
-  it('detect legacy decorator for typescript5', async () => {
+  it('detect legacy decorator for typescript5', async function () {
     const dir = await fixture('legacy-decorators');
     expect((await build(
       rollupImpl,
       {},
       { input: './index.ts', dir }
-    ))[0].code).toMatchSnapshot();
+    ))[0].code).toMatchSnapshot(this);
   });
 }
 

@@ -1,0 +1,3106 @@
+// rollup-plugin-swc3 swc (rollup 2) simple 1
+
+{
+  code: 
+  """
+  function _class_call_check(instance, Constructor) {
+      if (!(instance instanceof Constructor)) {
+          throw new TypeError("Cannot call a class as a function");
+      }
+  }
+  function _defineProperties(target, props) {
+      for(var i = 0; i < props.length; i++){
+          var descriptor = props[i];
+          descriptor.enumerable = descriptor.enumerable || false;
+          descriptor.configurable = true;
+          if ("value" in descriptor) descriptor.writable = true;
+          Object.defineProperty(target, descriptor.key, descriptor);
+      }
+  }
+  function _create_class(Constructor, protoProps, staticProps) {
+      if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+      if (staticProps) _defineProperties(Constructor, staticProps);
+      return Constructor;
+  }
+  var Foo = /*#__PURE__*/ function() {
+      function Foo() {
+          _class_call_check(this, Foo);
+      }
+      _create_class(Foo, [
+          {
+              key: "render",
+              value: function render() {
+                  return /*#__PURE__*/ React.createElement("div", {
+                      className: "hehe"
+                  }, "hello there!!!");
+              }
+          }
+      ]);
+      return Foo;
+  }();
+  
+  var bar = 'baz';
+  
+  console.log(Foo);
+  console.log(bar);
+  
+  """
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/bar.mjs": {
+      code: "var bar = 'baz';"
+      originalLength: 37
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 16
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/foo.tsx": {
+      code: 
+      """
+      function _class_call_check(instance, Constructor) {
+          if (!(instance instanceof Constructor)) {
+              throw new TypeError("Cannot call a class as a function");
+          }
+      }
+      function _defineProperties(target, props) {
+          for(var i = 0; i < props.length; i++){
+              var descriptor = props[i];
+              descriptor.enumerable = descriptor.enumerable || false;
+              descriptor.configurable = true;
+              if ("value" in descriptor) descriptor.writable = true;
+              Object.defineProperty(target, descriptor.key, descriptor);
+          }
+      }
+      function _create_class(Constructor, protoProps, staticProps) {
+          if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+          if (staticProps) _defineProperties(Constructor, staticProps);
+          return Constructor;
+      }
+      var Foo = /*#__PURE__*/ function() {
+          function Foo() {
+              _class_call_check(this, Foo);
+          }
+          _create_class(Foo, [
+              {
+                  key: "render",
+                  value: function render() {
+                      return /*#__PURE__*/ React.createElement("div", {
+                          className: "hehe"
+                      }, "hello there!!!");
+                  }
+              }
+          ]);
+          return Foo;
+      }();
+      """
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 1162
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/simple/index.js": {
+      code: 
+      """
+      console.log(Foo);
+      console.log(bar);
+      """
+      originalLength: 82
+      removedExports: []
+      renderedExports: []
+      renderedLength: 35
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) minify 1
+
+{
+  code: 
+  """
+  console.log(class{render(){return React.createElement("div",{className:"hehe"},"hello there!!!")}});
+  
+  """
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/minify/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/minify/foo.tsx": {
+      code: 
+      """
+      class Foo {
+          render() {
+              return /*#__PURE__*/ React.createElement("div", {
+                  className: "hehe"
+              }, "hello there!!!");
+          }
+      }
+      """
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 152
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/minify/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 41
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) standalone minify 1
+
+{
+  code: 
+  """
+  console.log(1e4),console.log("bc");
+  
+  """
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/standalone-minify/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/standalone-minify/index.js": {
+      code: 
+      """
+      console.log(10000);
+      console.log('b'      +      'c');
+      """
+      originalLength: 54
+      removedExports: []
+      renderedExports: []
+      renderedLength: 53
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) resolve index.(x) 1
+
+{
+  code: 
+  """
+  class Foo {
+      render() {
+          return /*#__PURE__*/ React.createElement("div", {
+              className: "hehe"
+          }, "hello there!!!");
+      }
+  }
+  
+  console.log(Foo);
+  
+  """
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/resolve-index/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/resolve-index/foo/index.tsx": {
+      code: 
+      """
+      class Foo {
+          render() {
+              return /*#__PURE__*/ React.createElement("div", {
+                  className: "hehe"
+              }, "hello there!!!");
+          }
+      }
+      """
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 152
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/resolve-index/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 41
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) load json 1
+
+{
+  code: 
+  """
+  var foo = true;
+  var foo$1 = {
+  	foo: foo
+  };
+  
+  console.log(foo$1);
+  
+  """
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-json/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-json/foo.json": {
+      code: 
+      """
+      var foo = true;
+      var foo$1 = {
+      	foo: foo
+      };
+      """
+      originalLength: 18
+      removedExports: []
+      renderedExports: [
+        "foo"
+        "default"
+      ]
+      renderedLength: 42
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-json/index.js": {
+      code: "console.log(foo$1);"
+      originalLength: 46
+      removedExports: []
+      renderedExports: []
+      renderedLength: 19
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) support rollup virtual module (e.g. commonjs plugin) 1
+
+{
+  code: 
+  """
+  function getDefaultExportFromCjs (x) {
+  	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+  }
+  
+  var rollupCommonjs = {};
+  
+  var foo;
+  var hasRequiredFoo;
+  function requireFoo() {
+      if (hasRequiredFoo) return foo;
+      hasRequiredFoo = 1;
+      foo = 'foo';
+      return foo;
+  }
+  
+  var bar = {};
+  
+  var hasRequiredBar;
+  function requireBar() {
+      if (hasRequiredBar) return bar;
+      hasRequiredBar = 1;
+      bar.Bar = 'bar';
+      return bar;
+  }
+  
+  var hasRequiredRollupCommonjs;
+  function requireRollupCommonjs() {
+      if (hasRequiredRollupCommonjs) return rollupCommonjs;
+      hasRequiredRollupCommonjs = 1;
+      const Foo = requireFoo();
+      const { Bar } = requireBar();
+      console.log(Foo, Bar);
+      return rollupCommonjs;
+  }
+  
+  var rollupCommonjsExports = requireRollupCommonjs();
+  var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);
+  
+  export { index as default };
+  
+  """
+  dynamicImports: []
+  exports: [
+    "default"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "\u0000/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports": {
+      code: "var bar = {};"
+      originalLength: 39
+      removedExports: []
+      renderedExports: [
+        "__exports"
+      ]
+      renderedLength: 13
+    }
+    "\u0000/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports": {
+      code: "var rollupCommonjs = {};"
+      originalLength: 61
+      removedExports: []
+      renderedExports: [
+        "__exports"
+      ]
+      renderedLength: 24
+    }
+    "\u0000commonjsHelpers.js": {
+      code: 
+      """
+      function getDefaultExportFromCjs (x) {
+      	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+      }
+      """
+      originalLength: 1424
+      removedExports: [
+        "commonjsGlobal"
+        "getDefaultExportFromNamespaceIfPresent"
+        "getDefaultExportFromNamespaceIfNotNamed"
+        "getAugmentedNamespace"
+      ]
+      renderedExports: [
+        "getDefaultExportFromCjs"
+      ]
+      renderedLength: 140
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/bar.js": {
+      code: 
+      """
+      var hasRequiredBar;
+      function requireBar() {
+          if (hasRequiredBar) return bar;
+          hasRequiredBar = 1;
+          bar.Bar = 'bar';
+          return bar;
+      }
+      """
+      originalLength: 20
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 142
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/foo.js": {
+      code: 
+      """
+      var foo;
+      var hasRequiredFoo;
+      function requireFoo() {
+          if (hasRequiredFoo) return foo;
+          hasRequiredFoo = 1;
+          foo = 'foo';
+          return foo;
+      }
+      """
+      originalLength: 23
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 147
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js": {
+      code: 
+      """
+      var hasRequiredRollupCommonjs;
+      function requireRollupCommonjs() {
+          if (hasRequiredRollupCommonjs) return rollupCommonjs;
+          hasRequiredRollupCommonjs = 1;
+          const Foo = requireFoo();
+          const { Bar } = requireBar();
+          console.log(Foo, Bar);
+          return rollupCommonjs;
+      }
+      """
+      originalLength: 84
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 278
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry": {
+      code: 
+      """
+      var rollupCommonjsExports = requireRollupCommonjs();
+      var index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);
+      """
+      originalLength: 379
+      removedExports: []
+      renderedExports: [
+        "__moduleExports"
+        "default"
+      ]
+      renderedLength: 125
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) use custom jsxFactory (h) from tsconfig 1
+
+{
+  code: 
+  """
+  var foo = /*#__PURE__*/ h("div", null, "foo");
+  
+  export { foo };
+  
+  """
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx": {
+      code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 46
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) use custom jsxFactory (h) from jsconfig.json 1
+
+{
+  code: 
+  """
+  var foo = /*#__PURE__*/ h("div", null, "foo");
+  
+  export { foo };
+  
+  """
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx": {
+      code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 46
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) react 17 jsx transform 1
+
+"""
+import { jsx } from 'react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
+    });
+}
+
+export { Foo };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) react 17 jsx transform 2
+
+"""
+import { jsx } from '@compiled/react/jsx-runtime';
+
+function Foo() {
+    return /*#__PURE__*/ jsx("div", {
+        children: "foo"
+    });
+}
+
+export { Foo };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1
+
+{
+  code: 
+  """
+  var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement("div", null, "foo"));
+  
+  export { foo };
+  
+  """
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-jsconfig/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/tsconfig-jsconfig/index.tsx": {
+      code: "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\"div\", null, \"foo\"));"
+      originalLength: 39
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 121
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) use custom tsconfig.json 1
+
+{
+  code: 
+  """
+  var foo = /*#__PURE__*/ custom("div", null, "foo");
+  
+  export { foo };
+  
+  """
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/custom-tsconfig/index.jsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/custom-tsconfig/index.jsx": {
+      code: "var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 51
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) disable reading tsconfig.json 1
+
+{
+  code: 
+  """
+  const foo = 1;
+  
+  export { foo };
+  
+  """
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/disable-reading-tsconfig/index.jsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/disable-reading-tsconfig/index.jsx": {
+      code: "const foo = 1;"
+      originalLength: 22
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 14
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) load jsx/tsx 1
+
+{
+  code: 
+  """
+  const util = 42;
+  
+  class Foo {
+      render() {
+          return /*#__PURE__*/ React.createElement("div", {
+              className: "sukka"
+          }, util);
+      }
+  }
+  
+  console.log(Foo);
+  
+  """
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/foo.tsx": {
+      code: 
+      """
+      class Foo {
+          render() {
+              return /*#__PURE__*/ React.createElement("div", {
+                  className: "sukka"
+              }, util);
+          }
+      }
+      """
+      originalLength: 128
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 141
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 45
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+    "/Volumes/rolluppluginswc3test/rollup2/rollup-plugin-swc/load-jsx-tsx/some.util.ts": {
+      code: "const util = 42;"
+      originalLength: 23
+      removedExports: []
+      renderedExports: [
+        "util"
+      ]
+      renderedLength: 16
+    }
+  }
+  name: "index"
+  referencedFiles: []
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 2) tsconfig extends 1
+
+"""
+var foo = /*#__PURE__*/ custom("div", null, "foo");
+
+export { foo };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) tsconfig extends 2
+
+"""
+var foo = /*#__PURE__*/ custom("div", null, "foo");
+
+export { foo };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) tsconfig resolve to nearest tsconfig 1
+
+"""
+var foo = /*#__PURE__*/ hFoo("div", null, "foo");
+
+var bar = /*#__PURE__*/ hBar("div", null, "bar");
+
+var baz = /*#__PURE__*/ h("div", null, foo, bar);
+
+export { baz };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) tsconfig - specify full path 1
+
+"""
+var foo = /*#__PURE__*/ hFoo("div", null, "foo");
+
+export { foo };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) tsconfig - baseUrl & paths 1
+
+"""
+var a = function a(input) {
+    return 'a' + input;
+};
+
+var b = 'b';
+
+console.log(a(b));
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) tsconfig - paths 1
+
+"""
+var a = function a(input) {
+    return 'a' + input;
+};
+
+var b = 'b';
+
+console.log(a(b));
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) target - include other files 1
+
+"""
+var module = {};
+
+var hasRequiredModule;
+function requireModule() {
+    if (hasRequiredModule) return module;
+    hasRequiredModule = 1;
+    module.foo = 'sukka';
+    return module;
+}
+
+var moduleExports = requireModule();
+
+console.log(moduleExports.foo);
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) directive - include "use client" 1
+
+"""
+'use client';
+function client() {
+    return React.useState(null);
+}
+
+export { client as default };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) directive - merge "use client" 1
+
+"""
+'use client';
+'use sukka';
+var foo = 'sukka';
+
+var bar = 'sukka';
+
+export { bar, foo };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) directive - only output "use client" / "use server" in the specfic entry 1
+
+"""
+'use client';
+var foo = 'client';
+
+export { foo };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) directive - only output "use client" / "use server" in the specfic entry 2
+
+"""
+'use server';
+var bar = 'server';
+
+export { bar };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) issue 58 - eventemitter3 1
+
+"""
+function getDefaultExportFromCjs (x) {
+	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
+}
+
+var eventemitter3 = {exports: {}};
+
+eventemitter3.exports;
+
+var hasRequiredEventemitter3;
+
+function requireEventemitter3 () {
+	if (hasRequiredEventemitter3) return eventemitter3.exports;
+	hasRequiredEventemitter3 = 1;
+	(function (module) {
+
+		var has = Object.prototype.hasOwnProperty
+		  , prefix = '~';
+
+		/**
+		 * Constructor to create a storage for our `EE` objects.
+		 * An `Events` instance is a plain object whose properties are event names.
+		 *
+		 * @constructor
+		 * @private
+		 */
+		function Events() {}
+
+		//
+		// We try to not inherit from `Object.prototype`. In some engines creating an
+		// instance in this way is faster than calling `Object.create(null)` directly.
+		// If `Object.create(null)` is not supported we prefix the event names with a
+		// character to make sure that the built-in object properties are not
+		// overridden or used as an attack vector.
+		//
+		if (Object.create) {
+		  Events.prototype = Object.create(null);
+
+		  //
+		  // This hack is needed because the `__proto__` property is still inherited in
+		  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.
+		  //
+		  if (!new Events().__proto__) prefix = false;
+		}
+
+		/**
+		 * Representation of a single event listener.
+		 *
+		 * @param {Function} fn The listener function.
+		 * @param {*} context The context to invoke the listener with.
+		 * @param {Boolean} [once=false] Specify if the listener is a one-time listener.
+		 * @constructor
+		 * @private
+		 */
+		function EE(fn, context, once) {
+		  this.fn = fn;
+		  this.context = context;
+		  this.once = once || false;
+		}
+
+		/**
+		 * Add a listener for a given event.
+		 *
+		 * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+		 * @param {(String|Symbol)} event The event name.
+		 * @param {Function} fn The listener function.
+		 * @param {*} context The context to invoke the listener with.
+		 * @param {Boolean} once Specify if the listener is a one-time listener.
+		 * @returns {EventEmitter}
+		 * @private
+		 */
+		function addListener(emitter, event, fn, context, once) {
+		  if (typeof fn !== 'function') {
+		    throw new TypeError('The listener must be a function');
+		  }
+
+		  var listener = new EE(fn, context || emitter, once)
+		    , evt = prefix ? prefix + event : event;
+
+		  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
+		  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
+		  else emitter._events[evt] = [emitter._events[evt], listener];
+
+		  return emitter;
+		}
+
+		/**
+		 * Clear event by name.
+		 *
+		 * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.
+		 * @param {(String|Symbol)} evt The Event name.
+		 * @private
+		 */
+		function clearEvent(emitter, evt) {
+		  if (--emitter._eventsCount === 0) emitter._events = new Events();
+		  else delete emitter._events[evt];
+		}
+
+		/**
+		 * Minimal `EventEmitter` interface that is molded against the Node.js
+		 * `EventEmitter` interface.
+		 *
+		 * @constructor
+		 * @public
+		 */
+		function EventEmitter() {
+		  this._events = new Events();
+		  this._eventsCount = 0;
+		}
+
+		/**
+		 * Return an array listing the events for which the emitter has registered
+		 * listeners.
+		 *
+		 * @returns {Array}
+		 * @public
+		 */
+		EventEmitter.prototype.eventNames = function eventNames() {
+		  var names = []
+		    , events
+		    , name;
+
+		  if (this._eventsCount === 0) return names;
+
+		  for (name in (events = this._events)) {
+		    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);
+		  }
+
+		  if (Object.getOwnPropertySymbols) {
+		    return names.concat(Object.getOwnPropertySymbols(events));
+		  }
+
+		  return names;
+		};
+
+		/**
+		 * Return the listeners registered for a given event.
+		 *
+		 * @param {(String|Symbol)} event The event name.
+		 * @returns {Array} The registered listeners.
+		 * @public
+		 */
+		EventEmitter.prototype.listeners = function listeners(event) {
+		  var evt = prefix ? prefix + event : event
+		    , handlers = this._events[evt];
+
+		  if (!handlers) return [];
+		  if (handlers.fn) return [handlers.fn];
+
+		  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {
+		    ee[i] = handlers[i].fn;
+		  }
+
+		  return ee;
+		};
+
+		/**
+		 * Return the number of listeners listening to a given event.
+		 *
+		 * @param {(String|Symbol)} event The event name.
+		 * @returns {Number} The number of listeners.
+		 * @public
+		 */
+		EventEmitter.prototype.listenerCount = function listenerCount(event) {
+		  var evt = prefix ? prefix + event : event
+		    , listeners = this._events[evt];
+
+		  if (!listeners) return 0;
+		  if (listeners.fn) return 1;
+		  return listeners.length;
+		};
+
+		/**
+		 * Calls each of the listeners registered for a given event.
+		 *
+		 * @param {(String|Symbol)} event The event name.
+		 * @returns {Boolean} `true` if the event had listeners, else `false`.
+		 * @public
+		 */
+		EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+		  var evt = prefix ? prefix + event : event;
+
+		  if (!this._events[evt]) return false;
+
+		  var listeners = this._events[evt]
+		    , len = arguments.length
+		    , args
+		    , i;
+
+		  if (listeners.fn) {
+		    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);
+
+		    switch (len) {
+		      case 1: return listeners.fn.call(listeners.context), true;
+		      case 2: return listeners.fn.call(listeners.context, a1), true;
+		      case 3: return listeners.fn.call(listeners.context, a1, a2), true;
+		      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;
+		      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;
+		      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;
+		    }
+
+		    for (i = 1, args = new Array(len -1); i < len; i++) {
+		      args[i - 1] = arguments[i];
+		    }
+
+		    listeners.fn.apply(listeners.context, args);
+		  } else {
+		    var length = listeners.length
+		      , j;
+
+		    for (i = 0; i < length; i++) {
+		      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);
+
+		      switch (len) {
+		        case 1: listeners[i].fn.call(listeners[i].context); break;
+		        case 2: listeners[i].fn.call(listeners[i].context, a1); break;
+		        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;
+		        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;
+		        default:
+		          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {
+		            args[j - 1] = arguments[j];
+		          }
+
+		          listeners[i].fn.apply(listeners[i].context, args);
+		      }
+		    }
+		  }
+
+		  return true;
+		};
+
+		/**
+		 * Add a listener for a given event.
+		 *
+		 * @param {(String|Symbol)} event The event name.
+		 * @param {Function} fn The listener function.
+		 * @param {*} [context=this] The context to invoke the listener with.
+		 * @returns {EventEmitter} `this`.
+		 * @public
+		 */
+		EventEmitter.prototype.on = function on(event, fn, context) {
+		  return addListener(this, event, fn, context, false);
+		};
+
+		/**
+		 * Add a one-time listener for a given event.
+		 *
+		 * @param {(String|Symbol)} event The event name.
+		 * @param {Function} fn The listener function.
+		 * @param {*} [context=this] The context to invoke the listener with.
+		 * @returns {EventEmitter} `this`.
+		 * @public
+		 */
+		EventEmitter.prototype.once = function once(event, fn, context) {
+		  return addListener(this, event, fn, context, true);
+		};
+
+		/**
+		 * Remove the listeners of a given event.
+		 *
+		 * @param {(String|Symbol)} event The event name.
+		 * @param {Function} fn Only remove the listeners that match this function.
+		 * @param {*} context Only remove the listeners that have this context.
+		 * @param {Boolean} once Only remove one-time listeners.
+		 * @returns {EventEmitter} `this`.
+		 * @public
+		 */
+		EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {
+		  var evt = prefix ? prefix + event : event;
+
+		  if (!this._events[evt]) return this;
+		  if (!fn) {
+		    clearEvent(this, evt);
+		    return this;
+		  }
+
+		  var listeners = this._events[evt];
+
+		  if (listeners.fn) {
+		    if (
+		      listeners.fn === fn &&
+		      (!once || listeners.once) &&
+		      (!context || listeners.context === context)
+		    ) {
+		      clearEvent(this, evt);
+		    }
+		  } else {
+		    for (var i = 0, events = [], length = listeners.length; i < length; i++) {
+		      if (
+		        listeners[i].fn !== fn ||
+		        (once && !listeners[i].once) ||
+		        (context && listeners[i].context !== context)
+		      ) {
+		        events.push(listeners[i]);
+		      }
+		    }
+
+		    //
+		    // Reset the array, or remove it completely if we have no more listeners.
+		    //
+		    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;
+		    else clearEvent(this, evt);
+		  }
+
+		  return this;
+		};
+
+		/**
+		 * Remove all listeners, or those of the specified event.
+		 *
+		 * @param {(String|Symbol)} [event] The event name.
+		 * @returns {EventEmitter} `this`.
+		 * @public
+		 */
+		EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+		  var evt;
+
+		  if (event) {
+		    evt = prefix ? prefix + event : event;
+		    if (this._events[evt]) clearEvent(this, evt);
+		  } else {
+		    this._events = new Events();
+		    this._eventsCount = 0;
+		  }
+
+		  return this;
+		};
+
+		//
+		// Alias methods names because people roll like that.
+		//
+		EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
+		EventEmitter.prototype.addListener = EventEmitter.prototype.on;
+
+		//
+		// Expose the prefix.
+		//
+		EventEmitter.prefixed = prefix;
+
+		//
+		// Allow `EventEmitter` to be imported as module namespace.
+		//
+		EventEmitter.EventEmitter = EventEmitter;
+
+		//
+		// Expose the module.
+		//
+		{
+		  module.exports = EventEmitter;
+		} 
+	} (eventemitter3));
+	return eventemitter3.exports;
+}
+
+var eventemitter3Exports = requireEventemitter3();
+var EventEmitter = /*@__PURE__*/getDefaultExportFromCjs(eventemitter3Exports);
+
+// @ts-expect-error -- the dependency is only installed during test
+var ee = new EventEmitter();
+ee.on('test', function() {
+    console.log('test');
+});
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) issue 63 - tsconfig baseUrl only + relative baseUrl 1
+
+"""
+function _check_private_redeclaration(obj, privateCollection) {
+    if (privateCollection.has(obj)) {
+        throw new TypeError("Cannot initialize the same private elements twice on an object");
+    }
+}
+function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+function _class_private_field_init(obj, privateMap, value) {
+    _check_private_redeclaration(obj, privateMap);
+    privateMap.set(obj, value);
+}
+function test(s) {
+    console.log(s);
+}
+test('hello swc!');
+var _es2022Feature = /*#__PURE__*/ new WeakMap();
+var Test = function Test() {
+    _class_call_check(this, Test);
+    _class_private_field_init(this, _es2022Feature, {
+        writable: true,
+        value: true
+    });
+};
+
+export { Test };
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) detect decorator for typescript5 1
+
+"""
+function _array_like_to_array(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
+    return arr2;
+}
+function _array_with_holes(arr) {
+    if (Array.isArray(arr)) return arr;
+}
+function _class_call_check(instance, Constructor) {
+    if (!(instance instanceof Constructor)) {
+        throw new TypeError("Cannot call a class as a function");
+    }
+}
+function _defineProperties(target, props) {
+    for(var i = 0; i < props.length; i++){
+        var descriptor = props[i];
+        descriptor.enumerable = descriptor.enumerable || false;
+        descriptor.configurable = true;
+        if ("value" in descriptor) descriptor.writable = true;
+        Object.defineProperty(target, descriptor.key, descriptor);
+    }
+}
+function _create_class(Constructor, protoProps, staticProps) {
+    if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) _defineProperties(Constructor, staticProps);
+    return Constructor;
+}
+function _define_property(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
+    }
+    return obj;
+}
+function _iterable_to_array_limit(arr, i) {
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _s, _e;
+    try {
+        for(_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true){
+            _arr.push(_s.value);
+            if (i && _arr.length === i) break;
+        }
+    } catch (err) {
+        _d = true;
+        _e = err;
+    } finally{
+        try {
+            if (!_n && _i["return"] != null) _i["return"]();
+        } finally{
+            if (_d) throw _e;
+        }
+    }
+    return _arr;
+}
+function _non_iterable_rest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _sliced_to_array(arr, i) {
+    return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
+}
+function _unsupported_iterable_to_array(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _array_like_to_array(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+}
+function applyDecs2203RFactory() {
+    function createAddInitializerMethod(initializers, decoratorFinishedRef) {
+        return function addInitializer(initializer) {
+            assertNotFinished(decoratorFinishedRef, "addInitializer");
+            assertCallable(initializer, "An initializer");
+            initializers.push(initializer);
+        };
+    }
+    function memberDec(dec, name, desc, initializers, kind, isStatic, isPrivate, metadata, value) {
+        var kindStr;
+        switch(kind){
+            case 1:
+                kindStr = "accessor";
+                break;
+            case 2:
+                kindStr = "method";
+                break;
+            case 3:
+                kindStr = "getter";
+                break;
+            case 4:
+                kindStr = "setter";
+                break;
+            default:
+                kindStr = "field";
+        }
+        var ctx = {
+            kind: kindStr,
+            name: isPrivate ? "#" + name : name,
+            static: isStatic,
+            private: isPrivate,
+            metadata: metadata
+        };
+        var decoratorFinishedRef = {
+            v: false
+        };
+        ctx.addInitializer = createAddInitializerMethod(initializers, decoratorFinishedRef);
+        var get, set;
+        if (kind === 0) {
+            if (isPrivate) {
+                get = desc.get;
+                set = desc.set;
+            } else {
+                get = function() {
+                    return this[name];
+                };
+                set = function(v) {
+                    this[name] = v;
+                };
+            }
+        } else if (kind === 2) {
+            get = function() {
+                return desc.value;
+            };
+        } else {
+            if (kind === 1 || kind === 3) {
+                get = function() {
+                    return desc.get.call(this);
+                };
+            }
+            if (kind === 1 || kind === 4) {
+                set = function(v) {
+                    desc.set.call(this, v);
+                };
+            }
+        }
+        ctx.access = get && set ? {
+            get: get,
+            set: set
+        } : get ? {
+            get: get
+        } : {
+            set: set
+        };
+        try {
+            return dec(value, ctx);
+        } finally{
+            decoratorFinishedRef.v = true;
+        }
+    }
+    function assertNotFinished(decoratorFinishedRef, fnName) {
+        if (decoratorFinishedRef.v) {
+            throw new Error("attempted to call " + fnName + " after decoration was finished");
+        }
+    }
+    function assertCallable(fn, hint) {
+        if (typeof fn !== "function") {
+            throw new TypeError(hint + " must be a function");
+        }
+    }
+    function assertValidReturnValue(kind, value) {
+        var type = typeof value;
+        if (kind === 1) {
+            if (type !== "object" || value === null) {
+                throw new TypeError("accessor decorators must return an object with get, set, or init properties or void 0");
+            }
+            if (value.get !== undefined) {
+                assertCallable(value.get, "accessor.get");
+            }
+            if (value.set !== undefined) {
+                assertCallable(value.set, "accessor.set");
+            }
+            if (value.init !== undefined) {
+                assertCallable(value.init, "accessor.init");
+            }
+        } else if (type !== "function") {
+            var hint;
+            if (kind === 0) {
+                hint = "field";
+            } else if (kind === 10) {
+                hint = "class";
+            } else {
+                hint = "method";
+            }
+            throw new TypeError(hint + " decorators must return a function or void 0");
+        }
+    }
+    function applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata) {
+        var decs = decInfo[0];
+        var desc, init, value;
+        if (isPrivate) {
+            if (kind === 0 || kind === 1) {
+                desc = {
+                    get: decInfo[3],
+                    set: decInfo[4]
+                };
+            } else if (kind === 3) {
+                desc = {
+                    get: decInfo[3]
+                };
+            } else if (kind === 4) {
+                desc = {
+                    set: decInfo[3]
+                };
+            } else {
+                desc = {
+                    value: decInfo[3]
+                };
+            }
+        } else if (kind !== 0) {
+            desc = Object.getOwnPropertyDescriptor(base, name);
+        }
+        if (kind === 1) {
+            value = {
+                get: desc.get,
+                set: desc.set
+            };
+        } else if (kind === 2) {
+            value = desc.value;
+        } else if (kind === 3) {
+            value = desc.get;
+        } else if (kind === 4) {
+            value = desc.set;
+        }
+        var newValue, get, set;
+        if (typeof decs === "function") {
+            newValue = memberDec(decs, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);
+            if (newValue !== void 0) {
+                assertValidReturnValue(kind, newValue);
+                if (kind === 0) {
+                    init = newValue;
+                } else if (kind === 1) {
+                    init = newValue.init;
+                    get = newValue.get || value.get;
+                    set = newValue.set || value.set;
+                    value = {
+                        get: get,
+                        set: set
+                    };
+                } else {
+                    value = newValue;
+                }
+            }
+        } else {
+            for(var i = decs.length - 1; i >= 0; i--){
+                var dec = decs[i];
+                newValue = memberDec(dec, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);
+                if (newValue !== void 0) {
+                    assertValidReturnValue(kind, newValue);
+                    var newInit;
+                    if (kind === 0) {
+                        newInit = newValue;
+                    } else if (kind === 1) {
+                        newInit = newValue.init;
+                        get = newValue.get || value.get;
+                        set = newValue.set || value.set;
+                        value = {
+                            get: get,
+                            set: set
+                        };
+                    } else {
+                        value = newValue;
+                    }
+                    if (newInit !== void 0) {
+                        if (init === void 0) {
+                            init = newInit;
+                        } else if (typeof init === "function") {
+                            init = [
+                                init,
+                                newInit
+                            ];
+                        } else {
+                            init.push(newInit);
+                        }
+                    }
+                }
+            }
+        }
+        if (kind === 0 || kind === 1) {
+            if (init === void 0) {
+                init = function(instance, init) {
+                    return init;
+                };
+            } else if (typeof init !== "function") {
+                var ownInitializers = init;
+                init = function(instance, init) {
+                    var value = init;
+                    for(var i = 0; i < ownInitializers.length; i++){
+                        value = ownInitializers[i].call(instance, value);
+                    }
+                    return value;
+                };
+            } else {
+                var originalInitializer = init;
+                init = function(instance, init) {
+                    return originalInitializer.call(instance, init);
+                };
+            }
+            ret.push(init);
+        }
+        if (kind !== 0) {
+            if (kind === 1) {
+                desc.get = value.get;
+                desc.set = value.set;
+            } else if (kind === 2) {
+                desc.value = value;
+            } else if (kind === 3) {
+                desc.get = value;
+            } else if (kind === 4) {
+                desc.set = value;
+            }
+            if (isPrivate) {
+                if (kind === 1) {
+                    ret.push(function(instance, args) {
+                        return value.get.call(instance, args);
+                    });
+                    ret.push(function(instance, args) {
+                        return value.set.call(instance, args);
+                    });
+                } else if (kind === 2) {
+                    ret.push(value);
+                } else {
+                    ret.push(function(instance, args) {
+                        return value.call(instance, args);
+                    });
+                }
+            } else {
+                Object.defineProperty(base, name, desc);
+            }
+        }
+    }
+    function applyMemberDecs(Class, decInfos, metadata) {
+        var ret = [];
+        var protoInitializers;
+        var staticInitializers;
+        var existingProtoNonFields = new Map();
+        var existingStaticNonFields = new Map();
+        for(var i = 0; i < decInfos.length; i++){
+            var decInfo = decInfos[i];
+            if (!Array.isArray(decInfo)) continue;
+            var kind = decInfo[1];
+            var name = decInfo[2];
+            var isPrivate = decInfo.length > 3;
+            var isStatic = kind >= 5;
+            var base;
+            var initializers;
+            if (isStatic) {
+                base = Class;
+                kind = kind - 5;
+                staticInitializers = staticInitializers || [];
+                initializers = staticInitializers;
+            } else {
+                base = Class.prototype;
+                protoInitializers = protoInitializers || [];
+                initializers = protoInitializers;
+            }
+            if (kind !== 0 && !isPrivate) {
+                var existingNonFields = isStatic ? existingStaticNonFields : existingProtoNonFields;
+                var existingKind = existingNonFields.get(name) || 0;
+                if (existingKind === true || existingKind === 3 && kind !== 4 || existingKind === 4 && kind !== 3) {
+                    throw new Error("Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: " + name);
+                } else if (!existingKind && kind > 2) {
+                    existingNonFields.set(name, kind);
+                } else {
+                    existingNonFields.set(name, true);
+                }
+            }
+            applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata);
+        }
+        pushInitializers(ret, protoInitializers);
+        pushInitializers(ret, staticInitializers);
+        return ret;
+    }
+    function pushInitializers(ret, initializers) {
+        if (initializers) {
+            ret.push(function(instance) {
+                for(var i = 0; i < initializers.length; i++){
+                    initializers[i].call(instance);
+                }
+                return instance;
+            });
+        }
+    }
+    function applyClassDecs(targetClass, classDecs, metadata) {
+        if (classDecs.length > 0) {
+            var initializers = [];
+            var newClass = targetClass;
+            var name = targetClass.name;
+            for(var i = classDecs.length - 1; i >= 0; i--){
+                var decoratorFinishedRef = {
+                    v: false
+                };
+                try {
+                    var nextNewClass = classDecs[i](newClass, {
+                        kind: "class",
+                        name: name,
+                        addInitializer: createAddInitializerMethod(initializers, decoratorFinishedRef),
+                        metadata
+                    });
+                } finally{
+                    decoratorFinishedRef.v = true;
+                }
+                if (nextNewClass !== undefined) {
+                    assertValidReturnValue(10, nextNewClass);
+                    newClass = nextNewClass;
+                }
+            }
+            return [
+                defineMetadata(newClass, metadata),
+                function() {
+                    for(var i = 0; i < initializers.length; i++){
+                        initializers[i].call(newClass);
+                    }
+                }
+            ];
+        }
+    }
+    function defineMetadata(Class, metadata) {
+        return Object.defineProperty(Class, Symbol.metadata || Symbol.for("Symbol.metadata"), {
+            configurable: true,
+            enumerable: true,
+            value: metadata
+        });
+    }
+    return function applyDecs2203R(targetClass, memberDecs, classDecs, parentClass) {
+        if (parentClass !== void 0) {
+            var parentMetadata = parentClass[Symbol.metadata || Symbol.for("Symbol.metadata")];
+        }
+        var metadata = Object.create(parentMetadata === void 0 ? null : parentMetadata);
+        var e = applyMemberDecs(targetClass, memberDecs, metadata);
+        if (!classDecs.length) defineMetadata(targetClass, metadata);
+        return {
+            e: e,
+            get c () {
+                return applyClassDecs(targetClass, classDecs, metadata);
+            }
+        };
+    };
+}
+function _apply_decs_2203_r(targetClass, memberDecs, classDecs, parentClass) {
+    return (_apply_decs_2203_r = applyDecs2203RFactory())(targetClass, memberDecs, classDecs, parentClass);
+}
+var _initProto;
+function trace(value, param) {
+    var kind = param.kind; param.name;
+    if (kind === 'method') {
+        return function() {
+            for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+                args[_key] = arguments[_key];
+            }
+            console.log('trace');
+            return value.apply(this, args);
+        };
+    }
+}
+var People = /*#__PURE__*/ function() {
+    function People() {
+        _class_call_check(this, People);
+        _define_property(this, "xzy", void 0);
+        _initProto(this);
+        this.xzy = 'xzy';
+    }
+    _create_class(People, [
+        {
+            key: "test",
+            value: function test() {
+                return this.xzy;
+            }
+        }
+    ]);
+    return People;
+}();
+var ref, ref1;
+ref = _apply_decs_2203_r(People, [
+    [
+        trace,
+        2,
+        "test"
+    ]
+], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];
+var p = new People();
+p.test();
+
+"""
+
+// rollup-plugin-swc3 swc (rollup 2) detect legacy decorator for typescript5 1
+
+"function _define_property(obj, key, value) {\n    if (key in obj) {\n        Object.defineProperty(obj, key, {\n            value: value,\n            enumerable: true,\n            configurable: true,\n            writable: true\n        });\n    } else {\n        obj[key] = value;\n    }\n    return obj;\n}\nfunction _ts_decorate(decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n}\nfunction _ts_metadata(k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n}\nfunction trace(_target, _name, descriptor) {\n    const original = descriptor.value;\n    descriptor.value = function() {\n        console.log('trace');\n        return original.call(this);\n    };\n    return descriptor;\n}\nclass People {\n    test() {\n        return this.xzy;\n    }\n    constructor(){\n        _define_property(this, \"xzy\", void 0);\n        this.xzy = 'xzy';\n    }\n}\n_ts_decorate([\n    trace,\n    _ts_metadata(\"design:type\", Function),\n    _ts_metadata(\"design:paramtypes\", []),\n    _ts_metadata(\"design:returntype\", void 0)\n], People.prototype, \"test\", null);\nconst p = new People();\np.test();\n"
+
+// rollup-plugin-swc3 swc (rollup 3) simple 1
+
+{
+  code: "function _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _defineProperties(target, props) {\n    for(var i = 0; i < props.length; i++){\n        var descriptor = props[i];\n        descriptor.enumerable = descriptor.enumerable || false;\n        descriptor.configurable = true;\n        if (\"value\" in descriptor) descriptor.writable = true;\n        Object.defineProperty(target, descriptor.key, descriptor);\n    }\n}\nfunction _create_class(Constructor, protoProps, staticProps) {\n    if (protoProps) _defineProperties(Constructor.prototype, protoProps);\n    if (staticProps) _defineProperties(Constructor, staticProps);\n    return Constructor;\n}\nvar Foo = /*#__PURE__*/ function() {\n    function Foo() {\n        _class_call_check(this, Foo);\n    }\n    _create_class(Foo, [\n        {\n            key: \"render\",\n            value: function render() {\n                return /*#__PURE__*/ React.createElement(\"div\", {\n                    className: \"hehe\"\n                }, \"hello there!!!\");\n            }\n        }\n    ]);\n    return Foo;\n}();\n\nvar bar = 'baz';\n\nconsole.log(Foo);\nconsole.log(bar);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/foo.tsx"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/bar.mjs"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/bar.mjs": {
+      code: "var bar = 'baz';"
+      originalLength: 37
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 16
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/foo.tsx": {
+      code: "function _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _defineProperties(target, props) {\n    for(var i = 0; i < props.length; i++){\n        var descriptor = props[i];\n        descriptor.enumerable = descriptor.enumerable || false;\n        descriptor.configurable = true;\n        if (\"value\" in descriptor) descriptor.writable = true;\n        Object.defineProperty(target, descriptor.key, descriptor);\n    }\n}\nfunction _create_class(Constructor, protoProps, staticProps) {\n    if (protoProps) _defineProperties(Constructor.prototype, protoProps);\n    if (staticProps) _defineProperties(Constructor, staticProps);\n    return Constructor;\n}\nvar Foo = /*#__PURE__*/ function() {\n    function Foo() {\n        _class_call_check(this, Foo);\n    }\n    _create_class(Foo, [\n        {\n            key: \"render\",\n            value: function render() {\n                return /*#__PURE__*/ React.createElement(\"div\", {\n                    className: \"hehe\"\n                }, \"hello there!!!\");\n            }\n        }\n    ]);\n    return Foo;\n}();"
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 1162
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/simple/index.js": {
+      code: "console.log(Foo);\nconsole.log(bar);"
+      originalLength: 82
+      removedExports: []
+      renderedExports: []
+      renderedLength: 35
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) minify 1
+
+{
+  code: "console.log(class{render(){return React.createElement(\"div\",{className:\"hehe\"},\"hello there!!!\")}});\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/foo.tsx"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/foo.tsx": {
+      code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"hehe\"\n        }, \"hello there!!!\");\n    }\n}"
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 152
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/minify/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 41
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) standalone minify 1
+
+{
+  code: "console.log(1e4),console.log(\"bc\");\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/standalone-minify/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/standalone-minify/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/standalone-minify/index.js": {
+      code: "console.log(10000);\nconsole.log('b'      +      'c');"
+      originalLength: 54
+      removedExports: []
+      renderedExports: []
+      renderedLength: 53
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) resolve index.(x) 1
+
+{
+  code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"hehe\"\n        }, \"hello there!!!\");\n    }\n}\n\nconsole.log(Foo);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/foo/index.tsx"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/foo/index.tsx": {
+      code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"hehe\"\n        }, \"hello there!!!\");\n    }\n}"
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 152
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/resolve-index/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 41
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) load json 1
+
+{
+  code: "var foo = true;\nvar foo$1 = {\n\tfoo: foo\n};\n\nconsole.log(foo$1);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/foo.json"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/foo.json": {
+      code: "var foo = true;\nvar foo$1 = {\n\tfoo: foo\n};"
+      originalLength: 18
+      removedExports: []
+      renderedExports: [
+        "foo"
+        "default"
+      ]
+      renderedLength: 42
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-json/index.js": {
+      code: "console.log(foo$1);"
+      originalLength: 46
+      removedExports: []
+      renderedExports: []
+      renderedLength: 19
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) support rollup virtual module (e.g. commonjs plugin) 1
+
+{
+  code: "function getDefaultExportFromCjs (x) {\n\treturn x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;\n}\n\nvar rollupCommonjs = {};\n\nvar foo;\nvar hasRequiredFoo;\nfunction requireFoo() {\n    if (hasRequiredFoo) return foo;\n    hasRequiredFoo = 1;\n    foo = 'foo';\n    return foo;\n}\n\nvar bar = {};\n\nvar hasRequiredBar;\nfunction requireBar() {\n    if (hasRequiredBar) return bar;\n    hasRequiredBar = 1;\n    bar.Bar = 'bar';\n    return bar;\n}\n\nvar hasRequiredRollupCommonjs;\nfunction requireRollupCommonjs() {\n    if (hasRequiredRollupCommonjs) return rollupCommonjs;\n    hasRequiredRollupCommonjs = 1;\n    const Foo = requireFoo();\n    const { Bar } = requireBar();\n    console.log(Foo, Bar);\n    return rollupCommonjs;\n}\n\nvar rollupCommonjsExports = requireRollupCommonjs();\nvar index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);\n\nexport { index as default };\n"
+  dynamicImports: []
+  exports: [
+    "default"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "\u0000commonjsHelpers.js"
+    "\u0000/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/foo.js"
+    "\u0000/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry"
+  ]
+  modules: [custom prototype] {
+    "\u0000/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports": {
+      code: "var bar = {};"
+      originalLength: 39
+      removedExports: []
+      renderedExports: [
+        "__exports"
+      ]
+      renderedLength: 13
+    }
+    "\u0000/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports": {
+      code: "var rollupCommonjs = {};"
+      originalLength: 61
+      removedExports: []
+      renderedExports: [
+        "__exports"
+      ]
+      renderedLength: 24
+    }
+    "\u0000commonjsHelpers.js": {
+      code: "function getDefaultExportFromCjs (x) {\n\treturn x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;\n}"
+      originalLength: 1424
+      removedExports: [
+        "commonjsGlobal"
+        "getDefaultExportFromNamespaceIfPresent"
+        "getDefaultExportFromNamespaceIfNotNamed"
+        "getAugmentedNamespace"
+      ]
+      renderedExports: [
+        "getDefaultExportFromCjs"
+      ]
+      renderedLength: 140
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/bar.js": {
+      code: "var hasRequiredBar;\nfunction requireBar() {\n    if (hasRequiredBar) return bar;\n    hasRequiredBar = 1;\n    bar.Bar = 'bar';\n    return bar;\n}"
+      originalLength: 20
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 142
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/foo.js": {
+      code: "var foo;\nvar hasRequiredFoo;\nfunction requireFoo() {\n    if (hasRequiredFoo) return foo;\n    hasRequiredFoo = 1;\n    foo = 'foo';\n    return foo;\n}"
+      originalLength: 23
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 147
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js": {
+      code: "var hasRequiredRollupCommonjs;\nfunction requireRollupCommonjs() {\n    if (hasRequiredRollupCommonjs) return rollupCommonjs;\n    hasRequiredRollupCommonjs = 1;\n    const Foo = requireFoo();\n    const { Bar } = requireBar();\n    console.log(Foo, Bar);\n    return rollupCommonjs;\n}"
+      originalLength: 84
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 278
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry": {
+      code: "var rollupCommonjsExports = requireRollupCommonjs();\nvar index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);"
+      originalLength: 379
+      removedExports: []
+      renderedExports: [
+        "__moduleExports"
+        "default"
+      ]
+      renderedLength: 125
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) use custom jsxFactory (h) from tsconfig 1
+
+{
+  code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx": {
+      code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 46
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) use custom jsxFactory (h) from jsconfig.json 1
+
+{
+  code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx": {
+      code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 46
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) react 17 jsx transform 1
+
+"import { jsx } from 'react/jsx-runtime';\n\nfunction Foo() {\n    return /*#__PURE__*/ jsx(\"div\", {\n        children: \"foo\"\n    });\n}\n\nexport { Foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) react 17 jsx transform 2
+
+"import { jsx } from '@compiled/react/jsx-runtime';\n\nfunction Foo() {\n    return /*#__PURE__*/ jsx(\"div\", {\n        children: \"foo\"\n    });\n}\n\nexport { Foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1
+
+{
+  code: "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\"div\", null, \"foo\"));\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-jsconfig/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-jsconfig/index.tsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/tsconfig-jsconfig/index.tsx": {
+      code: "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\"div\", null, \"foo\"));"
+      originalLength: 39
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 121
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) use custom tsconfig.json 1
+
+{
+  code: "var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/custom-tsconfig/index.jsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/custom-tsconfig/index.jsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/custom-tsconfig/index.jsx": {
+      code: "var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 51
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) disable reading tsconfig.json 1
+
+{
+  code: "const foo = 1;\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/disable-reading-tsconfig/index.jsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/disable-reading-tsconfig/index.jsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/disable-reading-tsconfig/index.jsx": {
+      code: "const foo = 1;"
+      originalLength: 22
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 14
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) load jsx/tsx 1
+
+{
+  code: "const util = 42;\n\nclass Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"sukka\"\n        }, util);\n    }\n}\n\nconsole.log(Foo);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/some.util.ts"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/foo.tsx"
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/foo.tsx": {
+      code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"sukka\"\n        }, util);\n    }\n}"
+      originalLength: 128
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 141
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 45
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+    "/Volumes/rolluppluginswc3test/rollup3/rollup-plugin-swc/load-jsx-tsx/some.util.ts": {
+      code: "const util = 42;"
+      originalLength: 23
+      removedExports: []
+      renderedExports: [
+        "util"
+      ]
+      renderedLength: 16
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 3) tsconfig extends 1
+
+"var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) tsconfig extends 2
+
+"var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) tsconfig resolve to nearest tsconfig 1
+
+"var foo = /*#__PURE__*/ hFoo(\"div\", null, \"foo\");\n\nvar bar = /*#__PURE__*/ hBar(\"div\", null, \"bar\");\n\nvar baz = /*#__PURE__*/ h(\"div\", null, foo, bar);\n\nexport { baz };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) tsconfig - specify full path 1
+
+"var foo = /*#__PURE__*/ hFoo(\"div\", null, \"foo\");\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) tsconfig - baseUrl & paths 1
+
+"var a = function a(input) {\n    return 'a' + input;\n};\n\nvar b = 'b';\n\nconsole.log(a(b));\n"
+
+// rollup-plugin-swc3 swc (rollup 3) tsconfig - paths 1
+
+"var a = function a(input) {\n    return 'a' + input;\n};\n\nvar b = 'b';\n\nconsole.log(a(b));\n"
+
+// rollup-plugin-swc3 swc (rollup 3) target - include other files 1
+
+"var module = {};\n\nvar hasRequiredModule;\nfunction requireModule() {\n    if (hasRequiredModule) return module;\n    hasRequiredModule = 1;\n    module.foo = 'sukka';\n    return module;\n}\n\nvar moduleExports = requireModule();\n\nconsole.log(moduleExports.foo);\n"
+
+// rollup-plugin-swc3 swc (rollup 3) directive - include "use client" 1
+
+"'use client';\nfunction client() {\n    return React.useState(null);\n}\n\nexport { client as default };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) directive - merge "use client" 1
+
+"'use client';\n'use sukka';\nvar foo = 'sukka';\n\nvar bar = 'sukka';\n\nexport { bar, foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) directive - only output "use client" / "use server" in the specfic entry 1
+
+"'use client';\nvar foo = 'client';\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) directive - only output "use client" / "use server" in the specfic entry 2
+
+"'use server';\nvar bar = 'server';\n\nexport { bar };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) issue 58 - eventemitter3 1
+
+"function getDefaultExportFromCjs (x) {\n\treturn x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;\n}\n\nvar eventemitter3 = {exports: {}};\n\nvar hasRequiredEventemitter3;\n\nfunction requireEventemitter3 () {\n\tif (hasRequiredEventemitter3) return eventemitter3.exports;\n\thasRequiredEventemitter3 = 1;\n\t(function (module) {\n\n\t\tvar has = Object.prototype.hasOwnProperty\n\t\t  , prefix = '~';\n\n\t\t/**\n\t\t * Constructor to create a storage for our `EE` objects.\n\t\t * An `Events` instance is a plain object whose properties are event names.\n\t\t *\n\t\t * @constructor\n\t\t * @private\n\t\t */\n\t\tfunction Events() {}\n\n\t\t//\n\t\t// We try to not inherit from `Object.prototype`. In some engines creating an\n\t\t// instance in this way is faster than calling `Object.create(null)` directly.\n\t\t// If `Object.create(null)` is not supported we prefix the event names with a\n\t\t// character to make sure that the built-in object properties are not\n\t\t// overridden or used as an attack vector.\n\t\t//\n\t\tif (Object.create) {\n\t\t  Events.prototype = Object.create(null);\n\n\t\t  //\n\t\t  // This hack is needed because the `__proto__` property is still inherited in\n\t\t  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.\n\t\t  //\n\t\t  if (!new Events().__proto__) prefix = false;\n\t\t}\n\n\t\t/**\n\t\t * Representation of a single event listener.\n\t\t *\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} context The context to invoke the listener with.\n\t\t * @param {Boolean} [once=false] Specify if the listener is a one-time listener.\n\t\t * @constructor\n\t\t * @private\n\t\t */\n\t\tfunction EE(fn, context, once) {\n\t\t  this.fn = fn;\n\t\t  this.context = context;\n\t\t  this.once = once || false;\n\t\t}\n\n\t\t/**\n\t\t * Add a listener for a given event.\n\t\t *\n\t\t * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} context The context to invoke the listener with.\n\t\t * @param {Boolean} once Specify if the listener is a one-time listener.\n\t\t * @returns {EventEmitter}\n\t\t * @private\n\t\t */\n\t\tfunction addListener(emitter, event, fn, context, once) {\n\t\t  if (typeof fn !== 'function') {\n\t\t    throw new TypeError('The listener must be a function');\n\t\t  }\n\n\t\t  var listener = new EE(fn, context || emitter, once)\n\t\t    , evt = prefix ? prefix + event : event;\n\n\t\t  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;\n\t\t  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);\n\t\t  else emitter._events[evt] = [emitter._events[evt], listener];\n\n\t\t  return emitter;\n\t\t}\n\n\t\t/**\n\t\t * Clear event by name.\n\t\t *\n\t\t * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.\n\t\t * @param {(String|Symbol)} evt The Event name.\n\t\t * @private\n\t\t */\n\t\tfunction clearEvent(emitter, evt) {\n\t\t  if (--emitter._eventsCount === 0) emitter._events = new Events();\n\t\t  else delete emitter._events[evt];\n\t\t}\n\n\t\t/**\n\t\t * Minimal `EventEmitter` interface that is molded against the Node.js\n\t\t * `EventEmitter` interface.\n\t\t *\n\t\t * @constructor\n\t\t * @public\n\t\t */\n\t\tfunction EventEmitter() {\n\t\t  this._events = new Events();\n\t\t  this._eventsCount = 0;\n\t\t}\n\n\t\t/**\n\t\t * Return an array listing the events for which the emitter has registered\n\t\t * listeners.\n\t\t *\n\t\t * @returns {Array}\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.eventNames = function eventNames() {\n\t\t  var names = []\n\t\t    , events\n\t\t    , name;\n\n\t\t  if (this._eventsCount === 0) return names;\n\n\t\t  for (name in (events = this._events)) {\n\t\t    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);\n\t\t  }\n\n\t\t  if (Object.getOwnPropertySymbols) {\n\t\t    return names.concat(Object.getOwnPropertySymbols(events));\n\t\t  }\n\n\t\t  return names;\n\t\t};\n\n\t\t/**\n\t\t * Return the listeners registered for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @returns {Array} The registered listeners.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.listeners = function listeners(event) {\n\t\t  var evt = prefix ? prefix + event : event\n\t\t    , handlers = this._events[evt];\n\n\t\t  if (!handlers) return [];\n\t\t  if (handlers.fn) return [handlers.fn];\n\n\t\t  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {\n\t\t    ee[i] = handlers[i].fn;\n\t\t  }\n\n\t\t  return ee;\n\t\t};\n\n\t\t/**\n\t\t * Return the number of listeners listening to a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @returns {Number} The number of listeners.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.listenerCount = function listenerCount(event) {\n\t\t  var evt = prefix ? prefix + event : event\n\t\t    , listeners = this._events[evt];\n\n\t\t  if (!listeners) return 0;\n\t\t  if (listeners.fn) return 1;\n\t\t  return listeners.length;\n\t\t};\n\n\t\t/**\n\t\t * Calls each of the listeners registered for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @returns {Boolean} `true` if the event had listeners, else `false`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {\n\t\t  var evt = prefix ? prefix + event : event;\n\n\t\t  if (!this._events[evt]) return false;\n\n\t\t  var listeners = this._events[evt]\n\t\t    , len = arguments.length\n\t\t    , args\n\t\t    , i;\n\n\t\t  if (listeners.fn) {\n\t\t    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);\n\n\t\t    switch (len) {\n\t\t      case 1: return listeners.fn.call(listeners.context), true;\n\t\t      case 2: return listeners.fn.call(listeners.context, a1), true;\n\t\t      case 3: return listeners.fn.call(listeners.context, a1, a2), true;\n\t\t      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;\n\t\t      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;\n\t\t      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;\n\t\t    }\n\n\t\t    for (i = 1, args = new Array(len -1); i < len; i++) {\n\t\t      args[i - 1] = arguments[i];\n\t\t    }\n\n\t\t    listeners.fn.apply(listeners.context, args);\n\t\t  } else {\n\t\t    var length = listeners.length\n\t\t      , j;\n\n\t\t    for (i = 0; i < length; i++) {\n\t\t      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);\n\n\t\t      switch (len) {\n\t\t        case 1: listeners[i].fn.call(listeners[i].context); break;\n\t\t        case 2: listeners[i].fn.call(listeners[i].context, a1); break;\n\t\t        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;\n\t\t        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;\n\t\t        default:\n\t\t          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {\n\t\t            args[j - 1] = arguments[j];\n\t\t          }\n\n\t\t          listeners[i].fn.apply(listeners[i].context, args);\n\t\t      }\n\t\t    }\n\t\t  }\n\n\t\t  return true;\n\t\t};\n\n\t\t/**\n\t\t * Add a listener for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} [context=this] The context to invoke the listener with.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.on = function on(event, fn, context) {\n\t\t  return addListener(this, event, fn, context, false);\n\t\t};\n\n\t\t/**\n\t\t * Add a one-time listener for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} [context=this] The context to invoke the listener with.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.once = function once(event, fn, context) {\n\t\t  return addListener(this, event, fn, context, true);\n\t\t};\n\n\t\t/**\n\t\t * Remove the listeners of a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn Only remove the listeners that match this function.\n\t\t * @param {*} context Only remove the listeners that have this context.\n\t\t * @param {Boolean} once Only remove one-time listeners.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {\n\t\t  var evt = prefix ? prefix + event : event;\n\n\t\t  if (!this._events[evt]) return this;\n\t\t  if (!fn) {\n\t\t    clearEvent(this, evt);\n\t\t    return this;\n\t\t  }\n\n\t\t  var listeners = this._events[evt];\n\n\t\t  if (listeners.fn) {\n\t\t    if (\n\t\t      listeners.fn === fn &&\n\t\t      (!once || listeners.once) &&\n\t\t      (!context || listeners.context === context)\n\t\t    ) {\n\t\t      clearEvent(this, evt);\n\t\t    }\n\t\t  } else {\n\t\t    for (var i = 0, events = [], length = listeners.length; i < length; i++) {\n\t\t      if (\n\t\t        listeners[i].fn !== fn ||\n\t\t        (once && !listeners[i].once) ||\n\t\t        (context && listeners[i].context !== context)\n\t\t      ) {\n\t\t        events.push(listeners[i]);\n\t\t      }\n\t\t    }\n\n\t\t    //\n\t\t    // Reset the array, or remove it completely if we have no more listeners.\n\t\t    //\n\t\t    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;\n\t\t    else clearEvent(this, evt);\n\t\t  }\n\n\t\t  return this;\n\t\t};\n\n\t\t/**\n\t\t * Remove all listeners, or those of the specified event.\n\t\t *\n\t\t * @param {(String|Symbol)} [event] The event name.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {\n\t\t  var evt;\n\n\t\t  if (event) {\n\t\t    evt = prefix ? prefix + event : event;\n\t\t    if (this._events[evt]) clearEvent(this, evt);\n\t\t  } else {\n\t\t    this._events = new Events();\n\t\t    this._eventsCount = 0;\n\t\t  }\n\n\t\t  return this;\n\t\t};\n\n\t\t//\n\t\t// Alias methods names because people roll like that.\n\t\t//\n\t\tEventEmitter.prototype.off = EventEmitter.prototype.removeListener;\n\t\tEventEmitter.prototype.addListener = EventEmitter.prototype.on;\n\n\t\t//\n\t\t// Expose the prefix.\n\t\t//\n\t\tEventEmitter.prefixed = prefix;\n\n\t\t//\n\t\t// Allow `EventEmitter` to be imported as module namespace.\n\t\t//\n\t\tEventEmitter.EventEmitter = EventEmitter;\n\n\t\t//\n\t\t// Expose the module.\n\t\t//\n\t\t{\n\t\t  module.exports = EventEmitter;\n\t\t} \n\t} (eventemitter3));\n\treturn eventemitter3.exports;\n}\n\nvar eventemitter3Exports = requireEventemitter3();\nvar EventEmitter = /*@__PURE__*/getDefaultExportFromCjs(eventemitter3Exports);\n\n// @ts-expect-error -- the dependency is only installed during test\nvar ee = new EventEmitter();\nee.on('test', function() {\n    console.log('test');\n});\n"
+
+// rollup-plugin-swc3 swc (rollup 3) issue 63 - tsconfig baseUrl only + relative baseUrl 1
+
+"function _check_private_redeclaration(obj, privateCollection) {\n    if (privateCollection.has(obj)) {\n        throw new TypeError(\"Cannot initialize the same private elements twice on an object\");\n    }\n}\nfunction _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _class_private_field_init(obj, privateMap, value) {\n    _check_private_redeclaration(obj, privateMap);\n    privateMap.set(obj, value);\n}\nfunction test(s) {\n    console.log(s);\n}\ntest('hello swc!');\nvar _es2022Feature = /*#__PURE__*/ new WeakMap();\nvar Test = function Test() {\n    _class_call_check(this, Test);\n    _class_private_field_init(this, _es2022Feature, {\n        writable: true,\n        value: true\n    });\n};\n\nexport { Test };\n"
+
+// rollup-plugin-swc3 swc (rollup 3) detect decorator for typescript5 1
+
+"function _array_like_to_array(arr, len) {\n    if (len == null || len > arr.length) len = arr.length;\n    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];\n    return arr2;\n}\nfunction _array_with_holes(arr) {\n    if (Array.isArray(arr)) return arr;\n}\nfunction _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _defineProperties(target, props) {\n    for(var i = 0; i < props.length; i++){\n        var descriptor = props[i];\n        descriptor.enumerable = descriptor.enumerable || false;\n        descriptor.configurable = true;\n        if (\"value\" in descriptor) descriptor.writable = true;\n        Object.defineProperty(target, descriptor.key, descriptor);\n    }\n}\nfunction _create_class(Constructor, protoProps, staticProps) {\n    if (protoProps) _defineProperties(Constructor.prototype, protoProps);\n    if (staticProps) _defineProperties(Constructor, staticProps);\n    return Constructor;\n}\nfunction _define_property(obj, key, value) {\n    if (key in obj) {\n        Object.defineProperty(obj, key, {\n            value: value,\n            enumerable: true,\n            configurable: true,\n            writable: true\n        });\n    } else {\n        obj[key] = value;\n    }\n    return obj;\n}\nfunction _iterable_to_array_limit(arr, i) {\n    var _i = arr == null ? null : typeof Symbol !== \"undefined\" && arr[Symbol.iterator] || arr[\"@@iterator\"];\n    if (_i == null) return;\n    var _arr = [];\n    var _n = true;\n    var _d = false;\n    var _s, _e;\n    try {\n        for(_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true){\n            _arr.push(_s.value);\n            if (i && _arr.length === i) break;\n        }\n    } catch (err) {\n        _d = true;\n        _e = err;\n    } finally{\n        try {\n            if (!_n && _i[\"return\"] != null) _i[\"return\"]();\n        } finally{\n            if (_d) throw _e;\n        }\n    }\n    return _arr;\n}\nfunction _non_iterable_rest() {\n    throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\");\n}\nfunction _sliced_to_array(arr, i) {\n    return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();\n}\nfunction _unsupported_iterable_to_array(o, minLen) {\n    if (!o) return;\n    if (typeof o === \"string\") return _array_like_to_array(o, minLen);\n    var n = Object.prototype.toString.call(o).slice(8, -1);\n    if (n === \"Object\" && o.constructor) n = o.constructor.name;\n    if (n === \"Map\" || n === \"Set\") return Array.from(n);\n    if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);\n}\nfunction applyDecs2203RFactory() {\n    function createAddInitializerMethod(initializers, decoratorFinishedRef) {\n        return function addInitializer(initializer) {\n            assertNotFinished(decoratorFinishedRef, \"addInitializer\");\n            assertCallable(initializer, \"An initializer\");\n            initializers.push(initializer);\n        };\n    }\n    function memberDec(dec, name, desc, initializers, kind, isStatic, isPrivate, metadata, value) {\n        var kindStr;\n        switch(kind){\n            case 1:\n                kindStr = \"accessor\";\n                break;\n            case 2:\n                kindStr = \"method\";\n                break;\n            case 3:\n                kindStr = \"getter\";\n                break;\n            case 4:\n                kindStr = \"setter\";\n                break;\n            default:\n                kindStr = \"field\";\n        }\n        var ctx = {\n            kind: kindStr,\n            name: isPrivate ? \"#\" + name : name,\n            static: isStatic,\n            private: isPrivate,\n            metadata: metadata\n        };\n        var decoratorFinishedRef = {\n            v: false\n        };\n        ctx.addInitializer = createAddInitializerMethod(initializers, decoratorFinishedRef);\n        var get, set;\n        if (kind === 0) {\n            if (isPrivate) {\n                get = desc.get;\n                set = desc.set;\n            } else {\n                get = function() {\n                    return this[name];\n                };\n                set = function(v) {\n                    this[name] = v;\n                };\n            }\n        } else if (kind === 2) {\n            get = function() {\n                return desc.value;\n            };\n        } else {\n            if (kind === 1 || kind === 3) {\n                get = function() {\n                    return desc.get.call(this);\n                };\n            }\n            if (kind === 1 || kind === 4) {\n                set = function(v) {\n                    desc.set.call(this, v);\n                };\n            }\n        }\n        ctx.access = get && set ? {\n            get: get,\n            set: set\n        } : get ? {\n            get: get\n        } : {\n            set: set\n        };\n        try {\n            return dec(value, ctx);\n        } finally{\n            decoratorFinishedRef.v = true;\n        }\n    }\n    function assertNotFinished(decoratorFinishedRef, fnName) {\n        if (decoratorFinishedRef.v) {\n            throw new Error(\"attempted to call \" + fnName + \" after decoration was finished\");\n        }\n    }\n    function assertCallable(fn, hint) {\n        if (typeof fn !== \"function\") {\n            throw new TypeError(hint + \" must be a function\");\n        }\n    }\n    function assertValidReturnValue(kind, value) {\n        var type = typeof value;\n        if (kind === 1) {\n            if (type !== \"object\" || value === null) {\n                throw new TypeError(\"accessor decorators must return an object with get, set, or init properties or void 0\");\n            }\n            if (value.get !== undefined) {\n                assertCallable(value.get, \"accessor.get\");\n            }\n            if (value.set !== undefined) {\n                assertCallable(value.set, \"accessor.set\");\n            }\n            if (value.init !== undefined) {\n                assertCallable(value.init, \"accessor.init\");\n            }\n        } else if (type !== \"function\") {\n            var hint;\n            if (kind === 0) {\n                hint = \"field\";\n            } else if (kind === 10) {\n                hint = \"class\";\n            } else {\n                hint = \"method\";\n            }\n            throw new TypeError(hint + \" decorators must return a function or void 0\");\n        }\n    }\n    function applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata) {\n        var decs = decInfo[0];\n        var desc, init, value;\n        if (isPrivate) {\n            if (kind === 0 || kind === 1) {\n                desc = {\n                    get: decInfo[3],\n                    set: decInfo[4]\n                };\n            } else if (kind === 3) {\n                desc = {\n                    get: decInfo[3]\n                };\n            } else if (kind === 4) {\n                desc = {\n                    set: decInfo[3]\n                };\n            } else {\n                desc = {\n                    value: decInfo[3]\n                };\n            }\n        } else if (kind !== 0) {\n            desc = Object.getOwnPropertyDescriptor(base, name);\n        }\n        if (kind === 1) {\n            value = {\n                get: desc.get,\n                set: desc.set\n            };\n        } else if (kind === 2) {\n            value = desc.value;\n        } else if (kind === 3) {\n            value = desc.get;\n        } else if (kind === 4) {\n            value = desc.set;\n        }\n        var newValue, get, set;\n        if (typeof decs === \"function\") {\n            newValue = memberDec(decs, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);\n            if (newValue !== void 0) {\n                assertValidReturnValue(kind, newValue);\n                if (kind === 0) {\n                    init = newValue;\n                } else if (kind === 1) {\n                    init = newValue.init;\n                    get = newValue.get || value.get;\n                    set = newValue.set || value.set;\n                    value = {\n                        get: get,\n                        set: set\n                    };\n                } else {\n                    value = newValue;\n                }\n            }\n        } else {\n            for(var i = decs.length - 1; i >= 0; i--){\n                var dec = decs[i];\n                newValue = memberDec(dec, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);\n                if (newValue !== void 0) {\n                    assertValidReturnValue(kind, newValue);\n                    var newInit;\n                    if (kind === 0) {\n                        newInit = newValue;\n                    } else if (kind === 1) {\n                        newInit = newValue.init;\n                        get = newValue.get || value.get;\n                        set = newValue.set || value.set;\n                        value = {\n                            get: get,\n                            set: set\n                        };\n                    } else {\n                        value = newValue;\n                    }\n                    if (newInit !== void 0) {\n                        if (init === void 0) {\n                            init = newInit;\n                        } else if (typeof init === \"function\") {\n                            init = [\n                                init,\n                                newInit\n                            ];\n                        } else {\n                            init.push(newInit);\n                        }\n                    }\n                }\n            }\n        }\n        if (kind === 0 || kind === 1) {\n            if (init === void 0) {\n                init = function(instance, init) {\n                    return init;\n                };\n            } else if (typeof init !== \"function\") {\n                var ownInitializers = init;\n                init = function(instance, init) {\n                    var value = init;\n                    for(var i = 0; i < ownInitializers.length; i++){\n                        value = ownInitializers[i].call(instance, value);\n                    }\n                    return value;\n                };\n            } else {\n                var originalInitializer = init;\n                init = function(instance, init) {\n                    return originalInitializer.call(instance, init);\n                };\n            }\n            ret.push(init);\n        }\n        if (kind !== 0) {\n            if (kind === 1) {\n                desc.get = value.get;\n                desc.set = value.set;\n            } else if (kind === 2) {\n                desc.value = value;\n            } else if (kind === 3) {\n                desc.get = value;\n            } else if (kind === 4) {\n                desc.set = value;\n            }\n            if (isPrivate) {\n                if (kind === 1) {\n                    ret.push(function(instance, args) {\n                        return value.get.call(instance, args);\n                    });\n                    ret.push(function(instance, args) {\n                        return value.set.call(instance, args);\n                    });\n                } else if (kind === 2) {\n                    ret.push(value);\n                } else {\n                    ret.push(function(instance, args) {\n                        return value.call(instance, args);\n                    });\n                }\n            } else {\n                Object.defineProperty(base, name, desc);\n            }\n        }\n    }\n    function applyMemberDecs(Class, decInfos, metadata) {\n        var ret = [];\n        var protoInitializers;\n        var staticInitializers;\n        var existingProtoNonFields = new Map();\n        var existingStaticNonFields = new Map();\n        for(var i = 0; i < decInfos.length; i++){\n            var decInfo = decInfos[i];\n            if (!Array.isArray(decInfo)) continue;\n            var kind = decInfo[1];\n            var name = decInfo[2];\n            var isPrivate = decInfo.length > 3;\n            var isStatic = kind >= 5;\n            var base;\n            var initializers;\n            if (isStatic) {\n                base = Class;\n                kind = kind - 5;\n                staticInitializers = staticInitializers || [];\n                initializers = staticInitializers;\n            } else {\n                base = Class.prototype;\n                protoInitializers = protoInitializers || [];\n                initializers = protoInitializers;\n            }\n            if (kind !== 0 && !isPrivate) {\n                var existingNonFields = isStatic ? existingStaticNonFields : existingProtoNonFields;\n                var existingKind = existingNonFields.get(name) || 0;\n                if (existingKind === true || existingKind === 3 && kind !== 4 || existingKind === 4 && kind !== 3) {\n                    throw new Error(\"Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: \" + name);\n                } else if (!existingKind && kind > 2) {\n                    existingNonFields.set(name, kind);\n                } else {\n                    existingNonFields.set(name, true);\n                }\n            }\n            applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata);\n        }\n        pushInitializers(ret, protoInitializers);\n        pushInitializers(ret, staticInitializers);\n        return ret;\n    }\n    function pushInitializers(ret, initializers) {\n        if (initializers) {\n            ret.push(function(instance) {\n                for(var i = 0; i < initializers.length; i++){\n                    initializers[i].call(instance);\n                }\n                return instance;\n            });\n        }\n    }\n    function applyClassDecs(targetClass, classDecs, metadata) {\n        if (classDecs.length > 0) {\n            var initializers = [];\n            var newClass = targetClass;\n            var name = targetClass.name;\n            for(var i = classDecs.length - 1; i >= 0; i--){\n                var decoratorFinishedRef = {\n                    v: false\n                };\n                try {\n                    var nextNewClass = classDecs[i](newClass, {\n                        kind: \"class\",\n                        name: name,\n                        addInitializer: createAddInitializerMethod(initializers, decoratorFinishedRef),\n                        metadata\n                    });\n                } finally{\n                    decoratorFinishedRef.v = true;\n                }\n                if (nextNewClass !== undefined) {\n                    assertValidReturnValue(10, nextNewClass);\n                    newClass = nextNewClass;\n                }\n            }\n            return [\n                defineMetadata(newClass, metadata),\n                function() {\n                    for(var i = 0; i < initializers.length; i++){\n                        initializers[i].call(newClass);\n                    }\n                }\n            ];\n        }\n    }\n    function defineMetadata(Class, metadata) {\n        return Object.defineProperty(Class, Symbol.metadata || Symbol.for(\"Symbol.metadata\"), {\n            configurable: true,\n            enumerable: true,\n            value: metadata\n        });\n    }\n    return function applyDecs2203R(targetClass, memberDecs, classDecs, parentClass) {\n        if (parentClass !== void 0) {\n            var parentMetadata = parentClass[Symbol.metadata || Symbol.for(\"Symbol.metadata\")];\n        }\n        var metadata = Object.create(parentMetadata === void 0 ? null : parentMetadata);\n        var e = applyMemberDecs(targetClass, memberDecs, metadata);\n        if (!classDecs.length) defineMetadata(targetClass, metadata);\n        return {\n            e: e,\n            get c () {\n                return applyClassDecs(targetClass, classDecs, metadata);\n            }\n        };\n    };\n}\nfunction _apply_decs_2203_r(targetClass, memberDecs, classDecs, parentClass) {\n    return (_apply_decs_2203_r = applyDecs2203RFactory())(targetClass, memberDecs, classDecs, parentClass);\n}\nvar _initProto;\nfunction trace(value, param) {\n    var kind = param.kind; param.name;\n    if (kind === 'method') {\n        return function() {\n            for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){\n                args[_key] = arguments[_key];\n            }\n            console.log('trace');\n            return value.apply(this, args);\n        };\n    }\n}\nvar People = /*#__PURE__*/ function() {\n    function People() {\n        _class_call_check(this, People);\n        _define_property(this, \"xzy\", void 0);\n        _initProto(this);\n        this.xzy = 'xzy';\n    }\n    _create_class(People, [\n        {\n            key: \"test\",\n            value: function test() {\n                return this.xzy;\n            }\n        }\n    ]);\n    return People;\n}();\nvar ref, ref1;\nref = _apply_decs_2203_r(People, [\n    [\n        trace,\n        2,\n        \"test\"\n    ]\n], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];\nvar p = new People();\np.test();\n"
+
+// rollup-plugin-swc3 swc (rollup 3) detect legacy decorator for typescript5 1
+
+"function _define_property(obj, key, value) {\n    if (key in obj) {\n        Object.defineProperty(obj, key, {\n            value: value,\n            enumerable: true,\n            configurable: true,\n            writable: true\n        });\n    } else {\n        obj[key] = value;\n    }\n    return obj;\n}\nfunction _ts_decorate(decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n}\nfunction _ts_metadata(k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n}\nfunction trace(_target, _name, descriptor) {\n    const original = descriptor.value;\n    descriptor.value = function() {\n        console.log('trace');\n        return original.call(this);\n    };\n    return descriptor;\n}\nclass People {\n    test() {\n        return this.xzy;\n    }\n    constructor(){\n        _define_property(this, \"xzy\", void 0);\n        this.xzy = 'xzy';\n    }\n}\n_ts_decorate([\n    trace,\n    _ts_metadata(\"design:type\", Function),\n    _ts_metadata(\"design:paramtypes\", []),\n    _ts_metadata(\"design:returntype\", void 0)\n], People.prototype, \"test\", null);\nconst p = new People();\np.test();\n"
+
+// rollup-plugin-swc3 swc (rollup 4) simple 1
+
+{
+  code: "function _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _defineProperties(target, props) {\n    for(var i = 0; i < props.length; i++){\n        var descriptor = props[i];\n        descriptor.enumerable = descriptor.enumerable || false;\n        descriptor.configurable = true;\n        if (\"value\" in descriptor) descriptor.writable = true;\n        Object.defineProperty(target, descriptor.key, descriptor);\n    }\n}\nfunction _create_class(Constructor, protoProps, staticProps) {\n    if (protoProps) _defineProperties(Constructor.prototype, protoProps);\n    return Constructor;\n}\nvar Foo = /*#__PURE__*/ function() {\n    function Foo() {\n        _class_call_check(this, Foo);\n    }\n    _create_class(Foo, [\n        {\n            key: \"render\",\n            value: function render() {\n                return /*#__PURE__*/ React.createElement(\"div\", {\n                    className: \"hehe\"\n                }, \"hello there!!!\");\n            }\n        }\n    ]);\n    return Foo;\n}();\n\nvar bar = 'baz';\n\nconsole.log(Foo);\nconsole.log(bar);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/foo.tsx"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/bar.mjs"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/bar.mjs": {
+      code: "var bar = 'baz';"
+      originalLength: 37
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 16
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/foo.tsx": {
+      code: "function _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _defineProperties(target, props) {\n    for(var i = 0; i < props.length; i++){\n        var descriptor = props[i];\n        descriptor.enumerable = descriptor.enumerable || false;\n        descriptor.configurable = true;\n        if (\"value\" in descriptor) descriptor.writable = true;\n        Object.defineProperty(target, descriptor.key, descriptor);\n    }\n}\nfunction _create_class(Constructor, protoProps, staticProps) {\n    if (protoProps) _defineProperties(Constructor.prototype, protoProps);\n    return Constructor;\n}\nvar Foo = /*#__PURE__*/ function() {\n    function Foo() {\n        _class_call_check(this, Foo);\n    }\n    _create_class(Foo, [\n        {\n            key: \"render\",\n            value: function render() {\n                return /*#__PURE__*/ React.createElement(\"div\", {\n                    className: \"hehe\"\n                }, \"hello there!!!\");\n            }\n        }\n    ]);\n    return Foo;\n}();"
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 1096
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/simple/index.js": {
+      code: "console.log(Foo);\nconsole.log(bar);"
+      originalLength: 82
+      removedExports: []
+      renderedExports: []
+      renderedLength: 35
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) minify 1
+
+{
+  code: "console.log(class{render(){return React.createElement(\"div\",{className:\"hehe\"},\"hello there!!!\")}});\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/foo.tsx"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/foo.tsx": {
+      code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"hehe\"\n        }, \"hello there!!!\");\n    }\n}"
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 152
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/minify/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 41
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) standalone minify 1
+
+{
+  code: "console.log(1e4),console.log(\"bc\");\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/standalone-minify/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/standalone-minify/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/standalone-minify/index.js": {
+      code: "console.log(10000);\nconsole.log('b'      +      'c');"
+      originalLength: 54
+      removedExports: []
+      renderedExports: []
+      renderedLength: 53
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) resolve index.(x) 1
+
+{
+  code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"hehe\"\n        }, \"hello there!!!\");\n    }\n}\n\nconsole.log(Foo);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/foo/index.tsx"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/foo/index.tsx": {
+      code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"hehe\"\n        }, \"hello there!!!\");\n    }\n}"
+      originalLength: 100
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 152
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/resolve-index/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 41
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) load json 1
+
+{
+  code: "var foo = true;\nvar foo$1 = {\n\tfoo: foo\n};\n\nconsole.log(foo$1);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/foo.json"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/foo.json": {
+      code: "var foo = true;\nvar foo$1 = {\n\tfoo: foo\n};"
+      originalLength: 18
+      removedExports: []
+      renderedExports: [
+        "foo"
+        "default"
+      ]
+      renderedLength: 42
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-json/index.js": {
+      code: "console.log(foo$1);"
+      originalLength: 46
+      removedExports: []
+      renderedExports: []
+      renderedLength: 19
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) support rollup virtual module (e.g. commonjs plugin) 1
+
+{
+  code: "function getDefaultExportFromCjs (x) {\n\treturn x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;\n}\n\nvar rollupCommonjs = {};\n\nvar foo;\nvar hasRequiredFoo;\nfunction requireFoo() {\n    if (hasRequiredFoo) return foo;\n    hasRequiredFoo = 1;\n    foo = 'foo';\n    return foo;\n}\n\nvar bar = {};\n\nvar hasRequiredBar;\nfunction requireBar() {\n    if (hasRequiredBar) return bar;\n    hasRequiredBar = 1;\n    bar.Bar = 'bar';\n    return bar;\n}\n\nvar hasRequiredRollupCommonjs;\nfunction requireRollupCommonjs() {\n    if (hasRequiredRollupCommonjs) return rollupCommonjs;\n    hasRequiredRollupCommonjs = 1;\n    const Foo = requireFoo();\n    const { Bar } = requireBar();\n    console.log(Foo, Bar);\n    return rollupCommonjs;\n}\n\nvar rollupCommonjsExports = requireRollupCommonjs();\nvar index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);\n\nexport { index as default };\n"
+  dynamicImports: []
+  exports: [
+    "default"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "\u0000commonjsHelpers.js"
+    "\u0000/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/foo.js"
+    "\u0000/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry"
+  ]
+  modules: [custom prototype] {
+    "\u0000/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js?commonjs-exports": {
+      code: "var bar = {};"
+      originalLength: 39
+      removedExports: []
+      renderedExports: [
+        "__exports"
+      ]
+      renderedLength: 13
+    }
+    "\u0000/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-exports": {
+      code: "var rollupCommonjs = {};"
+      originalLength: 61
+      removedExports: []
+      renderedExports: [
+        "__exports"
+      ]
+      renderedLength: 24
+    }
+    "\u0000commonjsHelpers.js": {
+      code: "function getDefaultExportFromCjs (x) {\n\treturn x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;\n}"
+      originalLength: 1424
+      removedExports: [
+        "commonjsGlobal"
+        "getDefaultExportFromNamespaceIfPresent"
+        "getDefaultExportFromNamespaceIfNotNamed"
+        "getAugmentedNamespace"
+      ]
+      renderedExports: [
+        "getDefaultExportFromCjs"
+      ]
+      renderedLength: 140
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/bar.js": {
+      code: "var hasRequiredBar;\nfunction requireBar() {\n    if (hasRequiredBar) return bar;\n    hasRequiredBar = 1;\n    bar.Bar = 'bar';\n    return bar;\n}"
+      originalLength: 20
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 142
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/foo.js": {
+      code: "var foo;\nvar hasRequiredFoo;\nfunction requireFoo() {\n    if (hasRequiredFoo) return foo;\n    hasRequiredFoo = 1;\n    foo = 'foo';\n    return foo;\n}"
+      originalLength: 23
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 147
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js": {
+      code: "var hasRequiredRollupCommonjs;\nfunction requireRollupCommonjs() {\n    if (hasRequiredRollupCommonjs) return rollupCommonjs;\n    hasRequiredRollupCommonjs = 1;\n    const Foo = requireFoo();\n    const { Bar } = requireBar();\n    console.log(Foo, Bar);\n    return rollupCommonjs;\n}"
+      originalLength: 84
+      removedExports: []
+      renderedExports: [
+        "__require"
+      ]
+      renderedLength: 278
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/rollup-commonjs/index.js?commonjs-entry": {
+      code: "var rollupCommonjsExports = requireRollupCommonjs();\nvar index = /*@__PURE__*/getDefaultExportFromCjs(rollupCommonjsExports);"
+      originalLength: 379
+      removedExports: [
+        "__moduleExports"
+      ]
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 125
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) use custom jsxFactory (h) from tsconfig 1
+
+{
+  code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-custom-jsx-factory/index.tsx": {
+      code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 46
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) use custom jsxFactory (h) from jsconfig.json 1
+
+{
+  code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/jsconfig-custom-jsx-factory/index.tsx": {
+      code: "var foo = /*#__PURE__*/ h(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 46
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) react 17 jsx transform 1
+
+"import { jsx } from 'react/jsx-runtime';\n\nfunction Foo() {\n    return /*#__PURE__*/ jsx(\"div\", {\n        children: \"foo\"\n    });\n}\n\nexport { Foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) react 17 jsx transform 2
+
+"import { jsx } from '@compiled/react/jsx-runtime';\n\nfunction Foo() {\n    return /*#__PURE__*/ jsx(\"div\", {\n        children: \"foo\"\n    });\n}\n\nexport { Foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) use tsconfig.json when tsconfig.json & jsconfig.json both exists 1
+
+{
+  code: "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\"div\", null, \"foo\"));\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-jsconfig/index.tsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-jsconfig/index.tsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/tsconfig-jsconfig/index.tsx": {
+      code: "var foo = /*#__PURE__*/ React.createElement(React.Fragment, null, /*#__PURE__*/ React.createElement(\"div\", null, \"foo\"));"
+      originalLength: 39
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 121
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) use custom tsconfig.json 1
+
+{
+  code: "var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/custom-tsconfig/index.jsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/custom-tsconfig/index.jsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/custom-tsconfig/index.jsx": {
+      code: "var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");"
+      originalLength: 34
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 51
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) disable reading tsconfig.json 1
+
+{
+  code: "const foo = 1;\n\nexport { foo };\n"
+  dynamicImports: []
+  exports: [
+    "foo"
+  ]
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/disable-reading-tsconfig/index.jsx"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/disable-reading-tsconfig/index.jsx"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/disable-reading-tsconfig/index.jsx": {
+      code: "const foo = 1;"
+      originalLength: 22
+      removedExports: []
+      renderedExports: [
+        "foo"
+      ]
+      renderedLength: 14
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) load jsx/tsx 1
+
+{
+  code: "const util = 42;\n\nclass Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"sukka\"\n        }, util);\n    }\n}\n\nconsole.log(Foo);\n"
+  dynamicImports: []
+  exports: []
+  facadeModuleId: "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/index.js"
+  fileName: "index.js"
+  implicitlyLoadedBefore: []
+  importedBindings: {}
+  imports: []
+  isDynamicEntry: false
+  isEntry: true
+  isImplicitEntry: false
+  map: null
+  moduleIds: [
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/some.util.ts"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/foo.tsx"
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/index.js"
+  ]
+  modules: [custom prototype] {
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/foo.tsx": {
+      code: "class Foo {\n    render() {\n        return /*#__PURE__*/ React.createElement(\"div\", {\n            className: \"sukka\"\n        }, util);\n    }\n}"
+      originalLength: 128
+      removedExports: []
+      renderedExports: [
+        "default"
+      ]
+      renderedLength: 141
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/index.js": {
+      code: "console.log(Foo);"
+      originalLength: 45
+      removedExports: []
+      renderedExports: []
+      renderedLength: 17
+    }
+    "/Volumes/rolluppluginswc3test/rollup4/rollup-plugin-swc/load-jsx-tsx/some.util.ts": {
+      code: "const util = 42;"
+      originalLength: 23
+      removedExports: []
+      renderedExports: [
+        "util"
+      ]
+      renderedLength: 16
+    }
+  }
+  name: "index"
+  preliminaryFileName: "index.js"
+  referencedFiles: []
+  sourcemapFileName: null
+  type: "chunk"
+}
+
+// rollup-plugin-swc3 swc (rollup 4) tsconfig extends 1
+
+"var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) tsconfig extends 2
+
+"var foo = /*#__PURE__*/ custom(\"div\", null, \"foo\");\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) tsconfig resolve to nearest tsconfig 1
+
+"var foo = /*#__PURE__*/ hFoo(\"div\", null, \"foo\");\n\nvar bar = /*#__PURE__*/ hBar(\"div\", null, \"bar\");\n\nvar baz = /*#__PURE__*/ h(\"div\", null, foo, bar);\n\nexport { baz };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) tsconfig - specify full path 1
+
+"var foo = /*#__PURE__*/ hFoo(\"div\", null, \"foo\");\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) tsconfig - baseUrl & paths 1
+
+"var a = function a(input) {\n    return 'a' + input;\n};\n\nvar b = 'b';\n\nconsole.log(a(b));\n"
+
+// rollup-plugin-swc3 swc (rollup 4) tsconfig - paths 1
+
+"var a = function a(input) {\n    return 'a' + input;\n};\n\nvar b = 'b';\n\nconsole.log(a(b));\n"
+
+// rollup-plugin-swc3 swc (rollup 4) target - include other files 1
+
+"var module$1 = {};\n\nvar hasRequiredModule;\nfunction requireModule() {\n    if (hasRequiredModule) return module$1;\n    hasRequiredModule = 1;\n    module$1.foo = 'sukka';\n    return module$1;\n}\n\nvar moduleExports = requireModule();\n\nconsole.log(moduleExports.foo);\n"
+
+// rollup-plugin-swc3 swc (rollup 4) directive - include "use client" 1
+
+"'use client';\nfunction client() {\n    return React.useState(null);\n}\n\nexport { client as default };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) directive - merge "use client" 1
+
+"'use client';\n'use sukka';\nvar foo = 'sukka';\n\nvar bar = 'sukka';\n\nexport { bar, foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) directive - only output "use client" / "use server" in the specfic entry 1
+
+"'use client';\nvar foo = 'client';\n\nexport { foo };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) directive - only output "use client" / "use server" in the specfic entry 2
+
+"'use server';\nvar bar = 'server';\n\nexport { bar };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) issue 58 - eventemitter3 1
+
+"function getDefaultExportFromCjs (x) {\n\treturn x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;\n}\n\nvar eventemitter3 = {exports: {}};\n\nvar hasRequiredEventemitter3;\n\nfunction requireEventemitter3 () {\n\tif (hasRequiredEventemitter3) return eventemitter3.exports;\n\thasRequiredEventemitter3 = 1;\n\t(function (module) {\n\n\t\tvar has = Object.prototype.hasOwnProperty\n\t\t  , prefix = '~';\n\n\t\t/**\n\t\t * Constructor to create a storage for our `EE` objects.\n\t\t * An `Events` instance is a plain object whose properties are event names.\n\t\t *\n\t\t * @constructor\n\t\t * @private\n\t\t */\n\t\tfunction Events() {}\n\n\t\t//\n\t\t// We try to not inherit from `Object.prototype`. In some engines creating an\n\t\t// instance in this way is faster than calling `Object.create(null)` directly.\n\t\t// If `Object.create(null)` is not supported we prefix the event names with a\n\t\t// character to make sure that the built-in object properties are not\n\t\t// overridden or used as an attack vector.\n\t\t//\n\t\tif (Object.create) {\n\t\t  Events.prototype = Object.create(null);\n\n\t\t  //\n\t\t  // This hack is needed because the `__proto__` property is still inherited in\n\t\t  // some old browsers like Android 4, iPhone 5.1, Opera 11 and Safari 5.\n\t\t  //\n\t\t  if (!new Events().__proto__) prefix = false;\n\t\t}\n\n\t\t/**\n\t\t * Representation of a single event listener.\n\t\t *\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} context The context to invoke the listener with.\n\t\t * @param {Boolean} [once=false] Specify if the listener is a one-time listener.\n\t\t * @constructor\n\t\t * @private\n\t\t */\n\t\tfunction EE(fn, context, once) {\n\t\t  this.fn = fn;\n\t\t  this.context = context;\n\t\t  this.once = once || false;\n\t\t}\n\n\t\t/**\n\t\t * Add a listener for a given event.\n\t\t *\n\t\t * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} context The context to invoke the listener with.\n\t\t * @param {Boolean} once Specify if the listener is a one-time listener.\n\t\t * @returns {EventEmitter}\n\t\t * @private\n\t\t */\n\t\tfunction addListener(emitter, event, fn, context, once) {\n\t\t  if (typeof fn !== 'function') {\n\t\t    throw new TypeError('The listener must be a function');\n\t\t  }\n\n\t\t  var listener = new EE(fn, context || emitter, once)\n\t\t    , evt = prefix ? prefix + event : event;\n\n\t\t  if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;\n\t\t  else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);\n\t\t  else emitter._events[evt] = [emitter._events[evt], listener];\n\n\t\t  return emitter;\n\t\t}\n\n\t\t/**\n\t\t * Clear event by name.\n\t\t *\n\t\t * @param {EventEmitter} emitter Reference to the `EventEmitter` instance.\n\t\t * @param {(String|Symbol)} evt The Event name.\n\t\t * @private\n\t\t */\n\t\tfunction clearEvent(emitter, evt) {\n\t\t  if (--emitter._eventsCount === 0) emitter._events = new Events();\n\t\t  else delete emitter._events[evt];\n\t\t}\n\n\t\t/**\n\t\t * Minimal `EventEmitter` interface that is molded against the Node.js\n\t\t * `EventEmitter` interface.\n\t\t *\n\t\t * @constructor\n\t\t * @public\n\t\t */\n\t\tfunction EventEmitter() {\n\t\t  this._events = new Events();\n\t\t  this._eventsCount = 0;\n\t\t}\n\n\t\t/**\n\t\t * Return an array listing the events for which the emitter has registered\n\t\t * listeners.\n\t\t *\n\t\t * @returns {Array}\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.eventNames = function eventNames() {\n\t\t  var names = []\n\t\t    , events\n\t\t    , name;\n\n\t\t  if (this._eventsCount === 0) return names;\n\n\t\t  for (name in (events = this._events)) {\n\t\t    if (has.call(events, name)) names.push(prefix ? name.slice(1) : name);\n\t\t  }\n\n\t\t  if (Object.getOwnPropertySymbols) {\n\t\t    return names.concat(Object.getOwnPropertySymbols(events));\n\t\t  }\n\n\t\t  return names;\n\t\t};\n\n\t\t/**\n\t\t * Return the listeners registered for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @returns {Array} The registered listeners.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.listeners = function listeners(event) {\n\t\t  var evt = prefix ? prefix + event : event\n\t\t    , handlers = this._events[evt];\n\n\t\t  if (!handlers) return [];\n\t\t  if (handlers.fn) return [handlers.fn];\n\n\t\t  for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) {\n\t\t    ee[i] = handlers[i].fn;\n\t\t  }\n\n\t\t  return ee;\n\t\t};\n\n\t\t/**\n\t\t * Return the number of listeners listening to a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @returns {Number} The number of listeners.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.listenerCount = function listenerCount(event) {\n\t\t  var evt = prefix ? prefix + event : event\n\t\t    , listeners = this._events[evt];\n\n\t\t  if (!listeners) return 0;\n\t\t  if (listeners.fn) return 1;\n\t\t  return listeners.length;\n\t\t};\n\n\t\t/**\n\t\t * Calls each of the listeners registered for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @returns {Boolean} `true` if the event had listeners, else `false`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {\n\t\t  var evt = prefix ? prefix + event : event;\n\n\t\t  if (!this._events[evt]) return false;\n\n\t\t  var listeners = this._events[evt]\n\t\t    , len = arguments.length\n\t\t    , args\n\t\t    , i;\n\n\t\t  if (listeners.fn) {\n\t\t    if (listeners.once) this.removeListener(event, listeners.fn, undefined, true);\n\n\t\t    switch (len) {\n\t\t      case 1: return listeners.fn.call(listeners.context), true;\n\t\t      case 2: return listeners.fn.call(listeners.context, a1), true;\n\t\t      case 3: return listeners.fn.call(listeners.context, a1, a2), true;\n\t\t      case 4: return listeners.fn.call(listeners.context, a1, a2, a3), true;\n\t\t      case 5: return listeners.fn.call(listeners.context, a1, a2, a3, a4), true;\n\t\t      case 6: return listeners.fn.call(listeners.context, a1, a2, a3, a4, a5), true;\n\t\t    }\n\n\t\t    for (i = 1, args = new Array(len -1); i < len; i++) {\n\t\t      args[i - 1] = arguments[i];\n\t\t    }\n\n\t\t    listeners.fn.apply(listeners.context, args);\n\t\t  } else {\n\t\t    var length = listeners.length\n\t\t      , j;\n\n\t\t    for (i = 0; i < length; i++) {\n\t\t      if (listeners[i].once) this.removeListener(event, listeners[i].fn, undefined, true);\n\n\t\t      switch (len) {\n\t\t        case 1: listeners[i].fn.call(listeners[i].context); break;\n\t\t        case 2: listeners[i].fn.call(listeners[i].context, a1); break;\n\t\t        case 3: listeners[i].fn.call(listeners[i].context, a1, a2); break;\n\t\t        case 4: listeners[i].fn.call(listeners[i].context, a1, a2, a3); break;\n\t\t        default:\n\t\t          if (!args) for (j = 1, args = new Array(len -1); j < len; j++) {\n\t\t            args[j - 1] = arguments[j];\n\t\t          }\n\n\t\t          listeners[i].fn.apply(listeners[i].context, args);\n\t\t      }\n\t\t    }\n\t\t  }\n\n\t\t  return true;\n\t\t};\n\n\t\t/**\n\t\t * Add a listener for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} [context=this] The context to invoke the listener with.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.on = function on(event, fn, context) {\n\t\t  return addListener(this, event, fn, context, false);\n\t\t};\n\n\t\t/**\n\t\t * Add a one-time listener for a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn The listener function.\n\t\t * @param {*} [context=this] The context to invoke the listener with.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.once = function once(event, fn, context) {\n\t\t  return addListener(this, event, fn, context, true);\n\t\t};\n\n\t\t/**\n\t\t * Remove the listeners of a given event.\n\t\t *\n\t\t * @param {(String|Symbol)} event The event name.\n\t\t * @param {Function} fn Only remove the listeners that match this function.\n\t\t * @param {*} context Only remove the listeners that have this context.\n\t\t * @param {Boolean} once Only remove one-time listeners.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.removeListener = function removeListener(event, fn, context, once) {\n\t\t  var evt = prefix ? prefix + event : event;\n\n\t\t  if (!this._events[evt]) return this;\n\t\t  if (!fn) {\n\t\t    clearEvent(this, evt);\n\t\t    return this;\n\t\t  }\n\n\t\t  var listeners = this._events[evt];\n\n\t\t  if (listeners.fn) {\n\t\t    if (\n\t\t      listeners.fn === fn &&\n\t\t      (!once || listeners.once) &&\n\t\t      (!context || listeners.context === context)\n\t\t    ) {\n\t\t      clearEvent(this, evt);\n\t\t    }\n\t\t  } else {\n\t\t    for (var i = 0, events = [], length = listeners.length; i < length; i++) {\n\t\t      if (\n\t\t        listeners[i].fn !== fn ||\n\t\t        (once && !listeners[i].once) ||\n\t\t        (context && listeners[i].context !== context)\n\t\t      ) {\n\t\t        events.push(listeners[i]);\n\t\t      }\n\t\t    }\n\n\t\t    //\n\t\t    // Reset the array, or remove it completely if we have no more listeners.\n\t\t    //\n\t\t    if (events.length) this._events[evt] = events.length === 1 ? events[0] : events;\n\t\t    else clearEvent(this, evt);\n\t\t  }\n\n\t\t  return this;\n\t\t};\n\n\t\t/**\n\t\t * Remove all listeners, or those of the specified event.\n\t\t *\n\t\t * @param {(String|Symbol)} [event] The event name.\n\t\t * @returns {EventEmitter} `this`.\n\t\t * @public\n\t\t */\n\t\tEventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {\n\t\t  var evt;\n\n\t\t  if (event) {\n\t\t    evt = prefix ? prefix + event : event;\n\t\t    if (this._events[evt]) clearEvent(this, evt);\n\t\t  } else {\n\t\t    this._events = new Events();\n\t\t    this._eventsCount = 0;\n\t\t  }\n\n\t\t  return this;\n\t\t};\n\n\t\t//\n\t\t// Alias methods names because people roll like that.\n\t\t//\n\t\tEventEmitter.prototype.off = EventEmitter.prototype.removeListener;\n\t\tEventEmitter.prototype.addListener = EventEmitter.prototype.on;\n\n\t\t//\n\t\t// Expose the prefix.\n\t\t//\n\t\tEventEmitter.prefixed = prefix;\n\n\t\t//\n\t\t// Allow `EventEmitter` to be imported as module namespace.\n\t\t//\n\t\tEventEmitter.EventEmitter = EventEmitter;\n\n\t\t//\n\t\t// Expose the module.\n\t\t//\n\t\t{\n\t\t  module.exports = EventEmitter;\n\t\t} \n\t} (eventemitter3));\n\treturn eventemitter3.exports;\n}\n\nvar eventemitter3Exports = requireEventemitter3();\nvar EventEmitter = /*@__PURE__*/getDefaultExportFromCjs(eventemitter3Exports);\n\n// @ts-expect-error -- the dependency is only installed during test\nvar ee = new EventEmitter();\nee.on('test', function() {\n    console.log('test');\n});\n"
+
+// rollup-plugin-swc3 swc (rollup 4) issue 63 - tsconfig baseUrl only + relative baseUrl 1
+
+"function _check_private_redeclaration(obj, privateCollection) {\n    if (privateCollection.has(obj)) {\n        throw new TypeError(\"Cannot initialize the same private elements twice on an object\");\n    }\n}\nfunction _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _class_private_field_init(obj, privateMap, value) {\n    _check_private_redeclaration(obj, privateMap);\n    privateMap.set(obj, value);\n}\nfunction test(s) {\n    console.log(s);\n}\ntest('hello swc!');\nvar _es2022Feature = /*#__PURE__*/ new WeakMap();\nvar Test = function Test() {\n    _class_call_check(this, Test);\n    _class_private_field_init(this, _es2022Feature, {\n        writable: true,\n        value: true\n    });\n};\n\nexport { Test };\n"
+
+// rollup-plugin-swc3 swc (rollup 4) detect decorator for typescript5 1
+
+"function _array_like_to_array(arr, len) {\n    if (len == null || len > arr.length) len = arr.length;\n    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];\n    return arr2;\n}\nfunction _array_with_holes(arr) {\n    if (Array.isArray(arr)) return arr;\n}\nfunction _class_call_check(instance, Constructor) {\n    if (!(instance instanceof Constructor)) {\n        throw new TypeError(\"Cannot call a class as a function\");\n    }\n}\nfunction _defineProperties(target, props) {\n    for(var i = 0; i < props.length; i++){\n        var descriptor = props[i];\n        descriptor.enumerable = descriptor.enumerable || false;\n        descriptor.configurable = true;\n        if (\"value\" in descriptor) descriptor.writable = true;\n        Object.defineProperty(target, descriptor.key, descriptor);\n    }\n}\nfunction _create_class(Constructor, protoProps, staticProps) {\n    if (protoProps) _defineProperties(Constructor.prototype, protoProps);\n    return Constructor;\n}\nfunction _define_property(obj, key, value) {\n    if (key in obj) {\n        Object.defineProperty(obj, key, {\n            value: value,\n            enumerable: true,\n            configurable: true,\n            writable: true\n        });\n    } else {\n        obj[key] = value;\n    }\n    return obj;\n}\nfunction _iterable_to_array_limit(arr, i) {\n    var _i = arr == null ? null : typeof Symbol !== \"undefined\" && arr[Symbol.iterator] || arr[\"@@iterator\"];\n    if (_i == null) return;\n    var _arr = [];\n    var _n = true;\n    var _d = false;\n    var _s, _e;\n    try {\n        for(_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true){\n            _arr.push(_s.value);\n            if (i && _arr.length === i) break;\n        }\n    } catch (err) {\n        _d = true;\n        _e = err;\n    } finally{\n        try {\n            if (!_n && _i[\"return\"] != null) _i[\"return\"]();\n        } finally{\n            if (_d) throw _e;\n        }\n    }\n    return _arr;\n}\nfunction _non_iterable_rest() {\n    throw new TypeError(\"Invalid attempt to destructure non-iterable instance.\\\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.\");\n}\nfunction _sliced_to_array(arr, i) {\n    return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();\n}\nfunction _unsupported_iterable_to_array(o, minLen) {\n    if (!o) return;\n    if (typeof o === \"string\") return _array_like_to_array(o, minLen);\n    var n = Object.prototype.toString.call(o).slice(8, -1);\n    if (n === \"Object\" && o.constructor) n = o.constructor.name;\n    if (n === \"Map\" || n === \"Set\") return Array.from(n);\n    if (n === \"Arguments\" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);\n}\nfunction applyDecs2203RFactory() {\n    function createAddInitializerMethod(initializers, decoratorFinishedRef) {\n        return function addInitializer(initializer) {\n            assertNotFinished(decoratorFinishedRef, \"addInitializer\");\n            assertCallable(initializer, \"An initializer\");\n            initializers.push(initializer);\n        };\n    }\n    function memberDec(dec, name, desc, initializers, kind, isStatic, isPrivate, metadata, value) {\n        var kindStr;\n        switch(kind){\n            case 1:\n                kindStr = \"accessor\";\n                break;\n            case 2:\n                kindStr = \"method\";\n                break;\n            case 3:\n                kindStr = \"getter\";\n                break;\n            case 4:\n                kindStr = \"setter\";\n                break;\n            default:\n                kindStr = \"field\";\n        }\n        var ctx = {\n            kind: kindStr,\n            name: isPrivate ? \"#\" + name : name,\n            static: isStatic,\n            private: isPrivate,\n            metadata: metadata\n        };\n        var decoratorFinishedRef = {\n            v: false\n        };\n        ctx.addInitializer = createAddInitializerMethod(initializers, decoratorFinishedRef);\n        var get, set;\n        if (kind === 0) {\n            if (isPrivate) {\n                get = desc.get;\n                set = desc.set;\n            } else {\n                get = function() {\n                    return this[name];\n                };\n                set = function(v) {\n                    this[name] = v;\n                };\n            }\n        } else if (kind === 2) {\n            get = function() {\n                return desc.value;\n            };\n        } else {\n            if (kind === 1 || kind === 3) {\n                get = function() {\n                    return desc.get.call(this);\n                };\n            }\n            if (kind === 1 || kind === 4) {\n                set = function(v) {\n                    desc.set.call(this, v);\n                };\n            }\n        }\n        ctx.access = get && set ? {\n            get: get,\n            set: set\n        } : get ? {\n            get: get\n        } : {\n            set: set\n        };\n        try {\n            return dec(value, ctx);\n        } finally{\n            decoratorFinishedRef.v = true;\n        }\n    }\n    function assertNotFinished(decoratorFinishedRef, fnName) {\n        if (decoratorFinishedRef.v) {\n            throw new Error(\"attempted to call \" + fnName + \" after decoration was finished\");\n        }\n    }\n    function assertCallable(fn, hint) {\n        if (typeof fn !== \"function\") {\n            throw new TypeError(hint + \" must be a function\");\n        }\n    }\n    function assertValidReturnValue(kind, value) {\n        var type = typeof value;\n        if (kind === 1) {\n            if (type !== \"object\" || value === null) {\n                throw new TypeError(\"accessor decorators must return an object with get, set, or init properties or void 0\");\n            }\n            if (value.get !== undefined) {\n                assertCallable(value.get, \"accessor.get\");\n            }\n            if (value.set !== undefined) {\n                assertCallable(value.set, \"accessor.set\");\n            }\n            if (value.init !== undefined) {\n                assertCallable(value.init, \"accessor.init\");\n            }\n        } else if (type !== \"function\") {\n            var hint;\n            if (kind === 0) {\n                hint = \"field\";\n            } else if (kind === 10) {\n                hint = \"class\";\n            } else {\n                hint = \"method\";\n            }\n            throw new TypeError(hint + \" decorators must return a function or void 0\");\n        }\n    }\n    function applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata) {\n        var decs = decInfo[0];\n        var desc, init, value;\n        if (isPrivate) {\n            if (kind === 0 || kind === 1) {\n                desc = {\n                    get: decInfo[3],\n                    set: decInfo[4]\n                };\n            } else if (kind === 3) {\n                desc = {\n                    get: decInfo[3]\n                };\n            } else if (kind === 4) {\n                desc = {\n                    set: decInfo[3]\n                };\n            } else {\n                desc = {\n                    value: decInfo[3]\n                };\n            }\n        } else if (kind !== 0) {\n            desc = Object.getOwnPropertyDescriptor(base, name);\n        }\n        if (kind === 1) {\n            value = {\n                get: desc.get,\n                set: desc.set\n            };\n        } else if (kind === 2) {\n            value = desc.value;\n        } else if (kind === 3) {\n            value = desc.get;\n        } else if (kind === 4) {\n            value = desc.set;\n        }\n        var newValue, get, set;\n        if (typeof decs === \"function\") {\n            newValue = memberDec(decs, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);\n            if (newValue !== void 0) {\n                assertValidReturnValue(kind, newValue);\n                if (kind === 0) {\n                    init = newValue;\n                } else if (kind === 1) {\n                    init = newValue.init;\n                    get = newValue.get || value.get;\n                    set = newValue.set || value.set;\n                    value = {\n                        get: get,\n                        set: set\n                    };\n                } else {\n                    value = newValue;\n                }\n            }\n        } else {\n            for(var i = decs.length - 1; i >= 0; i--){\n                var dec = decs[i];\n                newValue = memberDec(dec, name, desc, initializers, kind, isStatic, isPrivate, metadata, value);\n                if (newValue !== void 0) {\n                    assertValidReturnValue(kind, newValue);\n                    var newInit;\n                    if (kind === 0) {\n                        newInit = newValue;\n                    } else if (kind === 1) {\n                        newInit = newValue.init;\n                        get = newValue.get || value.get;\n                        set = newValue.set || value.set;\n                        value = {\n                            get: get,\n                            set: set\n                        };\n                    } else {\n                        value = newValue;\n                    }\n                    if (newInit !== void 0) {\n                        if (init === void 0) {\n                            init = newInit;\n                        } else if (typeof init === \"function\") {\n                            init = [\n                                init,\n                                newInit\n                            ];\n                        } else {\n                            init.push(newInit);\n                        }\n                    }\n                }\n            }\n        }\n        if (kind === 0 || kind === 1) {\n            if (init === void 0) {\n                init = function(instance, init) {\n                    return init;\n                };\n            } else if (typeof init !== \"function\") {\n                var ownInitializers = init;\n                init = function(instance, init) {\n                    var value = init;\n                    for(var i = 0; i < ownInitializers.length; i++){\n                        value = ownInitializers[i].call(instance, value);\n                    }\n                    return value;\n                };\n            } else {\n                var originalInitializer = init;\n                init = function(instance, init) {\n                    return originalInitializer.call(instance, init);\n                };\n            }\n            ret.push(init);\n        }\n        if (kind !== 0) {\n            if (kind === 1) {\n                desc.get = value.get;\n                desc.set = value.set;\n            } else if (kind === 2) {\n                desc.value = value;\n            } else if (kind === 3) {\n                desc.get = value;\n            } else if (kind === 4) {\n                desc.set = value;\n            }\n            if (isPrivate) {\n                if (kind === 1) {\n                    ret.push(function(instance, args) {\n                        return value.get.call(instance, args);\n                    });\n                    ret.push(function(instance, args) {\n                        return value.set.call(instance, args);\n                    });\n                } else if (kind === 2) {\n                    ret.push(value);\n                } else {\n                    ret.push(function(instance, args) {\n                        return value.call(instance, args);\n                    });\n                }\n            } else {\n                Object.defineProperty(base, name, desc);\n            }\n        }\n    }\n    function applyMemberDecs(Class, decInfos, metadata) {\n        var ret = [];\n        var protoInitializers;\n        var staticInitializers;\n        var existingProtoNonFields = new Map();\n        var existingStaticNonFields = new Map();\n        for(var i = 0; i < decInfos.length; i++){\n            var decInfo = decInfos[i];\n            if (!Array.isArray(decInfo)) continue;\n            var kind = decInfo[1];\n            var name = decInfo[2];\n            var isPrivate = decInfo.length > 3;\n            var isStatic = kind >= 5;\n            var base;\n            var initializers;\n            if (isStatic) {\n                base = Class;\n                kind = kind - 5;\n                staticInitializers = staticInitializers || [];\n                initializers = staticInitializers;\n            } else {\n                base = Class.prototype;\n                protoInitializers = protoInitializers || [];\n                initializers = protoInitializers;\n            }\n            if (kind !== 0 && !isPrivate) {\n                var existingNonFields = isStatic ? existingStaticNonFields : existingProtoNonFields;\n                var existingKind = existingNonFields.get(name) || 0;\n                if (existingKind === true || existingKind === 3 && kind !== 4 || existingKind === 4 && kind !== 3) {\n                    throw new Error(\"Attempted to decorate a public method/accessor that has the same name as a previously decorated public method/accessor. This is not currently supported by the decorators plugin. Property name was: \" + name);\n                } else if (!existingKind && kind > 2) {\n                    existingNonFields.set(name, kind);\n                } else {\n                    existingNonFields.set(name, true);\n                }\n            }\n            applyMemberDec(ret, base, decInfo, name, kind, isStatic, isPrivate, initializers, metadata);\n        }\n        pushInitializers(ret, protoInitializers);\n        pushInitializers(ret, staticInitializers);\n        return ret;\n    }\n    function pushInitializers(ret, initializers) {\n        if (initializers) {\n            ret.push(function(instance) {\n                for(var i = 0; i < initializers.length; i++){\n                    initializers[i].call(instance);\n                }\n                return instance;\n            });\n        }\n    }\n    function applyClassDecs(targetClass, classDecs, metadata) {\n        if (classDecs.length > 0) {\n            var initializers = [];\n            var newClass = targetClass;\n            var name = targetClass.name;\n            for(var i = classDecs.length - 1; i >= 0; i--){\n                var decoratorFinishedRef = {\n                    v: false\n                };\n                try {\n                    var nextNewClass = classDecs[i](newClass, {\n                        kind: \"class\",\n                        name: name,\n                        addInitializer: createAddInitializerMethod(initializers, decoratorFinishedRef),\n                        metadata\n                    });\n                } finally{\n                    decoratorFinishedRef.v = true;\n                }\n                if (nextNewClass !== undefined) {\n                    assertValidReturnValue(10, nextNewClass);\n                    newClass = nextNewClass;\n                }\n            }\n            return [\n                defineMetadata(newClass, metadata),\n                function() {\n                    for(var i = 0; i < initializers.length; i++){\n                        initializers[i].call(newClass);\n                    }\n                }\n            ];\n        }\n    }\n    function defineMetadata(Class, metadata) {\n        return Object.defineProperty(Class, Symbol.metadata || Symbol.for(\"Symbol.metadata\"), {\n            configurable: true,\n            enumerable: true,\n            value: metadata\n        });\n    }\n    return function applyDecs2203R(targetClass, memberDecs, classDecs, parentClass) {\n        if (parentClass !== void 0) {\n            var parentMetadata = parentClass[Symbol.metadata || Symbol.for(\"Symbol.metadata\")];\n        }\n        var metadata = Object.create(parentMetadata === void 0 ? null : parentMetadata);\n        var e = applyMemberDecs(targetClass, memberDecs, metadata);\n        if (!classDecs.length) defineMetadata(targetClass, metadata);\n        return {\n            e: e,\n            get c () {\n                return applyClassDecs(targetClass, classDecs, metadata);\n            }\n        };\n    };\n}\nfunction _apply_decs_2203_r(targetClass, memberDecs, classDecs, parentClass) {\n    return (_apply_decs_2203_r = applyDecs2203RFactory())(targetClass, memberDecs, classDecs, parentClass);\n}\nvar _initProto;\nfunction trace(value, param) {\n    var kind = param.kind; param.name;\n    if (kind === 'method') {\n        return function() {\n            for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){\n                args[_key] = arguments[_key];\n            }\n            console.log('trace');\n            return value.apply(this, args);\n        };\n    }\n}\nvar People = /*#__PURE__*/ function() {\n    function People() {\n        _class_call_check(this, People);\n        _define_property(this, \"xzy\", void 0);\n        _initProto(this);\n        this.xzy = 'xzy';\n    }\n    _create_class(People, [\n        {\n            key: \"test\",\n            value: function test() {\n                return this.xzy;\n            }\n        }\n    ]);\n    return People;\n}();\nvar ref, ref1;\nref = _apply_decs_2203_r(People, [\n    [\n        trace,\n        2,\n        \"test\"\n    ]\n], []), ref1 = _sliced_to_array(ref.e, 1), _initProto = ref1[0];\nvar p = new People();\np.test();\n"
+
+// rollup-plugin-swc3 swc (rollup 4) detect legacy decorator for typescript5 1
+
+"function _define_property(obj, key, value) {\n    if (key in obj) {\n        Object.defineProperty(obj, key, {\n            value: value,\n            enumerable: true,\n            configurable: true,\n            writable: true\n        });\n    } else {\n        obj[key] = value;\n    }\n    return obj;\n}\nfunction _ts_decorate(decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for(var i = decorators.length - 1; i >= 0; i--)if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n}\nfunction _ts_metadata(k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n}\nfunction trace(_target, _name, descriptor) {\n    const original = descriptor.value;\n    descriptor.value = function() {\n        console.log('trace');\n        return original.call(this);\n    };\n    return descriptor;\n}\nclass People {\n    test() {\n        return this.xzy;\n    }\n    constructor(){\n        _define_property(this, \"xzy\", void 0);\n        this.xzy = 'xzy';\n    }\n}\n_ts_decorate([\n    trace,\n    _ts_metadata(\"design:type\", Function),\n    _ts_metadata(\"design:paramtypes\", []),\n    _ts_metadata(\"design:returntype\", void 0)\n], People.prototype, \"test\", null);\nconst p = new People();\np.test();\n"
