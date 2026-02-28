@@ -112,8 +112,8 @@ function swc(options: PluginOptions = {}): RollupPlugin {
       const isTypeScript = ext === '.ts' || ext === '.mts' || ext === '.cts' || ext === '.tsx';
       const isTsx = ext === '.tsx';
 
-      const tsconfigOptions
-        = options.tsconfig === false
+      const tsconfigOptions =
+        options.tsconfig === false
           ? {}
           : getOptions(this, dirname(id), options.tsconfig);
 
