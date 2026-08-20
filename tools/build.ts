@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- CLI tool */
 import { builtinModules } from 'node:module';
 import process from 'node:process';
 
@@ -9,8 +10,8 @@ import { swc, defineRollupSwcOption } from '../src/index';
 
 import pkg from '../package.json';
 
-const externalModules = new Set(Object.keys(pkg.dependencies).concat(Object.keys(pkg.peerDependencies)).concat(builtinModules));
-const external: ExternalOption = (id) => id.startsWith('node:') || externalModules.has(id);
+const externalModules = Object.keys(pkg.dependencies).concat(Object.keys(pkg.peerDependencies)).concat(builtinModules);
+const external: ExternalOption = (id) => id.startsWith('node:') || externalModules.includes(id) || externalModules.some((m) => id.startsWith(`${m}/`));
 
 async function main() {
   async function build() {

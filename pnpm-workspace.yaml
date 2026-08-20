@@ -1,3 +1,8 @@
+allowBuilds:
+  '@swc/core': true
+  esbuild: false
+  unrs-resolver: true
+
 onlyBuiltDependencies:
   - '@swc/core'
 

@@ -25,11 +25,12 @@ import { create, destroy } from 'memdisk';
 import { sync as whichSync } from 'which';
 import { exec } from 'tinyexec';
 import { expect } from 'earl';
+import { castArray } from 'foxts/cast-array';
+import { invariant } from 'foxts/guard';
 
 function rollupInvriant(v: RollupOutput['output'][number] | undefined | null) {
-  if (v == null) {
-    throw new Error('Invariant failed');
-  }
+  invariant(v, 'Invariant failed');
+
   if (!('code' in v)) {
     throw new Error('Non rollup output module found!');
   }
@@ -71,10 +72,9 @@ async function build(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup
       }, {});
     })(),
     ...(
-      rollupImpl === rollup2
-        ? {}
-        : { logLevel: 'silent' }
+      !(rollupImpl === rollup2) && { logLevel: 'silent' }
     ),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- rollup 2/3/4 plugin types are not mutually assignable
     plugins: [...otherRollupPlugins, swc(options), ...otherRollupPluginsAfterSwc] as any,
     external
   });
@@ -91,7 +91,8 @@ async function runMinify(rollupImpl: typeof rollup2 | typeof rollup3 | typeof ro
     dir = '.'
   }) {
   const build = await rollupImpl({
-    input: [...(Array.isArray(input) ? input : [input])].map((v) => path.resolve(dir, v)),
+    input: Array.from(castArray(input), (v) => path.resolve(dir, v)),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- rollup 2/3/4 plugin types are not mutually assignable
     plugins: [...otherRollupPlugins, minify(options)] as any
   });
   const { output } = await build.generate({ format: 'esm', sourcemap });
@@ -116,7 +117,8 @@ function tests(
       .crawl(fixtureDir)
       .withPromise();
 
-    for (const entry of entries) {
+    for (let i = 0, len = entries.length; i < len; i++) {
+      const entry = entries[i];
       const from = fixtureDir + path.sep + entry;
       const to = path.join(testDir, entry);
       const toDir = path.dirname(to);
@@ -133,7 +135,7 @@ function tests(
       }
     }
 
-    await Promise.all(Array.from(dirs).map(dir => fsp.mkdir(dir, { recursive: true })));
+    await Promise.all(Array.from(dirs, dir => fsp.mkdir(dir, { recursive: true })));
     await Promise.all(files.map(([from, to]) => fsp.copyFile(from, to)));
 
     if (requireInstall) {
@@ -157,7 +159,9 @@ function tests(
 
   it('minify keeps the global of iife and umd builds', async () => {
     const dir = await fixture('minify-iife');
-    for (const format of ['iife', 'umd'] as const) {
+    const formats = ['iife', 'umd'] as const;
+    for (let i = 0, len = formats.length; i < len; i++) {
+      const format = formats[i];
       // eslint-disable-next-line no-await-in-loop -- sequential is fine here
       const output = await build(rollupImpl, { minify: true }, { dir, format, name: 'MyLib' });
       const context: { MyLib?: { greet(name: string): string } } = {};
@@ -367,7 +371,9 @@ function tests(
       }
     ));
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- rollup 2/3/4 output types are not mutually assignable
     expect(rollupInvriant(output.find(i => i.fileName === 'client.js') as any).code).toMatchSnapshot(this);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- rollup 2/3/4 output types are not mutually assignable
     expect(rollupInvriant(output.find(i => i.fileName === 'server.js') as any).code).toMatchSnapshot(this);
   });
 

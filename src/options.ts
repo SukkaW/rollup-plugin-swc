@@ -61,10 +61,9 @@ export function getOptions(
 
 export function checkIsLegacyTypeScript() {
   try {
-    // @ts-expect-error -- It's required to using 'import.meta.url' but i don't want to change the tsconfig.
     const tsPath = resolve('typescript/package.json', typeof __filename === 'string' ? pathToFileURL(__filename).href : import.meta.url);
     const { version } = JSON.parse(fs.readFileSync(fileURLToPath(tsPath), 'utf-8'));
-    const [major] = version.split('.');
+    const [major] = version.split('.', 1);
     // typescript 5+ enable experimentalDecorators by default so we think it's not legacy
     return +major < 5;
   } catch {
