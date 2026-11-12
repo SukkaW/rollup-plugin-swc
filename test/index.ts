@@ -1,6 +1,7 @@
 import path from 'node:path';
 import fsp from 'node:fs/promises';
 import process from 'node:process';
+import vm from 'node:vm';
 
 import { fdir as Fdir } from 'fdir';
 
@@ -8,7 +9,7 @@ import { rollup as rollup2 } from 'rollup2';
 import { rollup as rollup3 } from 'rollup3';
 import { rollup as rollup4 } from 'rollup';
 
-import type { Plugin as RollupPlugin, ExternalOption, InputOption, RollupOutput } from 'rollup';
+import type { Plugin as RollupPlugin, ExternalOption, InputOption, ModuleFormat, RollupOutput } from 'rollup';
 
 import type { PluginOptions } from '../src';
 import { swc, minify, preserveUseDirective } from '../src';
@@ -43,14 +44,18 @@ async function build(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup
     otherRollupPluginsAfterSwc = [],
     sourcemap = false,
     dir = '.',
-    external
+    external,
+    format = 'esm',
+    name
   }: {
     input?: InputOption,
     otherRollupPlugins?: RollupPlugin[],
     otherRollupPluginsAfterSwc?: RollupPlugin[],
     sourcemap?: boolean,
     dir?: string,
-    external?: ExternalOption
+    external?: ExternalOption,
+    format?: ModuleFormat,
+    name?: string
   } = {}) {
   const build = await rollupImpl({
     input: (() => {
@@ -73,7 +78,7 @@ async function build(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup
     plugins: [...otherRollupPlugins, swc(options), ...otherRollupPluginsAfterSwc] as any,
     external
   });
-  const { output } = await build.generate({ format: 'esm', sourcemap });
+  const { output } = await build.generate({ format, name, sourcemap });
   return output;
 }
 
@@ -148,6 +153,18 @@ function tests(
     const dir = await fixture('minify');
     const output = await build(rollupImpl, { minify: true, jsc: { target: 'es2022' } }, { dir });
     expect(output[0].code).toMatchSnapshot(this);
+  });
+
+  it('minify keeps the global of iife and umd builds', async () => {
+    const dir = await fixture('minify-iife');
+    for (const format of ['iife', 'umd'] as const) {
+      // eslint-disable-next-line no-await-in-loop -- sequential is fine here
+      const output = await build(rollupImpl, { minify: true }, { dir, format, name: 'MyLib' });
+      const context: { MyLib?: { greet(name: string): string } } = {};
+      vm.runInNewContext(output[0].code, context);
+      expect(Object.keys(context)).toEqual(['MyLib']);
+      expect(context.MyLib?.greet('there')).toEqual('hi there');
+    }
   });
 
   it('standalone minify', async function () {

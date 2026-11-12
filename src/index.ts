@@ -175,11 +175,13 @@ function swc(options: PluginOptions = {}): RollupPlugin {
       );
     },
 
-    renderChunk(code: string) {
+    renderChunk(code: string, _chunk, outputOptions) {
       if (options.minify || options.jsc?.minify?.mangle || options.jsc?.minify?.compress) {
         return swcMinify(code, {
           ...options.jsc?.minify,
-          module: true
+          // `iife`, `umd`, `amd` and `system` chunks are scripts: their top-level declarations
+          // (e.g. the `var MyLib` of an `iife` build) are globals and must be kept
+          module: outputOptions.format === 'es' || outputOptions.format === 'cjs'
         });
       }
 
