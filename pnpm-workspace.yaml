@@ -3,9 +3,12 @@ allowBuilds:
   esbuild: false
   unrs-resolver: true
 
+catalog:
+  rollup: ^4.68.5
+
 onlyBuiltDependencies:
   - '@swc/core'
 
 overrides:
-  rollup: $rollup
+  rollup: 'catalog:'
   eslint>chalk: npm:picocolors@^1.1.1
