@@ -22,5 +22,6 @@ jobs:
           check-latest: true
           package-manager-cache: false
           registry-url: "https://registry.npmjs.org"
+      - run: pnpm config set --location=global minimumReleaseAge 0
       - run: pnpm install
       - run: pnpm run test
