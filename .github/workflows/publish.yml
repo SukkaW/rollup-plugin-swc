@@ -12,10 +12,11 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v7
-      - uses: pnpm/action-setup@v6
+      - uses: pnpm/setup@v3
         with:
-          run_install: false
           cache: true
+          install: false
+          node-version-file: false
       - uses: actions/setup-node@v6
         with:
           node-version-file: ".node-version"
