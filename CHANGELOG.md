@@ -1,3 +1,8 @@
+## 0.12.2
+
+- Fix: keep the global variable of `iife` and `umd` builds when minifying. See [#71](https://github.com/SukkaW/rollup-plugin-swc/pull/71/)
+- JSX is now always enabled when parsing JavaScript files (`.js`, `.mjs`, `.cjs`), not only `.jsx` files.
+
 ## 0.12.1
 
 - Fix: respect legacy decorators. See [#67](https://github.com/SukkaW/rollup-plugin-swc/pull/67/)
