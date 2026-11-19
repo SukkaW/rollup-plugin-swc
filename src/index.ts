@@ -44,6 +44,13 @@ const deepmerge = createDeepMerge({
   }
 });
 
+// `es` and `cjs` chunks are modules: an `es` chunk can contain `import` / `export`, which swc
+// can't parse as a script. `iife`, `umd`, `amd` and `system` chunks are scripts: their top-level
+// declarations (e.g. the `var MyLib` of an `iife` build) are globals and must be kept
+function isModuleFormat(format: string) {
+  return format === 'es' || format === 'cjs';
+}
+
 function fileExists(path: string) {
   return fs.promises.access(path, fs.constants.F_OK)
     .then(trueFn)
@@ -180,9 +187,7 @@ export function swc(options: PluginOptions = {}): RollupPlugin {
       if (options.minify || options.jsc?.minify?.mangle || options.jsc?.minify?.compress) {
         return swcMinify(code, {
           ...options.jsc?.minify,
-          // `iife`, `umd`, `amd` and `system` chunks are scripts: their top-level declarations
-          // (e.g. the `var MyLib` of an `iife` build) are globals and must be kept
-          module: outputOptions.format === 'es' || outputOptions.format === 'cjs'
+          module: isModuleFormat(outputOptions.format)
         });
       }
 
@@ -197,8 +202,11 @@ export function minify(options: JsMinifyOptions = {}): RollupPlugin {
 
     renderChunk: {
       order: 'post',
-      handler(code: string) {
-        return swcMinify(code, options);
+      handler(code: string, _chunk, outputOptions) {
+        return swcMinify(code, {
+          module: isModuleFormat(outputOptions.format),
+          ...options
+        });
       }
     }
   };
@@ -227,8 +235,11 @@ export function viteMinify(options: JsMinifyOptions = {}): any {
     },
     renderChunk: {
       order: 'post',
-      handler(code) {
-        return swcMinify(code, options);
+      handler(code, _chunk, outputOptions) {
+        return swcMinify(code, {
+          module: isModuleFormat(outputOptions.format),
+          ...options
+        });
       }
     }
   } satisfies VitePlugin;
