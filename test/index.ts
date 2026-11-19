@@ -88,14 +88,23 @@ async function runMinify(rollupImpl: typeof rollup2 | typeof rollup3 | typeof ro
     input = './index.js',
     otherRollupPlugins = [],
     sourcemap = false,
-    dir = '.'
+    dir = '.',
+    format = 'esm',
+    name
+  }: {
+    input?: string | string[],
+    otherRollupPlugins?: RollupPlugin[],
+    sourcemap?: boolean,
+    dir?: string,
+    format?: ModuleFormat,
+    name?: string
   }) {
   const build = await rollupImpl({
     input: Array.from(castArray(input), (v) => path.resolve(dir, v)),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- rollup 2/3/4 plugin types are not mutually assignable
     plugins: [...otherRollupPlugins, minify(options)] as any
   });
-  const { output } = await build.generate({ format: 'esm', sourcemap });
+  const { output } = await build.generate({ format, name, sourcemap });
   return output;
 }
 
@@ -175,6 +184,24 @@ function tests(
     const dir = await fixture('standalone-minify');
     const output = await runMinify(rollupImpl, {}, { dir });
     expect(output[0].code).toMatchSnapshot(this);
+  });
+
+  it('standalone minify keeps the exports of es and cjs builds', async () => {
+    const dir = await fixture('minify-iife');
+
+    const esOutput = await runMinify(rollupImpl, {}, { dir, format: 'es' });
+    expect(esOutput[0].code).toInclude('export{');
+
+    const cjsOutput = await runMinify(rollupImpl, {}, { dir, format: 'cjs' });
+    const cjsModule: { exports: { greet?(name: string): string } } = { exports: {} };
+    vm.runInNewContext(cjsOutput[0].code, { module: cjsModule, exports: cjsModule.exports });
+    expect(cjsModule.exports.greet?.('there')).toEqual('hi there');
+
+    const iifeOutput = await runMinify(rollupImpl, {}, { dir, format: 'iife', name: 'MyLib' });
+    const context: { MyLib?: { greet(name: string): string } } = {};
+    vm.runInNewContext(iifeOutput[0].code, context);
+    expect(Object.keys(context)).toEqual(['MyLib']);
+    expect(context.MyLib?.greet('there')).toEqual('hi there');
   });
 
   it('resolve index.(x)', async function () {
