@@ -1,3 +1,7 @@
+## 0.12.3
+
+- Fix: infer `module` from Rollup's output format in standalone `minify()` and `viteMinify()`, and respect explicit `module` options across `swc()`, `minify()`, and `viteMinify()`. See [#73](https://github.com/SukkaW/rollup-plugin-swc/pull/73/)
+
 ## 0.12.2
 
 - Fix: keep the global variable of `iife` and `umd` builds when minifying. See [#71](https://github.com/SukkaW/rollup-plugin-swc/pull/71/)
