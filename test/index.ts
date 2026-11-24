@@ -88,15 +88,41 @@ async function runMinify(rollupImpl: typeof rollup2 | typeof rollup3 | typeof ro
     input = './index.js',
     otherRollupPlugins = [],
     sourcemap = false,
-    dir = '.'
+    dir = '.',
+    format = 'esm',
+    name
+  }: {
+    input?: string | string[],
+    otherRollupPlugins?: RollupPlugin[],
+    sourcemap?: boolean,
+    dir?: string,
+    format?: ModuleFormat,
+    name?: string
   }) {
   const build = await rollupImpl({
     input: Array.from(castArray(input), (v) => path.resolve(dir, v)),
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- rollup 2/3/4 plugin types are not mutually assignable
     plugins: [...otherRollupPlugins, minify(options)] as any
   });
-  const { output } = await build.generate({ format: 'esm', sourcemap });
+  const { output } = await build.generate({ format, name, sourcemap });
   return output;
+}
+
+// Load an es chunk by bundling it to cjs, so its real exports can be checked
+async function expectEsGreet(rollupImpl: typeof rollup2 | typeof rollup3 | typeof rollup4, code: string) {
+  const build = await rollupImpl({
+    input: 'chunk',
+    plugins: [{
+      name: 'virtual-chunk',
+      resolveId: (id: string) => id,
+      load: () => code
+    }]
+  });
+  const { output } = await build.generate({ format: 'cjs' });
+  expect(output[0].exports).toEqual(['greet']);
+  const cjsModule: { exports: { greet?(name: string): string } } = { exports: {} };
+  vm.runInNewContext(output[0].code, { module: cjsModule, exports: cjsModule.exports });
+  expect(cjsModule.exports.greet?.('there')).toEqual('hi there');
 }
 
 function tests(
@@ -175,6 +201,48 @@ function tests(
     const dir = await fixture('standalone-minify');
     const output = await runMinify(rollupImpl, {}, { dir });
     expect(output[0].code).toMatchSnapshot(this);
+  });
+
+  it('standalone minify keeps the exports of es and cjs builds', async () => {
+    const dir = await fixture('minify-iife');
+
+    const esOutput = await runMinify(rollupImpl, {}, { dir, format: 'es' });
+    await expectEsGreet(rollupImpl, esOutput[0].code);
+
+    const cjsOutput = await runMinify(rollupImpl, {}, { dir, format: 'cjs' });
+    const cjsModule: { exports: { greet?(name: string): string } } = { exports: {} };
+    vm.runInNewContext(cjsOutput[0].code, { module: cjsModule, exports: cjsModule.exports });
+    expect(cjsModule.exports.greet?.('there')).toEqual('hi there');
+  });
+
+  it('standalone minify keeps the global of iife and umd builds', async () => {
+    const dir = await fixture('minify-iife');
+    const formats = ['iife', 'umd'] as const;
+    for (let i = 0, len = formats.length; i < len; i++) {
+      // eslint-disable-next-line no-await-in-loop -- sequential is fine here
+      const output = await runMinify(rollupImpl, {}, { dir, format: formats[i], name: 'MyLib' });
+      const context: { MyLib?: { greet(name: string): string } } = {};
+      vm.runInNewContext(output[0].code, context);
+      expect(Object.keys(context)).toEqual(['MyLib']);
+      expect(context.MyLib?.greet('there')).toEqual('hi there');
+    }
+  });
+
+  it('standalone minify respects an explicit module option', async () => {
+    const dir = await fixture('minify-iife');
+
+    // `undefined` falls back to the output format
+    const undefinedOutput = await runMinify(rollupImpl, { module: undefined }, { dir, format: 'es' });
+    await expectEsGreet(rollupImpl, undefinedOutput[0].code);
+
+    // an es chunk can't be parsed as a script
+    await expect(runMinify(rollupImpl, { module: false }, { dir, format: 'es' })).toBeRejected();
+
+    // top-level declarations of a module are not globals, so `MyLib` can be mangled
+    const trueOutput = await runMinify(rollupImpl, { module: true }, { dir, format: 'iife', name: 'MyLib' });
+    const context: Record<string, unknown> = {};
+    vm.runInNewContext(trueOutput[0].code, context);
+    expect('MyLib' in context).toEqual(false);
   });
 
   it('resolve index.(x)', async function () {

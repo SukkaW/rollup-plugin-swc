@@ -1,4 +1,4 @@
-import type { Plugin as RollupPlugin } from 'rollup';
+import type { ModuleFormat, Plugin as RollupPlugin } from 'rollup';
 import fs from 'node:fs';
 import process from 'node:process';
 import { extname, resolve, dirname, join } from 'node:path';
@@ -43,6 +43,36 @@ const deepmerge = createDeepMerge({
     return (target, source) => options.clone(source);
   }
 });
+
+// `es` and `cjs` chunks are modules: an `es` chunk can contain `import` / `export`, which swc
+// can't parse as a script. `iife`, `umd`, `amd` and `system` chunks are scripts: their top-level
+// declarations (e.g. the `var MyLib` of an `iife` build) are globals and must be kept
+function isModuleFormat(format: ModuleFormat): boolean {
+  switch (format) {
+    case 'es':
+    case 'esm':
+    case 'module':
+    case 'cjs':
+    case 'commonjs':
+      return true;
+    case 'iife':
+    case 'umd':
+    case 'amd':
+    case 'system':
+    case 'systemjs':
+      return false;
+    default:
+      return format satisfies never;
+  }
+}
+
+// An explicit `module` option wins, unless it is `undefined`
+function minifyChunk(code: string, format: ModuleFormat, options: JsMinifyOptions | undefined) {
+  return swcMinify(code, {
+    ...options,
+    module: options?.module ?? isModuleFormat(format)
+  });
+}
 
 function fileExists(path: string) {
   return fs.promises.access(path, fs.constants.F_OK)
@@ -178,12 +208,7 @@ export function swc(options: PluginOptions = {}): RollupPlugin {
 
     renderChunk(code: string, _chunk, outputOptions) {
       if (options.minify || options.jsc?.minify?.mangle || options.jsc?.minify?.compress) {
-        return swcMinify(code, {
-          ...options.jsc?.minify,
-          // `iife`, `umd`, `amd` and `system` chunks are scripts: their top-level declarations
-          // (e.g. the `var MyLib` of an `iife` build) are globals and must be kept
-          module: outputOptions.format === 'es' || outputOptions.format === 'cjs'
-        });
+        return minifyChunk(code, outputOptions.format, options.jsc?.minify);
       }
 
       return null;
@@ -197,8 +222,8 @@ export function minify(options: JsMinifyOptions = {}): RollupPlugin {
 
     renderChunk: {
       order: 'post',
-      handler(code: string) {
-        return swcMinify(code, options);
+      handler(code: string, _chunk, outputOptions) {
+        return minifyChunk(code, outputOptions.format, options);
       }
     }
   };
@@ -227,8 +252,8 @@ export function viteMinify(options: JsMinifyOptions = {}): any {
     },
     renderChunk: {
       order: 'post',
-      handler(code) {
-        return swcMinify(code, options);
+      handler(code, _chunk, outputOptions) {
+        return minifyChunk(code, outputOptions.format, options);
       }
     }
   } satisfies VitePlugin;
