@@ -4,7 +4,7 @@ allowBuilds:
   unrs-resolver: true
 
 catalog:
-  rollup: ^4.68.5
+  rollup: ^4.68.8
 
 onlyBuiltDependencies:
   - '@swc/core'
