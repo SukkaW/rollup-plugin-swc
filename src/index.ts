@@ -19,6 +19,7 @@ import { trueFn, falseFn } from 'foxts/noop';
 import { getOptions, checkIsLegacyTypeScript } from './options';
 
 import type { Plugin as VitePlugin } from 'vite';
+import { never } from 'foxts/guard';
 
 export type PluginOptions = {
   include?: FilterPattern,
@@ -62,7 +63,7 @@ function isModuleFormat(format: ModuleFormat): boolean {
     case 'systemjs':
       return false;
     default:
-      return format satisfies never;
+      return never(format);
   }
 }
 
