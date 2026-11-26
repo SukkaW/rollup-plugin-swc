@@ -9,6 +9,23 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const cache = new Map<string, TsConfigJson.CompilerOptions>();
 
+// TypeScript resolves `paths` without `baseUrl` relative to the tsconfig that sets `paths`,
+// which can be an extended tsconfig. get-tsconfig keeps that directory under this symbol
+function getImplicitBaseUrl(compilerOptions: TsConfigJson.CompilerOptions): string | undefined {
+  const symbol = Object.getOwnPropertySymbols(compilerOptions).find((s) => s.description === 'implicitBaseUrl');
+  const value: unknown = symbol && (compilerOptions as Record<symbol, unknown>)[symbol];
+  return typeof value === 'string' ? value : undefined;
+}
+
+function resolveBaseUrl(compilerOptions: TsConfigJson.CompilerOptions, tsconfigPath: string) {
+  if (compilerOptions.paths == null && compilerOptions.baseUrl == null) return;
+
+  const tsconfigDir = path.dirname(tsconfigPath);
+  compilerOptions.baseUrl = compilerOptions.baseUrl == null
+    ? getImplicitBaseUrl(compilerOptions) ?? tsconfigDir
+    : path.resolve(tsconfigDir, compilerOptions.baseUrl);
+}
+
 export function getOptions(
   ctx: TransformPluginContext,
   cwd: string,
@@ -22,13 +39,7 @@ export function getOptions(
 
   if (tsconfig && path.isAbsolute(tsconfig)) {
     const compilerOptions = parseTsconfig(tsconfig).compilerOptions ?? {};
-
-    const tsconfigDir = path.dirname(tsconfig);
-    if (compilerOptions.paths != null || compilerOptions.baseUrl != null) {
-      compilerOptions.baseUrl = compilerOptions.baseUrl == null
-        ? tsconfigDir
-        : path.resolve(tsconfigDir, compilerOptions.baseUrl);
-    }
+    resolveBaseUrl(compilerOptions, tsconfig);
 
     cache.set(cacheKey, compilerOptions);
     return compilerOptions;
@@ -45,14 +56,8 @@ export function getOptions(
   }
 
   const compilerOptions = result?.config.compilerOptions ?? {};
-  if (
-    (compilerOptions.paths != null || compilerOptions.baseUrl != null)
-    && result?.path
-  ) {
-    const tsconfigDir = path.dirname(result.path);
-    compilerOptions.baseUrl = compilerOptions.baseUrl == null
-      ? tsconfigDir
-      : path.resolve(tsconfigDir, compilerOptions.baseUrl);
+  if (result?.path) {
+    resolveBaseUrl(compilerOptions, result.path);
   }
 
   cache.set(cacheKey, compilerOptions);

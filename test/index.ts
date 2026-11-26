@@ -394,6 +394,22 @@ function tests(
     ))[0].code).toMatchSnapshot(this);
   });
 
+  it('tsconfig - paths from an extended tsconfig without baseUrl', async () => {
+    const dir = await fixture('tsconfig-paths-extends');
+
+    // `paths` is set in `tsconfig.base.json` without `baseUrl`, so `@/*` must resolve
+    // relative to `tsconfig.base.json`, not to `packages/app/tsconfig.json` that extends it
+    const output = await build(
+      rollupImpl,
+      {},
+      { input: './packages/app/src/index.ts', dir }
+    );
+
+    expect(output).toHaveLength(1);
+    expect(output[0].code).toInclude('var b = \'b\';');
+    expect(output[0].code).not.toInclude('import');
+  });
+
   it('target - include other files', async function () {
     const dir = await fixture('extensions');
 
